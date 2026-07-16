@@ -45,7 +45,6 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
       <div style="width:38px;height:38px;border-radius:50%;border:1px solid #DCE6EF;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:#EAF3FB">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#17385E" stroke-width="1.6"></circle><path d="M11 11L15 15" stroke="#17385E" stroke-width="1.6" stroke-linecap="round"></path></svg>
       </div>
-      <div onClick="{{ goApply }}" style="background:#2168B4;color:#FFFFFF;font-size:14px;font-weight:700;padding:10px 18px;border-radius:22px;cursor:pointer" style-hover="background:#17385E">상담 신청</div>
     </div>
   </div>
 </header>
@@ -64,8 +63,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
           <h1 style="margin:0 0 14px;font-size:42px;line-height:1.3;font-weight:800;color:#FFFFFF;letter-spacing:-0.5px;text-wrap:pretty">아이의 마음이 자라는 곳,<br>함께 걷는 성장의 길</h1>
           <p style="margin:0 0 28px;font-size:17px;line-height:1.7;color:#D4E2F0;text-wrap:pretty">서울아동청소년센터는 전문적인 상담과 치료, 교육으로<br>아동·청소년과 가족의 건강한 내일을 함께 만듭니다.</p>
           <div style="display:flex;gap:12px;pointer-events:auto">
-            <div onClick="{{ goPrograms }}" style="background:#3FB9A5;color:#FFFFFF;font-size:15px;font-weight:700;padding:13px 26px;border-radius:26px;cursor:pointer" style-hover="background:#2FA490">프로그램 신청하기</div>
-            <div style="background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.45);color:#FFFFFF;font-size:15px;font-weight:600;padding:13px 26px;border-radius:26px;cursor:pointer" style-hover="background:rgba(255,255,255,0.25)">센터 소개 보기</div>
+            <div onClick="{{ goAbout }}" style="background:#3FB9A5;color:#FFFFFF;font-size:15px;font-weight:700;padding:13px 26px;border-radius:26px;cursor:pointer" style-hover="background:#2FA490">센터 소개 보기</div>
           </div>
         </div>
       </div>
@@ -115,7 +113,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
       <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px">
         <div>
           <div style="font-size:13px;font-weight:700;color:#3FB9A5;letter-spacing:2px;margin-bottom:8px">PROGRAMS</div>
-          <h2 style="margin:0;font-size:30px;font-weight:800;color:#17385E;letter-spacing:-0.4px">지금 신청할 수 있는 프로그램</h2>
+          <h2 style="margin:0;font-size:30px;font-weight:800;color:#17385E;letter-spacing:-0.4px">지금 운영 중인 프로그램</h2>
         </div>
         <div onClick="{{ goPrograms }}" style="font-size:14.5px;font-weight:700;color:#2168B4;cursor:pointer;display:flex;align-items:center;gap:6px" style-hover="color:#17385E">전체 프로그램 보기 <span style="font-size:17px">→</span></div>
       </div>
@@ -132,7 +130,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
               </div>
               <h3 style="margin:0 0 8px;font-size:17.5px;font-weight:800;color:#17385E;line-height:1.4;text-wrap:pretty">{{ fp.title }}</h3>
               <p style="margin:0 0 16px;font-size:13.5px;line-height:1.65;color:#5A6B7C;flex:1;text-wrap:pretty">{{ fp.desc }}</p>
-              <div onClick="{{ goApply }}" style="align-self:flex-start;font-size:13.5px;font-weight:700;color:#2168B4;border:1.5px solid #BFD6EC;padding:8px 18px;border-radius:20px;cursor:pointer" style-hover="background:#2168B4;color:#FFFFFF;border-color:#2168B4">신청하기</div>
+              <div style="font-size:12.5px;color:#7A8CA0"><b style="color:#22303E">운영</b> · {{ fp.schedule }}</div>
             </div>
           </div>
         </sc-for>
@@ -540,7 +538,6 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
                 <span><b style="color:#22303E">운영</b> · {{ pg.schedule }}</span>
               </div>
             </div>
-            <div onClick="{{ goApply }}" style="flex:none;background:#2168B4;color:#FFFFFF;font-size:14px;font-weight:700;padding:11px 22px;border-radius:22px;cursor:pointer" style-hover="background:#17385E">신청하기</div>
           </div>
         </div>
       </sc-for>
@@ -549,18 +546,19 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
 </main>
 </sc-if>
 
-<!-- ══════════ 상담 신청 ══════════ -->
+<!-- ══════════ 상담·문의 안내 ══════════ -->
 <sc-if value="{{ isApply }}" hint-placeholder-val="{{ false }}">
 <main>
   <div style="background:#17385E;padding:52px 0">
     <div style="max-width:1200px;margin:0 auto;padding:0 24px">
-      <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 상담 및 문의 &gt; 상담 신청</div>
-      <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">상담 신청</h1>
-      <p style="margin:12px 0 0;font-size:15.5px;color:#C4D4E6">신청서를 남겨주시면 담당 상담사가 1~2일 내에 연락드립니다.</p>
+      <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 상담·문의</div>
+      <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">상담·문의 안내</h1>
+      <p style="margin:12px 0 0;font-size:15.5px;color:#C4D4E6">궁금한 점은 전화나 방문으로 편하게 문의해 주세요. 담당자가 친절히 안내해 드립니다.</p>
     </div>
   </div>
   <div style="max-width:1200px;margin:0 auto;padding:56px 24px 80px">
-    <!-- 절차 -->
+    <!-- 이용 절차 -->
+    <h2 style="margin:0 0 22px;font-size:21px;font-weight:800;color:#17385E">상담 이용 절차</h2>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:52px">
       <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
         <div style="background:#EAF3FB;border-radius:16px;padding:24px;position:relative">
@@ -571,49 +569,37 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
       </sc-for>
     </div>
     <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:44px;align-items:start">
-      <!-- 신청 폼 -->
+      <!-- 연락처 안내 -->
       <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:20px;padding:38px 40px">
-        <h2 style="margin:0 0 26px;font-size:21px;font-weight:800;color:#17385E">상담 신청서</h2>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px 16px">
+        <h2 style="margin:0 0 22px;font-size:21px;font-weight:800;color:#17385E">센터 연락처</h2>
+        <div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid #EDF2F7">
+          <div style="width:44px;height:44px;border-radius:12px;background:#E6F6F3;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#2FA490;flex:none">전화</div>
           <div>
-            <label style="display:block;font-size:13.5px;font-weight:700;color:#22303E;margin-bottom:7px">보호자 성함 <span style="color:#E2574C">*</span></label>
-            <input type="text" placeholder="성함을 입력해 주세요" style="width:100%;box-sizing:border-box;border:1px solid #C9D6E3;border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#2168B4">
-          </div>
-          <div>
-            <label style="display:block;font-size:13.5px;font-weight:700;color:#22303E;margin-bottom:7px">연락처 <span style="color:#E2574C">*</span></label>
-            <input type="text" placeholder="010-0000-0000" style="width:100%;box-sizing:border-box;border:1px solid #C9D6E3;border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#2168B4">
-          </div>
-          <div>
-            <label style="display:block;font-size:13.5px;font-weight:700;color:#22303E;margin-bottom:7px">자녀 연령</label>
-            <input type="text" placeholder="예: 만 8세" style="width:100%;box-sizing:border-box;border:1px solid #C9D6E3;border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#2168B4">
-          </div>
-          <div>
-            <label style="display:block;font-size:13.5px;font-weight:700;color:#22303E;margin-bottom:7px">상담 분야 <span style="color:#E2574C">*</span></label>
-            <select style="width:100%;box-sizing:border-box;border:1px solid #C9D6E3;border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;outline:none;background:#FFFFFF;color:#22303E">
-              <option>분야를 선택해 주세요</option>
-              <option>놀이치료</option>
-              <option>인지학습치료</option>
-              <option>언어치료</option>
-              <option>사회성 그룹치료</option>
-              <option>부모상담</option>
-              <option>기타 문의</option>
-            </select>
-          </div>
-          <div style="grid-column:1/-1">
-            <label style="display:block;font-size:13.5px;font-weight:700;color:#22303E;margin-bottom:7px">상담을 원하시는 내용</label>
-            <textarea rows="5" placeholder="아이의 어려움이나 궁금한 점을 편하게 적어주세요." style="width:100%;box-sizing:border-box;border:1px solid #C9D6E3;border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;line-height:1.6;resize:vertical;outline:none" style-focus="border-color:#2168B4"></textarea>
-          </div>
-          <div style="grid-column:1/-1;display:flex;align-items:center;gap:8px;background:#F5F8FB;border-radius:10px;padding:13px 16px">
-            <input type="checkbox" style="width:16px;height:16px;accent-color:#2168B4">
-            <span style="font-size:13.5px;color:#5A6B7C">개인정보 수집·이용에 동의합니다. <a href="#">자세히 보기</a></span>
+            <div style="font-size:13px;color:#7A8CA0;margin-bottom:3px">대표전화</div>
+            <div style="font-size:20px;font-weight:800;color:#17385E;letter-spacing:-0.3px">02-000-0000</div>
+            <div style="font-size:13px;color:#5A6B7C;margin-top:3px">평일 09:00 – 18:00 · 점심 12:00 – 13:00 / 주말·공휴일 휴무</div>
           </div>
         </div>
-        <div style="margin-top:26px;background:#2168B4;color:#FFFFFF;text-align:center;font-size:16px;font-weight:800;padding:15px;border-radius:12px;cursor:pointer" style-hover="background:#17385E">신청하기</div>
+        <div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid #EDF2F7">
+          <div style="width:44px;height:44px;border-radius:12px;background:#EAF3FB;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#2168B4;flex:none">메일</div>
+          <div>
+            <div style="font-size:13px;color:#7A8CA0;margin-bottom:3px">이메일</div>
+            <div style="font-size:16px;font-weight:700;color:#17385E">info@seoulchild.com</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;padding:18px 0">
+          <div style="width:44px;height:44px;border-radius:12px;background:#FBF1E1;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#B07A2A;flex:none">방문</div>
+          <div>
+            <div style="font-size:13px;color:#7A8CA0;margin-bottom:3px">오시는 길</div>
+            <div style="font-size:16px;font-weight:700;color:#17385E">서울특별시 ○○구 ○○로 00, 0층</div>
+            <div onClick="{{ goDirections }}" style="display:inline-block;margin-top:12px;font-size:13.5px;font-weight:700;color:#2168B4;border:1.5px solid #BFD6EC;padding:8px 16px;border-radius:20px;cursor:pointer" style-hover="background:#2168B4;color:#FFFFFF;border-color:#2168B4">오시는 길 자세히 보기</div>
+          </div>
+        </div>
       </div>
-      <!-- 안내 -->
+      <!-- 전화 문의 + FAQ -->
       <div style="display:flex;flex-direction:column;gap:20px">
         <div style="background:#E6F6F3;border-radius:20px;padding:30px 32px">
-          <h3 style="margin:0 0 12px;font-size:17px;font-weight:800;color:#17385E">전화로도 신청하실 수 있어요</h3>
+          <h3 style="margin:0 0 12px;font-size:17px;font-weight:800;color:#17385E">전화로 편하게 문의하세요</h3>
           <div style="font-size:27px;font-weight:800;color:#2FA490;letter-spacing:-0.3px;margin-bottom:10px">02-000-0000</div>
           <div style="font-size:13.5px;line-height:1.7;color:#5A6B7C">평일 09:00 – 18:00<br>점심시간 12:00 – 13:00 / 주말·공휴일 휴무</div>
         </div>
@@ -644,7 +630,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
           <div style="font-size:13px;font-weight:700;color:#FFFFFF;margin-bottom:12px">바로가기</div>
           <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
             <span onClick="{{ goPrograms }}" style="cursor:pointer" style-hover="color:#FFFFFF">프로그램 안내</span>
-            <span onClick="{{ goApply }}" style="cursor:pointer" style-hover="color:#FFFFFF">상담 신청</span>
+            <span onClick="{{ goApply }}" style="cursor:pointer" style-hover="color:#FFFFFF">상담·문의</span>
             <span style="cursor:pointer" style-hover="color:#FFFFFF">자료실</span>
             <span style="cursor:pointer" style-hover="color:#FFFFFF">후원 안내</span>
           </div>
@@ -736,7 +722,7 @@ class Component extends DCLogic {
       [
         { type: 'PDF', fg: '#C94F44', bg: '#FCEDEB', title: '2026 서울아동청소년센터 사업안내 브로슈어', date: '2026.07.01', views: 214 },
         { type: 'PDF', fg: '#C94F44', bg: '#FCEDEB', title: '센터 이용 안내문 (상담 절차 및 비용)', date: '2026.06.18', views: 342 },
-        { type: 'HWP', fg: '#2168B4', bg: '#EAF3FB', title: '프로그램 신청서 양식', date: '2026.06.10', views: 508 },
+        { type: 'PDF', fg: '#C94F44', bg: '#FCEDEB', title: '프로그램 안내 리플릿', date: '2026.06.10', views: 508 },
         { type: 'PDF', fg: '#C94F44', bg: '#FCEDEB', title: '2025 연간 운영보고서', date: '2026.03.02', views: 187 },
         { type: 'ZIP', fg: '#7A5FB8', bg: '#F0EBFA', title: '기관 로고 및 CI 파일', date: '2026.01.15', views: 96 }
       ],
@@ -751,7 +737,7 @@ class Component extends DCLogic {
     const newsData = [
       [
         { cat: '공지', fg: '#2168B4', bg: '#EAF3FB', isNew: true, title: '2026년 하반기 사회성 그룹치료 참가자 모집 안내', date: '2026.07.14' },
-        { cat: '공지', fg: '#2168B4', bg: '#EAF3FB', isNew: true, title: '7월 부모교육 특강 「사춘기 자녀와 대화하기」 신청 안내', date: '2026.07.10' },
+        { cat: '공지', fg: '#2168B4', bg: '#EAF3FB', isNew: true, title: '7월 부모교육 특강 「사춘기 자녀와 대화하기」 참가 안내', date: '2026.07.10' },
         { cat: '공지', fg: '#2168B4', bg: '#EAF3FB', isNew: false, title: '여름방학 프로그램 운영 일정 안내', date: '2026.07.03' },
         { cat: '공지', fg: '#2168B4', bg: '#EAF3FB', isNew: false, title: '센터 홈페이지 리뉴얼 오픈 안내', date: '2026.06.27' },
         { cat: '공지', fg: '#2168B4', bg: '#EAF3FB', isNew: false, title: '6월 후원자 소식지 발간', date: '2026.06.20' },
@@ -827,12 +813,12 @@ class Component extends DCLogic {
       pages: [1, 2, 3, 4, 5].map((n) => ({
         n, bg: n === 1 ? '#2168B4' : '#FFFFFF', color: n === 1 ? '#FFFFFF' : '#5A6B7C', border: n === 1 ? '#2168B4' : '#DCE6EF'
       })),
-      goHome: go('home'), goPrograms: go('programs'), goApply: go('apply'),
+      goHome: go('home'), goPrograms: go('programs'), goApply: go('apply'), goAbout: go('about'),
       goDirections: () => { this.setState({ page: 'about', aboutTab: 4 }); window.scrollTo(0, 0); },
       navItems, programs, featured,
       quickLinks: [
-        { glyph: '상', bg: '#EAF3FB', fg: '#2168B4', title: '상담 신청', desc: '전문 상담 예약하기', onClick: go('apply') },
-        { glyph: '프', bg: '#E6F6F3', fg: '#2FA490', title: '프로그램 신청', desc: '모집 중인 프로그램', onClick: go('programs') },
+        { glyph: '상', bg: '#EAF3FB', fg: '#2168B4', title: '상담·문의', desc: '전화·방문 문의 안내', onClick: go('apply') },
+        { glyph: '프', bg: '#E6F6F3', fg: '#2FA490', title: '프로그램 안내', desc: '운영 중인 프로그램', onClick: go('programs') },
         { glyph: '자', bg: '#FBF1E1', fg: '#B07A2A', title: '부모교육 자료', desc: '교육자료 다운로드', onClick: () => {} },
         { glyph: '길', bg: '#F0EBFA', fg: '#7A5FB8', title: '오시는 길', desc: '위치 및 교통 안내', onClick: () => {} }
       ],
@@ -843,7 +829,7 @@ class Component extends DCLogic {
       ],
       notices: [
         { isNew: true, title: '2026년 하반기 사회성 그룹치료 참가자 모집 안내', date: '2026.07.14' },
-        { isNew: true, title: '7월 부모교육 특강 「사춘기 자녀와 대화하기」 신청 안내', date: '2026.07.10' },
+        { isNew: true, title: '7월 부모교육 특강 「사춘기 자녀와 대화하기」 참가 안내', date: '2026.07.10' },
         { isNew: false, title: '여름방학 프로그램 운영 일정 안내', date: '2026.07.03' },
         { isNew: false, title: '센터 홈페이지 리뉴얼 오픈 안내', date: '2026.06.27' },
         { isNew: false, title: '6월 후원자 소식지 발간', date: '2026.06.20' }
@@ -855,7 +841,7 @@ class Component extends DCLogic {
       ],
       partners: ['서울특별시', '○○구청', '○○교육지원청', '지역아동센터협의회', '○○복지재단', '○○대학교'],
       steps: [
-        { no: 1, title: '온라인 신청', desc: '신청서를 작성해 제출하거나 전화로 접수합니다.' },
+        { no: 1, title: '전화·방문 문의', desc: '전화 또는 방문으로 상담을 문의합니다.' },
         { no: 2, title: '접수면접 안내', desc: '담당자가 1~2일 내 연락드려 일정을 잡습니다.' },
         { no: 3, title: '초기 상담·평가', desc: '아이와 가족의 어려움을 파악하고 평가를 진행합니다.' },
         { no: 4, title: '프로그램 연계', desc: '가장 적합한 치료·프로그램을 안내해 드립니다.' }

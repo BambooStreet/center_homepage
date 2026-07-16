@@ -86,14 +86,14 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
       <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:22px">
         <div style="background:#FFFFFF;border-radius:16px;border:1px solid #E2E9F1;padding:26px 28px">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
-            <h2 style="margin:0;font-size:16.5px;font-weight:800;color:#17385E">최근 프로그램 신청</h2>
-            <span onClick="{{ goApplySec }}" style="font-size:13px;font-weight:600;color:#7A8CA0;cursor:pointer" style-hover="color:#2168B4">전체 보기 →</span>
+            <h2 style="margin:0;font-size:16.5px;font-weight:800;color:#17385E">최근 문의</h2>
+            <span onClick="{{ goInquirySec }}" style="font-size:13px;font-weight:600;color:#7A8CA0;cursor:pointer" style-hover="color:#2168B4">전체 보기 →</span>
           </div>
           <div>
-            <sc-for list="{{ recentApps }}" as="ra" hint-placeholder-count="4">
+            <sc-for list="{{ recentInquiries }}" as="ra" hint-placeholder-count="4">
               <div style="display:flex;align-items:center;gap:14px;padding:13px 4px;border-top:1px solid #EDF2F7">
                 <span style="flex:none;font-size:11.5px;font-weight:800;padding:4px 11px;border-radius:11px;color:{{ ra.fg }};background:{{ ra.bg }}">{{ ra.status }}</span>
-                <span style="flex:1;font-size:14px;font-weight:600;color:#22303E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ ra.program }}</span>
+                <span style="flex:1;font-size:14px;font-weight:600;color:#22303E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ ra.title }}</span>
                 <span style="flex:none;font-size:13px;color:#5A6B7C">{{ ra.name }}</span>
                 <span style="flex:none;font-size:12.5px;color:#9AAABB">{{ ra.date }}</span>
               </div>
@@ -142,40 +142,8 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
       </div>
     </sc-if>
 
-    <!-- 프로그램 신청 관리 -->
-    <sc-if value="{{ sec2 }}" hint-placeholder-val="{{ false }}">
-      <div style="background:#FFFFFF;border-radius:16px;border:1px solid #E2E9F1;padding:26px 28px">
-        <div style="display:flex;gap:14px;margin-bottom:20px">
-          <sc-for list="{{ appStats }}" as="aps" hint-placeholder-count="3">
-            <div style="flex:1;background:{{ aps.bg }};border-radius:12px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center">
-              <span style="font-size:13.5px;font-weight:700;color:{{ aps.fg }}">{{ aps.label }}</span>
-              <span style="font-size:22px;font-weight:800;color:{{ aps.fg }}">{{ aps.value }}</span>
-            </div>
-          </sc-for>
-        </div>
-        <div style="border-top:2px solid #17385E">
-          <div style="display:flex;gap:16px;padding:11px 6px;border-bottom:1px solid #DCE6EF;font-size:12px;font-weight:800;color:#7A8CA0">
-            <span style="flex:none;width:64px">상태</span><span style="flex:1">프로그램</span><span style="flex:none;width:70px">신청자</span><span style="flex:none;width:110px">연락처</span><span style="flex:none;width:78px">신청일</span><span style="flex:none;width:96px"></span>
-          </div>
-          <sc-for list="{{ applications }}" as="ap" hint-placeholder-count="6">
-            <div style="display:flex;align-items:center;gap:16px;padding:14px 6px;border-bottom:1px solid #EDF2F7" style-hover="background:#F8FBFD">
-              <span style="flex:none;width:64px"><span style="font-size:11.5px;font-weight:800;padding:4px 11px;border-radius:11px;color:{{ ap.fg }};background:{{ ap.bg }}">{{ ap.status }}</span></span>
-              <span style="flex:1;font-size:14px;font-weight:600;color:#22303E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ ap.program }}</span>
-              <span style="flex:none;width:70px;font-size:13.5px;color:#5A6B7C">{{ ap.name }}</span>
-              <span style="flex:none;width:110px;font-size:13px;color:#9AAABB">{{ ap.phone }}</span>
-              <span style="flex:none;width:78px;font-size:12.5px;color:#9AAABB">{{ ap.date }}</span>
-              <span style="flex:none;width:96px;display:flex;gap:6px">
-                <span style="font-size:12px;font-weight:700;color:#2FA490;border:1px solid #A9E0D6;padding:5px 10px;border-radius:14px;cursor:pointer" style-hover="background:#2FA490;color:#FFFFFF">승인</span>
-                <span style="font-size:12px;font-weight:700;color:#7A8CA0;border:1px solid #DCE6EF;padding:5px 10px;border-radius:14px;cursor:pointer" style-hover="background:#F0F4F8">보류</span>
-              </span>
-            </div>
-          </sc-for>
-        </div>
-      </div>
-    </sc-if>
-
     <!-- 팝업·배너 관리 -->
-    <sc-if value="{{ sec3 }}" hint-placeholder-val="{{ false }}">
+    <sc-if value="{{ sec2 }}" hint-placeholder-val="{{ false }}">
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:22px">
         <sc-for list="{{ banners }}" as="bn" hint-placeholder-count="2">
           <div style="background:#FFFFFF;border-radius:16px;border:1px solid #E2E9F1;padding:26px 28px">
@@ -203,7 +171,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
     </sc-if>
 
     <!-- 자료실 관리 -->
-    <sc-if value="{{ sec4 }}" hint-placeholder-val="{{ false }}">
+    <sc-if value="{{ sec3 }}" hint-placeholder-val="{{ false }}">
       <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:22px;align-items:start">
         <div style="background:#FFFFFF;border-radius:16px;border:1px solid #E2E9F1;padding:28px 30px">
           <h2 style="margin:0 0 18px;font-size:16.5px;font-weight:800;color:#17385E">자료 업로드</h2>
@@ -233,7 +201,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
     </sc-if>
 
     <!-- 문의 관리 -->
-    <sc-if value="{{ sec5 }}" hint-placeholder-val="{{ false }}">
+    <sc-if value="{{ sec4 }}" hint-placeholder-val="{{ false }}">
       <div style="background:#FFFFFF;border-radius:16px;border:1px solid #E2E9F1;padding:26px 28px">
         <div style="border-top:2px solid #17385E">
           <sc-for list="{{ inquiries }}" as="iq" hint-placeholder-count="5">
@@ -268,7 +236,7 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state;
     const goSec = (i) => () => this.setState({ section: i });
-    const menuDefs = [['홈', '대시보드'], ['공', '공지·게시판 관리'], ['신', '프로그램 신청 관리'], ['팝', '팝업·배너 관리'], ['자', '자료실 관리'], ['문', '문의 관리']];
+    const menuDefs = [['홈', '대시보드'], ['공', '공지·게시판 관리'], ['팝', '팝업·배너 관리'], ['자', '자료실 관리'], ['문', '문의 관리']];
     const st = {
       대기: ['#B07A2A', '#FBF1E1'], 확정: ['#2FA490', '#E6F6F3'], 상담중: ['#2168B4', '#EAF3FB'],
       게시중: ['#2FA490', '#E6F6F3'], 임시저장: ['#7A8CA0', '#F0F4F8'], 미답변: ['#C94F44', '#FCEDEB'], 답변완료: ['#7A8CA0', '#F0F4F8']
@@ -277,7 +245,7 @@ class Component extends DCLogic {
     const boardData = [
       [
         S({ title: '2026년 하반기 사회성 그룹치료 참가자 모집 안내', date: '2026.07.14', views: 182 }, '게시중'),
-        S({ title: '7월 부모교육 특강 「사춘기 자녀와 대화하기」 신청 안내', date: '2026.07.10', views: 265 }, '게시중'),
+        S({ title: '7월 부모교육 특강 「사춘기 자녀와 대화하기」 참가 안내', date: '2026.07.10', views: 265 }, '게시중'),
         S({ title: '8월 프로그램 일정 안내 (작성 중)', date: '2026.07.15', views: 0 }, '임시저장'),
         S({ title: '여름방학 프로그램 운영 일정 안내', date: '2026.07.03', views: 340 }, '게시중'),
         S({ title: '센터 홈페이지 리뉴얼 오픈 안내', date: '2026.06.27', views: 512 }, '게시중')
@@ -292,13 +260,12 @@ class Component extends DCLogic {
         S({ title: '[보도자료] 2025 연간 상담 실적 발표', date: '2026.03.05', views: 132 }, '게시중')
       ]
     ];
-    const applications = [
-      S({ program: '여름방학 사회성 그룹 프로그램', name: '김○○', phone: '010-****-1234', date: '07.15' }, '대기'),
-      S({ program: 'ADHD·행동문제 인지행동치료(CBT)', name: '이○○', phone: '010-****-5678', date: '07.15' }, '대기'),
-      S({ program: '부모 줌 집단상담 프로그램', name: '박○○', phone: '010-****-2244', date: '07.14' }, '확정'),
-      S({ program: '학습장애 프로그램', name: '최○○', phone: '010-****-9182', date: '07.13' }, '상담중'),
-      S({ program: '사회적 대화 및 기술 훈련', name: '정○○', phone: '010-****-3355', date: '07.12' }, '확정'),
-      S({ program: '이혼 위기 가정 지원 프로그램', name: '한○○', phone: '010-****-7761', date: '07.11' }, '확정')
+    const inquiries = [
+      S({ title: '초등 2학년 아이 상담 비용이 궁금합니다', name: '학부모 김○○', date: '2026.07.15' }, '미답변'),
+      S({ title: '언어치료 대기 기간이 어떻게 되나요?', name: '학부모 이○○', date: '2026.07.14' }, '미답변'),
+      S({ title: '지역아동센터 연계 의뢰 절차 문의', name: '○○지역아동센터', date: '2026.07.14' }, '미답변'),
+      S({ title: '부모 줌 집단상담 참여 방법', name: '학부모 박○○', date: '2026.07.12' }, '답변완료'),
+      S({ title: '주차 가능한가요?', name: '학부모 최○○', date: '2026.07.10' }, '답변완료')
     ];
     return {
       locked: !s.authed, unlocked: s.authed,
@@ -315,21 +282,15 @@ class Component extends DCLogic {
         iconColor: i === s.section ? '#3FB9A5' : '#6E86A3'
       })),
       sectionTitle: menuDefs[s.section][1],
-      sec0: s.section === 0, sec1: s.section === 1, sec2: s.section === 2, sec3: s.section === 3, sec4: s.section === 4, sec5: s.section === 5,
-      goNoticeSec: goSec(1), goApplySec: goSec(2), goPopupSec: goSec(3), goArchiveSec: goSec(4),
+      sec0: s.section === 0, sec1: s.section === 1, sec2: s.section === 2, sec3: s.section === 3, sec4: s.section === 4,
+      goNoticeSec: goSec(1), goPopupSec: goSec(2), goArchiveSec: goSec(3), goInquirySec: goSec(4),
       stats: [
-        { label: '이번 달 프로그램 신청', value: '32', delta: '+8', deltaColor: '#2FA490' },
-        { label: '대기 중 신청', value: '5', delta: '확인 필요', deltaColor: '#B07A2A' },
         { label: '미답변 문의', value: '3', delta: '확인 필요', deltaColor: '#C94F44' },
+        { label: '게시 중 공지', value: '12', delta: '이번 달 +4', deltaColor: '#2FA490' },
+        { label: '등록 자료', value: '24', delta: '이번 달 +3', deltaColor: '#2FA490' },
         { label: '이번 주 방문자', value: '1,842', delta: '+12%', deltaColor: '#2FA490' }
       ],
-      recentApps: applications.slice(0, 4),
-      applications,
-      appStats: [
-        { label: '대기', value: '5', fg: '#B07A2A', bg: '#FBF1E1' },
-        { label: '상담중', value: '4', fg: '#2168B4', bg: '#EAF3FB' },
-        { label: '확정', value: '23', fg: '#2FA490', bg: '#E6F6F3' }
-      ],
+      recentInquiries: inquiries.slice(0, 4),
       boardTabs: ['공지사항', '행사안내', '보도자료'].map((label, i) => ({
         label, onClick: () => this.setState({ boardTab: i }),
         bg: i === s.boardTab ? '#2168B4' : '#FFFFFF',
@@ -357,16 +318,10 @@ class Component extends DCLogic {
         { type: 'PDF', fg: '#C94F44', bg: '#FCEDEB', title: '[부모교육] 사춘기 자녀와 대화하는 법', date: '07.08' },
         { type: 'PDF', fg: '#C94F44', bg: '#FCEDEB', title: '2026 사업안내 브로슈어', date: '07.01' },
         { type: 'PDF', fg: '#C94F44', bg: '#FCEDEB', title: '[부모교육] ADHD 아이를 돕는 가정 내 환경 만들기', date: '06.24' },
-        { type: 'HWP', fg: '#2168B4', bg: '#EAF3FB', title: '프로그램 신청서 양식', date: '06.10' },
+        { type: 'PDF', fg: '#C94F44', bg: '#FCEDEB', title: '프로그램 안내 리플릿', date: '06.10' },
         { type: 'ZIP', fg: '#7A5FB8', bg: '#F0EBFA', title: '기관 로고 및 CI 파일', date: '01.15' }
       ],
-      inquiries: [
-        S({ title: '초등 2학년 아이 상담 비용이 궁금합니다', name: '학부모 김○○', date: '2026.07.15' }, '미답변'),
-        S({ title: '언어치료 대기 기간이 어떻게 되나요?', name: '학부모 이○○', date: '2026.07.14' }, '미답변'),
-        S({ title: '지역아동센터 연계 의뢰 절차 문의', name: '○○지역아동센터', date: '2026.07.14' }, '미답변'),
-        S({ title: '부모 줌 집단상담 참여 방법', name: '학부모 박○○', date: '2026.07.12' }, '답변완료'),
-        S({ title: '주차 가능한가요?', name: '학부모 최○○', date: '2026.07.10' }, '답변완료')
-      ]
+      inquiries
     };
   }
 }
