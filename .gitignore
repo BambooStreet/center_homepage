@@ -1,0 +1,9 @@
+# Vercel
+.vercel
+
+# Design Canvas 편집기 썸네일 아티팩트 (배포 불필요)
+.thumbnail
+
+# OS / 에디터
+.DS_Store
+*.swp
