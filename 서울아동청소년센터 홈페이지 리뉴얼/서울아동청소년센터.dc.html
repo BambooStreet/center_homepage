@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="./image-slot.js"></script>
+<style>
+body{margin:0;background:#F5F8FB;font-family:"Pretendard Variable",Pretendard,-apple-system,sans-serif;color:#22303E;-webkit-font-smoothing:antialiased}
+a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:underline}
+</style>
+</helmet>
+<div style="min-width:1200px;background:#FFFFFF">
+
+<!-- 유틸리티 바 -->
+<div style="background:#17385E;color:#B9CBDE;font-size:12.5px">
+  <div style="max-width:1200px;margin:0 auto;display:flex;justify-content:flex-end;gap:20px;padding:7px 24px">
+    <span style="cursor:pointer" style-hover="color:#FFFFFF">후원안내</span>
+    <span onClick="{{ goDirections }}" style="cursor:pointer" style-hover="color:#FFFFFF">오시는 길</span>
+    <span style="cursor:pointer" style-hover="color:#FFFFFF">사이트맵</span>
+  </div>
+</div>
+
+<!-- 헤더 -->
+<header style="background:#FFFFFF;border-bottom:1px solid #DCE6EF;position:sticky;top:0;z-index:50">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:36px;padding:0 24px;height:76px">
+    <div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:10px;cursor:pointer;flex:none">
+      <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#2168B4,#3FB9A5);display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-weight:800;font-size:15px">서</div>
+      <div>
+        <div style="font-size:17px;font-weight:800;color:#17385E;letter-spacing:-0.3px">서울아동청소년센터</div>
+        <div style="font-size:10.5px;color:#7A8CA0;letter-spacing:1.5px">SEOUL CHILD &amp; YOUTH CENTER</div>
+      </div>
+    </div>
+    <nav style="display:flex;gap:4px;flex:1;justify-content:center">
+      <sc-for list="{{ navItems }}" as="nv" hint-placeholder-count="7">
+        <div onClick="{{ nv.onClick }}" style="padding:26px 13px;font-size:15px;font-weight:{{ nv.weight }};color:{{ nv.color }};border-bottom:3px solid {{ nv.underline }};cursor:pointer;white-space:nowrap" style-hover="color:#2168B4">{{ nv.label }}</div>
+      </sc-for>
+    </nav>
+    <div style="display:flex;align-items:center;gap:10px;flex:none">
+      <div style="width:38px;height:38px;border-radius:50%;border:1px solid #DCE6EF;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:#EAF3FB">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#17385E" stroke-width="1.6"></circle><path d="M11 11L15 15" stroke="#17385E" stroke-width="1.6" stroke-linecap="round"></path></svg>
+      </div>
+      <div onClick="{{ goApply }}" style="background:#2168B4;color:#FFFFFF;font-size:14px;font-weight:700;padding:10px 18px;border-radius:22px;cursor:pointer" style-hover="background:#17385E">상담 신청</div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ 메인 페이지 ══════════ -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<main>
+  <!-- 히어로 -->
+  <section style="position:relative;height:520px;background:#17385E">
+    <image-slot id="hero-main" shape="rect" placeholder="센터 활동 사진을 놓아주세요 (아이들이 활동하는 밝은 사진)" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,40,70,0.82) 0%,rgba(15,40,70,0.45) 48%,rgba(15,40,70,0) 75%);pointer-events:none"></div>
+    <div style="position:absolute;inset:0;display:flex;align-items:center;pointer-events:none">
+      <div style="max-width:1200px;margin:0 auto;width:100%;padding:0 24px">
+        <div style="max-width:560px">
+          <div style="display:inline-block;background:rgba(63,185,165,0.18);border:1px solid rgba(63,185,165,0.5);color:#8FE3D5;font-size:13px;font-weight:600;padding:6px 14px;border-radius:16px;margin-bottom:18px">아동·청소년 심리상담 전문기관</div>
+          <h1 style="margin:0 0 14px;font-size:42px;line-height:1.3;font-weight:800;color:#FFFFFF;letter-spacing:-0.5px;text-wrap:pretty">아이의 마음이 자라는 곳,<br>함께 걷는 성장의 길</h1>
+          <p style="margin:0 0 28px;font-size:17px;line-height:1.7;color:#D4E2F0;text-wrap:pretty">서울아동청소년센터는 전문적인 상담과 치료, 교육으로<br>아동·청소년과 가족의 건강한 내일을 함께 만듭니다.</p>
+          <div style="display:flex;gap:12px;pointer-events:auto">
+            <div onClick="{{ goPrograms }}" style="background:#3FB9A5;color:#FFFFFF;font-size:15px;font-weight:700;padding:13px 26px;border-radius:26px;cursor:pointer" style-hover="background:#2FA490">프로그램 신청하기</div>
+            <div style="background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.45);color:#FFFFFF;font-size:15px;font-weight:600;padding:13px 26px;border-radius:26px;cursor:pointer" style-hover="background:rgba(255,255,255,0.25)">센터 소개 보기</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 퀵링크 -->
+  <section style="max-width:1200px;margin:-44px auto 0;padding:0 24px;position:relative;z-index:5">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#FFFFFF;border-radius:16px;box-shadow:0 12px 32px rgba(23,56,94,0.12);overflow:hidden">
+      <sc-for list="{{ quickLinks }}" as="q" hint-placeholder-count="4">
+        <div onClick="{{ q.onClick }}" style="display:flex;align-items:center;gap:14px;padding:24px 26px;border-right:1px solid #EDF2F7;cursor:pointer" style-hover="background:#F4FAF9">
+          <div style="width:46px;height:46px;border-radius:14px;background:{{ q.bg }};display:flex;align-items:center;justify-content:center;font-size:20px;color:{{ q.fg }};font-weight:800;flex:none">{{ q.glyph }}</div>
+          <div>
+            <div style="font-size:15.5px;font-weight:700;color:#17385E">{{ q.title }}</div>
+            <div style="font-size:12.5px;color:#7A8CA0;margin-top:2px">{{ q.desc }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- 주요 사업 -->
+  <section style="max-width:1200px;margin:0 auto;padding:80px 24px 0">
+    <div style="text-align:center;margin-bottom:40px">
+      <div style="font-size:13px;font-weight:700;color:#3FB9A5;letter-spacing:2px;margin-bottom:8px">OUR SERVICES</div>
+      <h2 style="margin:0;font-size:30px;font-weight:800;color:#17385E;letter-spacing:-0.4px">센터의 주요 사업</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <sc-for list="{{ services }}" as="sv" hint-placeholder-count="3">
+        <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:18px;padding:34px 30px;transition:box-shadow .2s,transform .2s" style-hover="box-shadow:0 14px 30px rgba(23,56,94,0.1);transform:translateY(-4px)">
+          <div style="width:54px;height:54px;border-radius:16px;background:{{ sv.bg }};display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:24px;color:{{ sv.fg }};font-weight:800">{{ sv.glyph }}</div>
+          <h3 style="margin:0 0 10px;font-size:20px;font-weight:800;color:#17385E">{{ sv.title }}</h3>
+          <p style="margin:0 0 18px;font-size:14.5px;line-height:1.7;color:#5A6B7C;text-wrap:pretty">{{ sv.desc }}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <sc-for list="{{ sv.tags }}" as="t" hint-placeholder-count="3">
+              <span style="font-size:12px;font-weight:600;color:#2168B4;background:#EAF3FB;padding:4px 10px;border-radius:12px">{{ t }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- 프로그램 하이라이트 -->
+  <section style="background:#EAF3FB;margin-top:80px;padding:72px 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#3FB9A5;letter-spacing:2px;margin-bottom:8px">PROGRAMS</div>
+          <h2 style="margin:0;font-size:30px;font-weight:800;color:#17385E;letter-spacing:-0.4px">지금 신청할 수 있는 프로그램</h2>
+        </div>
+        <div onClick="{{ goPrograms }}" style="font-size:14.5px;font-weight:700;color:#2168B4;cursor:pointer;display:flex;align-items:center;gap:6px" style-hover="color:#17385E">전체 프로그램 보기 <span style="font-size:17px">→</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <sc-for list="{{ featured }}" as="fp" hint-placeholder-count="3">
+          <div style="background:#FFFFFF;border-radius:18px;overflow:hidden;box-shadow:0 4px 14px rgba(23,56,94,0.07);display:flex;flex-direction:column">
+            <div style="height:170px;position:relative">
+              <image-slot id="{{ fp.imgId }}" shape="rect" placeholder="{{ fp.imgHint }}" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+            </div>
+            <div style="padding:24px 26px 26px;display:flex;flex-direction:column;flex:1">
+              <div style="display:flex;gap:6px;margin-bottom:12px">
+                <span style="font-size:11.5px;font-weight:700;color:{{ fp.tagFg }};background:{{ fp.tagBg }};padding:4px 10px;border-radius:11px">{{ fp.tag }}</span>
+                <span style="font-size:11.5px;font-weight:600;color:#7A8CA0;background:#F2F6FA;padding:4px 10px;border-radius:11px">{{ fp.form }}</span>
+              </div>
+              <h3 style="margin:0 0 8px;font-size:17.5px;font-weight:800;color:#17385E;line-height:1.4;text-wrap:pretty">{{ fp.title }}</h3>
+              <p style="margin:0 0 16px;font-size:13.5px;line-height:1.65;color:#5A6B7C;flex:1;text-wrap:pretty">{{ fp.desc }}</p>
+              <div onClick="{{ goApply }}" style="align-self:flex-start;font-size:13.5px;font-weight:700;color:#2168B4;border:1.5px solid #BFD6EC;padding:8px 18px;border-radius:20px;cursor:pointer" style-hover="background:#2168B4;color:#FFFFFF;border-color:#2168B4">신청하기</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- 소식 · 공지 · 일정 -->
+  <section style="max-width:1200px;margin:0 auto;padding:80px 24px">
+    <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:48px">
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <h2 style="margin:0;font-size:23px;font-weight:800;color:#17385E">공지사항</h2>
+          <span style="font-size:13.5px;font-weight:600;color:#7A8CA0;cursor:pointer" style-hover="color:#2168B4">더보기 +</span>
+        </div>
+        <div style="border-top:2px solid #17385E">
+          <sc-for list="{{ notices }}" as="n" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 6px;border-bottom:1px solid #EDF2F7;cursor:pointer" style-hover="background:#F8FBFD">
+              <sc-if value="{{ n.isNew }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:10.5px;font-weight:800;color:#FFFFFF;background:#3FB9A5;padding:3px 8px;border-radius:9px;flex:none">NEW</span>
+              </sc-if>
+              <span style="flex:1;font-size:15px;color:#22303E;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ n.title }}</span>
+              <span style="font-size:13px;color:#9AAABB;flex:none">{{ n.date }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <h2 style="margin:0;font-size:23px;font-weight:800;color:#17385E">교육·행사 일정</h2>
+          <span style="font-size:13.5px;font-weight:600;color:#7A8CA0;cursor:pointer" style-hover="color:#2168B4">전체 일정 +</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ events }}" as="ev" hint-placeholder-count="3">
+            <div style="display:flex;gap:16px;align-items:center;background:#FFFFFF;border:1px solid #DCE6EF;border-radius:14px;padding:16px 18px;cursor:pointer" style-hover="border-color:#3FB9A5">
+              <div style="width:56px;height:56px;border-radius:12px;background:#EAF3FB;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none">
+                <div style="font-size:11px;font-weight:700;color:#2168B4">{{ ev.month }}</div>
+                <div style="font-size:19px;font-weight:800;color:#17385E;line-height:1">{{ ev.day }}</div>
+              </div>
+              <div style="min-width:0">
+                <div style="font-size:15px;font-weight:700;color:#22303E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ ev.title }}</div>
+                <div style="font-size:12.5px;color:#7A8CA0;margin-top:3px">{{ ev.meta }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 후원 밴드 -->
+  <sc-if value="{{ showDonation }}" hint-placeholder-val="{{ true }}">
+  <section style="background:linear-gradient(120deg,#2FA490,#3FB9A5 55%,#57C9B6)">
+    <div style="max-width:1200px;margin:0 auto;padding:52px 24px;display:flex;align-items:center;justify-content:space-between;gap:32px">
+      <div>
+        <h2 style="margin:0 0 8px;font-size:26px;font-weight:800;color:#FFFFFF;letter-spacing:-0.3px">여러분의 관심이 아이들의 희망이 됩니다</h2>
+        <p style="margin:0;font-size:15px;color:rgba(255,255,255,0.92)">후원과 자원봉사로 아동·청소년의 건강한 성장을 함께해 주세요.</p>
+      </div>
+      <div style="display:flex;gap:12px;flex:none">
+        <div style="background:#FFFFFF;color:#2FA490;font-size:15px;font-weight:800;padding:13px 26px;border-radius:26px;cursor:pointer" style-hover="background:#17385E;color:#FFFFFF">후원하기</div>
+        <div style="border:1.5px solid rgba(255,255,255,0.7);color:#FFFFFF;font-size:15px;font-weight:700;padding:13px 26px;border-radius:26px;cursor:pointer" style-hover="background:rgba(255,255,255,0.15)">자원봉사 참여</div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- 협력기관 -->
+  <section style="max-width:1200px;margin:0 auto;padding:56px 24px">
+    <div style="text-align:center;font-size:14px;font-weight:700;color:#7A8CA0;letter-spacing:1px;margin-bottom:26px">협력기관</div>
+    <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap">
+      <sc-for list="{{ partners }}" as="pt" hint-placeholder-count="6">
+        <div style="width:170px;height:56px;border:1px dashed #C9D6E3;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#9AAABB;background:#FAFCFE">{{ pt }}</div>
+      </sc-for>
+    </div>
+  </section>
+</main>
+</sc-if>
+
+<!-- ══════════ 센터소개 ══════════ -->
+<sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+<main>
+  <div style="background:#17385E;padding:52px 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 센터소개</div>
+      <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">센터소개</h1>
+      <p style="margin:12px 0 0;font-size:15.5px;color:#C4D4E6">서울아동청소년센터가 걸어온 길과 지향하는 가치를 소개합니다.</p>
+    </div>
+  </div>
+  <div style="background:#FFFFFF;border-bottom:1px solid #DCE6EF;position:sticky;top:76px;z-index:40">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px;display:flex;gap:4px">
+      <sc-for list="{{ aboutTabs }}" as="tb" hint-placeholder-count="5">
+        <div onClick="{{ tb.onClick }}" style="padding:17px 20px;font-size:15px;font-weight:{{ tb.weight }};color:{{ tb.color }};border-bottom:3px solid {{ tb.underline }};cursor:pointer" style-hover="color:#2168B4">{{ tb.label }}</div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;padding:56px 24px 80px">
+
+    <sc-if value="{{ aboutIs0 }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:340px 1fr;gap:52px;align-items:start">
+        <div>
+          <div style="width:340px;height:400px;border-radius:20px;overflow:hidden;position:relative">
+            <image-slot id="director" shape="rect" placeholder="센터장 사진" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+          </div>
+          <div style="margin-top:16px;text-align:center;font-size:15px;color:#5A6B7C">서울아동청소년센터장 <b style="color:#17385E;font-size:17px">○ ○ ○</b></div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#3FB9A5;letter-spacing:2px;margin-bottom:12px">GREETING</div>
+          <h2 style="margin:0 0 24px;font-size:28px;font-weight:800;color:#17385E;line-height:1.45;letter-spacing:-0.4px;text-wrap:pretty">아이들의 오늘을 지키고,<br>내일의 성장을 함께합니다</h2>
+          <div style="font-size:15.5px;line-height:1.9;color:#44546A;display:flex;flex-direction:column;gap:16px;text-wrap:pretty">
+            <p style="margin:0">안녕하십니까. 서울아동청소년센터를 찾아주신 여러분께 진심으로 감사드립니다.</p>
+            <p style="margin:0">우리 센터는 아동·청소년이 겪는 마음의 어려움에 귀 기울이고, 전문적인 상담과 치료, 교육을 통해 아이들과 가족이 다시 건강한 일상으로 돌아갈 수 있도록 돕고 있습니다.</p>
+            <p style="margin:0">한 아이가 자라기 위해서는 온 마을이 필요하다는 말처럼, 가정과 학교, 지역사회와 손잡고 아이들의 든든한 울타리가 되겠습니다. 언제든 편한 마음으로 센터의 문을 두드려 주십시오.</p>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ aboutIs1 }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center;margin-bottom:48px">
+        <div style="font-size:13px;font-weight:700;color:#3FB9A5;letter-spacing:2px;margin-bottom:12px">VISION</div>
+        <h2 style="margin:0 0 16px;font-size:32px;font-weight:800;color:#17385E;letter-spacing:-0.4px;line-height:1.4">모든 아동·청소년이 안전하게 성장하는<br>따뜻한 지역사회</h2>
+        <p style="margin:0;font-size:16px;color:#5A6B7C">전문성과 신뢰를 바탕으로 아이와 가족, 지역사회를 잇는 성장 파트너가 되겠습니다.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <sc-for list="{{ values }}" as="vl" hint-placeholder-count="3">
+          <div style="background:{{ vl.bg }};border-radius:20px;padding:36px 32px;text-align:center">
+            <div style="width:58px;height:58px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:24px;font-weight:800;color:{{ vl.fg }}">{{ vl.glyph }}</div>
+            <h3 style="margin:0 0 10px;font-size:19px;font-weight:800;color:#17385E">{{ vl.title }}</h3>
+            <p style="margin:0;font-size:14px;line-height:1.7;color:#5A6B7C;text-wrap:pretty">{{ vl.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top:48px;background:#17385E;border-radius:20px;padding:40px 44px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px">
+        <sc-for list="{{ missions }}" as="ms" hint-placeholder-count="3">
+          <div>
+            <div style="font-size:12px;font-weight:800;color:#3FB9A5;letter-spacing:1.5px;margin-bottom:8px">MISSION {{ ms.no }}</div>
+            <div style="font-size:15.5px;font-weight:600;color:#FFFFFF;line-height:1.6;text-wrap:pretty">{{ ms.text }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ aboutIs2 }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:760px;margin:0 auto">
+        <sc-for list="{{ history }}" as="hy" hint-placeholder-count="4">
+          <div style="display:flex;gap:32px">
+            <div style="flex:none;width:80px;font-size:22px;font-weight:800;color:#2168B4;text-align:right">{{ hy.year }}</div>
+            <div style="flex:none;display:flex;flex-direction:column;align-items:center">
+              <div style="width:14px;height:14px;border-radius:50%;background:#3FB9A5;border:3px solid #E6F6F3;margin-top:6px"></div>
+              <div style="width:2px;flex:1;background:#DCE6EF"></div>
+            </div>
+            <div style="padding-bottom:40px">
+              <sc-for list="{{ hy.items }}" as="hi" hint-placeholder-count="2">
+                <div style="font-size:15px;color:#44546A;line-height:1.7;margin-bottom:6px"><b style="color:#17385E;margin-right:8px">{{ hi.mm }}</b>{{ hi.text }}</div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+        <div style="margin-top:8px;font-size:13px;color:#9AAABB;text-align:center">※ 연혁 내용은 예시이며, 실제 연혁 자료로 교체 예정입니다.</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ aboutIs3 }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div style="background:#17385E;color:#FFFFFF;font-size:17px;font-weight:800;padding:16px 48px;border-radius:14px">센터장</div>
+        <div style="width:2px;height:28px;background:#C9D6E3"></div>
+        <div style="background:#EAF3FB;color:#17385E;font-size:14px;font-weight:700;padding:11px 32px;border-radius:12px;border:1px solid #BFD6EC">운영위원회</div>
+        <div style="width:2px;height:28px;background:#C9D6E3"></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;width:100%;max-width:860px">
+          <sc-for list="{{ orgTeams }}" as="og" hint-placeholder-count="3">
+            <div style="border:1px solid #DCE6EF;border-radius:16px;overflow:hidden">
+              <div style="background:{{ og.bg }};color:#FFFFFF;font-size:15.5px;font-weight:800;text-align:center;padding:14px">{{ og.team }}</div>
+              <div style="padding:18px 22px;display:flex;flex-direction:column;gap:9px">
+                <sc-for list="{{ og.duties }}" as="dt" hint-placeholder-count="3">
+                  <div style="font-size:13.5px;color:#5A6B7C;display:flex;gap:8px;align-items:center"><span style="width:5px;height:5px;border-radius:50%;background:#3FB9A5;flex:none"></span>{{ dt }}</div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ aboutIs4 }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:start">
+        <div style="height:440px;border-radius:20px;overflow:hidden;position:relative;border:1px solid #DCE6EF">
+          <image-slot id="map" shape="rect" placeholder="지도 이미지 (네이버/카카오 지도 캡처)" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div style="background:#EAF3FB;border-radius:16px;padding:26px 28px">
+            <div style="font-size:13px;font-weight:800;color:#2168B4;margin-bottom:8px">주소</div>
+            <div style="font-size:15.5px;font-weight:600;color:#17385E;line-height:1.6">서울특별시 ○○구 ○○로 00, 0층<br>서울아동청소년센터</div>
+          </div>
+          <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:16px;padding:26px 28px">
+            <div style="font-size:13px;font-weight:800;color:#2FA490;margin-bottom:10px">대중교통</div>
+            <div style="font-size:14px;color:#5A6B7C;line-height:1.9">지하철 ○호선 ○○역 0번 출구 도보 5분<br>버스 000, 0000번 「○○센터 앞」 하차</div>
+          </div>
+          <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:16px;padding:26px 28px">
+            <div style="font-size:13px;font-weight:800;color:#B07A2A;margin-bottom:10px">이용 시간</div>
+            <div style="font-size:14px;color:#5A6B7C;line-height:1.9">평일 09:00 – 18:00 (점심 12:00 – 13:00)<br>주말·공휴일 휴무 · 주차 가능(2대)</div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</main>
+</sc-if>
+
+<!-- ══════════ 사업안내 ══════════ -->
+<sc-if value="{{ isBusiness }}" hint-placeholder-val="{{ false }}">
+<main>
+  <div style="background:#17385E;padding:52px 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 사업안내</div>
+      <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">사업안내</h1>
+      <p style="margin:12px 0 0;font-size:15.5px;color:#C4D4E6">상담·교육·지역연계, 세 가지 축으로 아동·청소년의 성장을 돕습니다.</p>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;padding:64px 24px 80px;display:flex;flex-direction:column;gap:56px">
+    <sc-for list="{{ businesses }}" as="bz" hint-placeholder-count="3">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;direction:{{ bz.dir }}">
+        <div style="height:320px;border-radius:20px;overflow:hidden;position:relative;direction:ltr">
+          <image-slot id="{{ bz.imgId }}" shape="rect" placeholder="{{ bz.imgHint }}" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+        </div>
+        <div style="direction:ltr">
+          <div style="font-size:13px;font-weight:800;color:{{ bz.fg }};letter-spacing:2px;margin-bottom:10px">{{ bz.eng }}</div>
+          <h2 style="margin:0 0 14px;font-size:27px;font-weight:800;color:#17385E;letter-spacing:-0.4px">{{ bz.title }}</h2>
+          <p style="margin:0 0 22px;font-size:15.5px;line-height:1.8;color:#5A6B7C;text-wrap:pretty">{{ bz.desc }}</p>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ bz.items }}" as="bi" hint-placeholder-count="3">
+              <div style="display:flex;gap:12px;align-items:flex-start;background:#F8FBFD;border-radius:12px;padding:13px 16px">
+                <span style="flex:none;width:22px;height:22px;border-radius:50%;background:{{ bz.chipBg }};color:{{ bz.fg }};font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px">{{ bi.no }}</span>
+                <div><b style="font-size:14.5px;color:#17385E">{{ bi.name }}</b><span style="font-size:13.5px;color:#7A8CA0;margin-left:10px">{{ bi.note }}</span></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</main>
+</sc-if>
+
+<!-- ══════════ 치료실 소개 ══════════ -->
+<sc-if value="{{ isRooms }}" hint-placeholder-val="{{ false }}">
+<main>
+  <div style="background:#17385E;padding:52px 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 치료실 소개</div>
+      <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">치료실 소개</h1>
+      <p style="margin:12px 0 0;font-size:15.5px;color:#C4D4E6">아이들이 안전하고 편안하게 머무를 수 있는 전문 치료 공간입니다.</p>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;padding:56px 24px 80px">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <sc-for list="{{ rooms }}" as="rm" hint-placeholder-count="6">
+        <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:18px;overflow:hidden" style-hover="box-shadow:0 12px 28px rgba(23,56,94,0.1)">
+          <div style="height:190px;position:relative">
+            <image-slot id="{{ rm.imgId }}" shape="rect" placeholder="{{ rm.name }} 사진" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+          </div>
+          <div style="padding:24px 26px 26px">
+            <h3 style="margin:0 0 8px;font-size:18px;font-weight:800;color:#17385E">{{ rm.name }}</h3>
+            <p style="margin:0 0 14px;font-size:13.5px;line-height:1.65;color:#5A6B7C;text-wrap:pretty">{{ rm.desc }}</p>
+            <div style="font-size:12.5px;color:#7A8CA0"><b style="color:#3FB9A5">주요 대상</b> · {{ rm.target }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</main>
+</sc-if>
+
+<!-- ══════════ 자료실 ══════════ -->
+<sc-if value="{{ isArchive }}" hint-placeholder-val="{{ false }}">
+<main>
+  <div style="background:#17385E;padding:52px 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 자료실</div>
+      <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">자료실</h1>
+      <p style="margin:12px 0 0;font-size:15.5px;color:#C4D4E6">센터 자료와 부모교육 자료를 자유롭게 내려받으실 수 있습니다.</p>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;padding:48px 24px 80px">
+    <div style="display:flex;gap:10px;margin-bottom:32px">
+      <sc-for list="{{ archiveTabs }}" as="at" hint-placeholder-count="3">
+        <div onClick="{{ at.onClick }}" style="padding:11px 24px;border-radius:22px;font-size:14.5px;font-weight:700;cursor:pointer;background:{{ at.bg }};color:{{ at.color }};border:1.5px solid {{ at.border }}">{{ at.label }}</div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ archiveIsVideo }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <sc-for list="{{ videos }}" as="vd" hint-placeholder-count="3">
+          <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:16px;overflow:hidden;cursor:pointer" style-hover="box-shadow:0 10px 24px rgba(23,56,94,0.1)">
+            <div style="height:180px;position:relative">
+              <image-slot id="{{ vd.imgId }}" shape="rect" placeholder="영상 썸네일" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+                <div style="width:52px;height:52px;border-radius:50%;background:rgba(23,56,94,0.65);display:flex;align-items:center;justify-content:center">
+                  <div style="width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:15px solid #FFFFFF;margin-left:4px"></div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 20px">
+              <div style="font-size:15px;font-weight:700;color:#17385E;line-height:1.5;margin-bottom:6px">{{ vd.title }}</div>
+              <div style="font-size:12.5px;color:#9AAABB">{{ vd.meta }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ archiveIsList }}" hint-placeholder-val="{{ true }}">
+      <div style="border-top:2px solid #17385E">
+        <sc-for list="{{ archiveList }}" as="ar" hint-placeholder-count="5">
+          <div style="display:flex;align-items:center;gap:16px;padding:18px 10px;border-bottom:1px solid #EDF2F7" style-hover="background:#F8FBFD">
+            <span style="flex:none;width:44px;text-align:center;font-size:11px;font-weight:800;color:{{ ar.fg }};background:{{ ar.bg }};padding:5px 0;border-radius:8px">{{ ar.type }}</span>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:15px;font-weight:600;color:#22303E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ ar.title }}</div>
+              <div style="font-size:12.5px;color:#9AAABB;margin-top:3px">{{ ar.date }} · 조회 {{ ar.views }}</div>
+            </div>
+            <div style="flex:none;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#2168B4;border:1.5px solid #BFD6EC;padding:8px 16px;border-radius:18px;cursor:pointer" style-hover="background:#2168B4;color:#FFFFFF">
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1V9M7 9L4 6M7 9L10 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1.5 11.5H12.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg>
+              다운로드
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+</main>
+</sc-if>
+
+<!-- ══════════ 소식 및 공지 ══════════ -->
+<sc-if value="{{ isNews }}" hint-placeholder-val="{{ false }}">
+<main>
+  <div style="background:#17385E;padding:52px 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 소식 및 공지</div>
+      <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">소식 및 공지</h1>
+      <p style="margin:12px 0 0;font-size:15.5px;color:#C4D4E6">센터의 새로운 소식과 행사, 보도자료를 확인하세요.</p>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;padding:48px 24px 80px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;gap:20px">
+      <div style="display:flex;gap:10px">
+        <sc-for list="{{ newsTabs }}" as="nt" hint-placeholder-count="3">
+          <div onClick="{{ nt.onClick }}" style="padding:11px 24px;border-radius:22px;font-size:14.5px;font-weight:700;cursor:pointer;background:{{ nt.bg }};color:{{ nt.color }};border:1.5px solid {{ nt.border }}">{{ nt.label }}</div>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;border:1px solid #C9D6E3;border-radius:22px;padding:10px 18px;width:280px">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#7A8CA0" stroke-width="1.6"></circle><path d="M11 11L15 15" stroke="#7A8CA0" stroke-width="1.6" stroke-linecap="round"></path></svg>
+        <input type="text" placeholder="검색어를 입력하세요" style="border:none;outline:none;font-size:14px;font-family:inherit;flex:1;background:transparent">
+      </div>
+    </div>
+    <div style="border-top:2px solid #17385E">
+      <sc-for list="{{ newsList }}" as="nw" hint-placeholder-count="6">
+        <div style="display:flex;align-items:center;gap:18px;padding:20px 10px;border-bottom:1px solid #EDF2F7;cursor:pointer" style-hover="background:#F8FBFD">
+          <span style="flex:none;font-size:12px;font-weight:700;color:{{ nw.fg }};background:{{ nw.bg }};padding:5px 13px;border-radius:12px">{{ nw.cat }}</span>
+          <div style="flex:1;min-width:0;display:flex;align-items:center;gap:10px">
+            <span style="font-size:15.5px;font-weight:600;color:#22303E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ nw.title }}</span>
+            <sc-if value="{{ nw.isNew }}" hint-placeholder-val="{{ false }}">
+              <span style="flex:none;font-size:10.5px;font-weight:800;color:#FFFFFF;background:#3FB9A5;padding:3px 8px;border-radius:9px">NEW</span>
+            </sc-if>
+          </div>
+          <span style="flex:none;font-size:13px;color:#9AAABB">{{ nw.date }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;justify-content:center;gap:6px;margin-top:36px">
+      <sc-for list="{{ pages }}" as="pgn" hint-placeholder-count="5">
+        <div style="width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:700;cursor:pointer;background:{{ pgn.bg }};color:{{ pgn.color }};border:1px solid {{ pgn.border }}" style-hover="border-color:#2168B4">{{ pgn.n }}</div>
+      </sc-for>
+    </div>
+  </div>
+</main>
+</sc-if>
+
+<!-- ══════════ 프로그램 안내 ══════════ -->
+<sc-if value="{{ isPrograms }}" hint-placeholder-val="{{ false }}">
+<main>
+  <div style="background:#17385E;padding:52px 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 프로그램 안내</div>
+      <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">프로그램 안내</h1>
+      <p style="margin:12px 0 0;font-size:15.5px;color:#C4D4E6">아동·청소년과 가족의 어려움에 맞춘 전문 프로그램을 운영합니다.</p>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;padding:48px 24px 80px;display:grid;grid-template-columns:250px 1fr;gap:44px;align-items:start">
+    <aside style="position:sticky;top:100px;border:1px solid #DCE6EF;border-radius:16px;overflow:hidden">
+      <div style="background:#EAF3FB;padding:16px 20px;font-size:15px;font-weight:800;color:#17385E">프로그램 목록</div>
+      <sc-for list="{{ programs }}" as="pnav" hint-placeholder-count="7">
+        <div style="padding:13px 20px;font-size:13.5px;color:#5A6B7C;border-top:1px solid #EDF2F7;cursor:pointer;line-height:1.4" style-hover="background:#F4FAF9;color:#17385E;font-weight:600">{{ pnav.short }}</div>
+      </sc-for>
+    </aside>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <sc-for list="{{ programs }}" as="pg" hint-placeholder-count="7">
+        <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:18px;padding:30px 32px" style-hover="border-color:#3FB9A5;box-shadow:0 8px 22px rgba(23,56,94,0.07)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:24px">
+            <div style="min-width:0">
+              <div style="display:flex;gap:6px;margin-bottom:12px">
+                <span style="font-size:11.5px;font-weight:700;color:{{ pg.tagFg }};background:{{ pg.tagBg }};padding:4px 10px;border-radius:11px">{{ pg.tag }}</span>
+                <span style="font-size:11.5px;font-weight:600;color:#7A8CA0;background:#F2F6FA;padding:4px 10px;border-radius:11px">{{ pg.form }}</span>
+              </div>
+              <h3 style="margin:0 0 10px;font-size:19px;font-weight:800;color:#17385E;line-height:1.45;text-wrap:pretty">{{ pg.title }}</h3>
+              <p style="margin:0 0 16px;font-size:14.5px;line-height:1.7;color:#5A6B7C;text-wrap:pretty">{{ pg.desc }}</p>
+              <div style="display:flex;gap:24px;font-size:13px;color:#7A8CA0">
+                <span><b style="color:#22303E">대상</b> · {{ pg.target }}</span>
+                <span><b style="color:#22303E">운영</b> · {{ pg.schedule }}</span>
+              </div>
+            </div>
+            <div onClick="{{ goApply }}" style="flex:none;background:#2168B4;color:#FFFFFF;font-size:14px;font-weight:700;padding:11px 22px;border-radius:22px;cursor:pointer" style-hover="background:#17385E">신청하기</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</main>
+</sc-if>
+
+<!-- ══════════ 상담 신청 ══════════ -->
+<sc-if value="{{ isApply }}" hint-placeholder-val="{{ false }}">
+<main>
+  <div style="background:#17385E;padding:52px 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 상담 및 문의 &gt; 상담 신청</div>
+      <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">상담 신청</h1>
+      <p style="margin:12px 0 0;font-size:15.5px;color:#C4D4E6">신청서를 남겨주시면 담당 상담사가 1~2일 내에 연락드립니다.</p>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;padding:56px 24px 80px">
+    <!-- 절차 -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:52px">
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+        <div style="background:#EAF3FB;border-radius:16px;padding:24px;position:relative">
+          <div style="font-size:12px;font-weight:800;color:#3FB9A5;letter-spacing:1px;margin-bottom:8px">STEP {{ st.no }}</div>
+          <div style="font-size:16.5px;font-weight:800;color:#17385E;margin-bottom:6px">{{ st.title }}</div>
+          <div style="font-size:13px;line-height:1.6;color:#5A6B7C">{{ st.desc }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:44px;align-items:start">
+      <!-- 신청 폼 -->
+      <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:20px;padding:38px 40px">
+        <h2 style="margin:0 0 26px;font-size:21px;font-weight:800;color:#17385E">상담 신청서</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px 16px">
+          <div>
+            <label style="display:block;font-size:13.5px;font-weight:700;color:#22303E;margin-bottom:7px">보호자 성함 <span style="color:#E2574C">*</span></label>
+            <input type="text" placeholder="성함을 입력해 주세요" style="width:100%;box-sizing:border-box;border:1px solid #C9D6E3;border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#2168B4">
+          </div>
+          <div>
+            <label style="display:block;font-size:13.5px;font-weight:700;color:#22303E;margin-bottom:7px">연락처 <span style="color:#E2574C">*</span></label>
+            <input type="text" placeholder="010-0000-0000" style="width:100%;box-sizing:border-box;border:1px solid #C9D6E3;border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#2168B4">
+          </div>
+          <div>
+            <label style="display:block;font-size:13.5px;font-weight:700;color:#22303E;margin-bottom:7px">자녀 연령</label>
+            <input type="text" placeholder="예: 만 8세" style="width:100%;box-sizing:border-box;border:1px solid #C9D6E3;border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#2168B4">
+          </div>
+          <div>
+            <label style="display:block;font-size:13.5px;font-weight:700;color:#22303E;margin-bottom:7px">상담 분야 <span style="color:#E2574C">*</span></label>
+            <select style="width:100%;box-sizing:border-box;border:1px solid #C9D6E3;border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;outline:none;background:#FFFFFF;color:#22303E">
+              <option>분야를 선택해 주세요</option>
+              <option>놀이치료</option>
+              <option>인지학습치료</option>
+              <option>언어치료</option>
+              <option>사회성 그룹치료</option>
+              <option>부모상담</option>
+              <option>기타 문의</option>
+            </select>
+          </div>
+          <div style="grid-column:1/-1">
+            <label style="display:block;font-size:13.5px;font-weight:700;color:#22303E;margin-bottom:7px">상담을 원하시는 내용</label>
+            <textarea rows="5" placeholder="아이의 어려움이나 궁금한 점을 편하게 적어주세요." style="width:100%;box-sizing:border-box;border:1px solid #C9D6E3;border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;line-height:1.6;resize:vertical;outline:none" style-focus="border-color:#2168B4"></textarea>
+          </div>
+          <div style="grid-column:1/-1;display:flex;align-items:center;gap:8px;background:#F5F8FB;border-radius:10px;padding:13px 16px">
+            <input type="checkbox" style="width:16px;height:16px;accent-color:#2168B4">
+            <span style="font-size:13.5px;color:#5A6B7C">개인정보 수집·이용에 동의합니다. <a href="#">자세히 보기</a></span>
+          </div>
+        </div>
+        <div style="margin-top:26px;background:#2168B4;color:#FFFFFF;text-align:center;font-size:16px;font-weight:800;padding:15px;border-radius:12px;cursor:pointer" style-hover="background:#17385E">신청하기</div>
+      </div>
+      <!-- 안내 -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div style="background:#E6F6F3;border-radius:20px;padding:30px 32px">
+          <h3 style="margin:0 0 12px;font-size:17px;font-weight:800;color:#17385E">전화로도 신청하실 수 있어요</h3>
+          <div style="font-size:27px;font-weight:800;color:#2FA490;letter-spacing:-0.3px;margin-bottom:10px">02-000-0000</div>
+          <div style="font-size:13.5px;line-height:1.7;color:#5A6B7C">평일 09:00 – 18:00<br>점심시간 12:00 – 13:00 / 주말·공휴일 휴무</div>
+        </div>
+        <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:20px;padding:30px 32px">
+          <h3 style="margin:0 0 14px;font-size:17px;font-weight:800;color:#17385E">자주 묻는 질문</h3>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ faqs }}" as="fq" hint-placeholder-count="3">
+              <div style="font-size:14px;color:#5A6B7C;padding-bottom:12px;border-bottom:1px solid #EDF2F7;cursor:pointer" style-hover="color:#2168B4"><b style="color:#3FB9A5;margin-right:6px">Q.</b>{{ fq }}</div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</sc-if>
+
+<!-- 푸터 -->
+<footer style="background:#17385E;color:#B9CBDE">
+  <div style="max-width:1200px;margin:0 auto;padding:44px 24px 36px">
+    <div style="display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap">
+      <div>
+        <div style="font-size:17px;font-weight:800;color:#FFFFFF;margin-bottom:14px">서울아동청소년센터</div>
+        <div style="font-size:13.5px;line-height:1.9">서울특별시 ○○구 ○○로 00, 0층<br>대표전화 02-000-0000 · 팩스 02-000-0001<br>이메일 info@seoulchild.com</div>
+      </div>
+      <div style="display:flex;gap:56px">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#FFFFFF;margin-bottom:12px">바로가기</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+            <span onClick="{{ goPrograms }}" style="cursor:pointer" style-hover="color:#FFFFFF">프로그램 안내</span>
+            <span onClick="{{ goApply }}" style="cursor:pointer" style-hover="color:#FFFFFF">상담 신청</span>
+            <span style="cursor:pointer" style-hover="color:#FFFFFF">자료실</span>
+            <span style="cursor:pointer" style-hover="color:#FFFFFF">후원 안내</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#FFFFFF;margin-bottom:12px">소셜 미디어</div>
+          <div style="display:flex;gap:10px">
+            <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#FFFFFF;cursor:pointer" style-hover="background:#3FB9A5">In</div>
+            <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#FFFFFF;cursor:pointer" style-hover="background:#3FB9A5">Yt</div>
+            <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#FFFFFF;cursor:pointer" style-hover="background:#3FB9A5">Bl</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.14);margin-top:32px;padding-top:20px;display:flex;justify-content:space-between;font-size:12.5px;color:#8FA6C0">
+      <span>© 2026 Seoul Child &amp; Youth Center. All rights reserved.</span>
+      <div style="display:flex;gap:18px">
+        <span style="cursor:pointer;font-weight:700;color:#D4E2F0" style-hover="color:#FFFFFF">개인정보처리방침</span>
+        <span style="cursor:pointer" style-hover="color:#FFFFFF">이용약관</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- 팝업 배너 -->
+<sc-if value="{{ popupVisible }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;left:28px;bottom:28px;width:320px;background:#FFFFFF;border-radius:18px;box-shadow:0 18px 44px rgba(23,56,94,0.28);overflow:hidden;z-index:100">
+    <div style="background:linear-gradient(120deg,#2168B4,#3FB9A5);padding:22px 24px 20px;color:#FFFFFF">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:1.5px;opacity:0.85;margin-bottom:6px">모집 안내</div>
+      <div style="font-size:17px;font-weight:800;line-height:1.45">여름방학 사회성 그룹 프로그램<br>참가자 모집 중</div>
+    </div>
+    <div style="padding:18px 24px 20px">
+      <div style="font-size:13px;color:#5A6B7C;line-height:1.6;margin-bottom:14px">초등 3–6학년 대상 · 7월 27일(월) 시작<br>선착순 8명 모집</div>
+      <div style="display:flex;gap:8px">
+        <div onClick="{{ goPrograms }}" style="flex:1;background:#2168B4;color:#FFFFFF;text-align:center;font-size:13.5px;font-weight:700;padding:10px;border-radius:10px;cursor:pointer" style-hover="background:#17385E">자세히 보기</div>
+        <div onClick="{{ closePopup }}" style="flex:1;border:1px solid #DCE6EF;color:#7A8CA0;text-align:center;font-size:13.5px;font-weight:600;padding:10px;border-radius:10px;cursor:pointer" style-hover="background:#F5F8FB">닫기</div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showPopup&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;메인 화면&quot;}, &quot;showDonation&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;메인 화면&quot;}}">
+class Component extends DCLogic {
+  state = { page: 'home', popupClosed: false, aboutTab: 0, archiveTab: 0, newsTab: 0 };
+  go(page) { this.setState({ page }); window.scrollTo(0, 0); }
+  renderVals() {
+    const page = this.state.page;
+    const go = (p) => () => this.go(p);
+    const navDefs = [
+      ['센터소개', 'about'], ['사업안내', 'business'], ['치료실 소개', 'rooms'],
+      ['프로그램 안내', 'programs'], ['자료실', 'archive'], ['소식·공지', 'news'], ['상담·문의', 'apply']
+    ];
+    const navItems = navDefs.map(([label, target]) => {
+      const active = target === page;
+      return {
+        label, onClick: go(target),
+        weight: active ? 800 : 600,
+        color: active ? '#2168B4' : '#22303E',
+        underline: active ? '#2168B4' : 'transparent'
+      };
+    });
+    const pill = (labels, cur, set) => labels.map((label, i) => ({
+      label, onClick: () => this.setState(set(i)),
+      bg: i === cur ? '#2168B4' : '#FFFFFF',
+      color: i === cur ? '#FFFFFF' : '#5A6B7C',
+      border: i === cur ? '#2168B4' : '#DCE6EF'
+    }));
+    const tag = { 상담: ['#2168B4', '#EAF3FB'], 치료: ['#2FA490', '#E6F6F3'], 교육: ['#B07A2A', '#FBF1E1'], 예방: ['#7A5FB8', '#F0EBFA'] };
+    const P = (t, tagName, form, title, desc, target, schedule, short) => ({
+      tag: tagName, tagFg: tag[t][0], tagBg: tag[t][1], form, title, desc, target, schedule, short
+    });
+    const programs = [
+      P('상담', '가족상담', '개별·가족', '이혼 위기 가정 및 이혼 준비 가정을 위한 프로그램', '가정의 변화 속에서 아이가 안정감을 잃지 않도록 아동과 부모를 함께 돕는 심리 지원 프로그램입니다.', '이혼 위기·준비 가정의 아동과 부모', '주 1회 · 상시 접수', '이혼 위기 가정 지원'),
+      P('치료', '인지행동치료', '개별', 'ADHD·행동문제를 위한 인지행동치료(CBT)', '주의력과 충동 조절의 어려움, 행동 문제를 과학적 근거에 기반한 인지행동치료로 단계적으로 개선합니다.', '주의력·행동 조절이 어려운 아동·청소년', '주 1~2회 · 12회기', 'ADHD·행동문제 CBT'),
+      P('교육', '학습지원', '개별', '학습장애 프로그램', '읽기·쓰기·수학 등 영역별 평가를 바탕으로 아이의 학습 속도에 맞춘 개별 학습치료를 제공합니다.', '학습에 어려움을 겪는 아동', '주 1~2회 · 상시 접수', '학습장애 프로그램'),
+      P('치료', '통합치료', '개별+그룹', '경계선 지능 아동을 위한 통합 프로그램', '인지·정서·사회성을 아우르는 통합적 접근으로 아이가 일상과 학교생활에 잘 적응하도록 돕습니다.', '경계선 지능 아동', '주 2회 · 학기제', '경계선 아동 통합 프로그램'),
+      P('치료', '사회성훈련', '그룹', '사회적 대화 및 기술 훈련', '반응성 애착장애, 경증 지적장애, 자폐 스펙트럼 청소년이 또래와 소통하는 힘을 기르는 그룹 훈련입니다.', '사회적 상호작용이 어려운 청소년', '주 1회 · 8~12회기', '사회적 대화·기술 훈련'),
+      P('상담', '부모교육', '온라인(Zoom)', '부모를 위한 줌 집단상담 프로그램', '비슷한 고민을 가진 부모들이 온라인으로 모여 전문가와 함께 양육의 어려움을 나누고 배웁니다.', '아동·청소년 자녀를 둔 부모', '격주 저녁 · 온라인', '부모 줌 집단상담'),
+      P('예방', '예방교육', '그룹', '아동·청소년 중독 예방 프로그램', '스마트폰·게임 등 미디어 과의존을 조기에 발견하고 건강한 사용 습관을 기르는 예방 교육입니다.', '미디어 과의존이 우려되는 아동·청소년', '분기별 운영', '중독 예방 프로그램')
+    ];
+    const featured = [programs[1], programs[4], programs[5]].map((p, i) => ({
+      ...p, imgId: 'prog-' + i,
+      imgHint: ['치료 활동 사진', '그룹 활동 사진', '부모교육 사진'][i]
+    }));
+    const aTab = this.state.aboutTab, arTab = this.state.archiveTab, nTab = this.state.newsTab;
+    const archiveData = [
+      [
+        { type: 'PDF', fg: '#C94F44', bg: '#FCEDEB', title: '2026 서울아동청소년센터 사업안내 브로슈어', date: '2026.07.01', views: 214 },
+        { type: 'PDF', fg: '#C94F44', bg: '#FCEDEB', title: '센터 이용 안내문 (상담 절차 및 비용)', date: '2026.06.18', views: 342 },
+        { type: 'HWP', fg: '#2168B4', bg: '#EAF3FB', title: '프로그램 신청서 양식', date: '2026.06.10', views: 508 },
+        { type: 'PDF', fg: '#C94F44', bg: '#FCEDEB', title: '2025 연간 운영보고서', date: '2026.03.02', views: 187 },
+        { type: 'ZIP', fg: '#7A5FB8', bg: '#F0EBFA', title: '기관 로고 및 CI 파일', date: '2026.01.15', views: 96 }
+      ],
+      [
+        { type: 'PDF', fg: '#C94F44', bg: '#FCEDEB', title: '[부모교육] 사춘기 자녀와 대화하는 법', date: '2026.07.08', views: 623 },
+        { type: 'PDF', fg: '#C94F44', bg: '#FCEDEB', title: '[부모교육] ADHD 아이를 돕는 가정 내 환경 만들기', date: '2026.06.24', views: 771 },
+        { type: 'PDF', fg: '#C94F44', bg: '#FCEDEB', title: '[부모교육] 스마트폰 사용 규칙, 이렇게 정하세요', date: '2026.06.05', views: 850 },
+        { type: 'PPT', fg: '#B07A2A', bg: '#FBF1E1', title: '[강의자료] 아이의 불안, 어떻게 알아차릴까', date: '2026.05.20', views: 412 },
+        { type: 'PDF', fg: '#C94F44', bg: '#FCEDEB', title: '[부모교육] 형제 갈등 중재 가이드', date: '2026.05.02', views: 366 }
+      ]
+    ];
+    const newsData = [
+      [
+        { cat: '공지', fg: '#2168B4', bg: '#EAF3FB', isNew: true, title: '2026년 하반기 사회성 그룹치료 참가자 모집 안내', date: '2026.07.14' },
+        { cat: '공지', fg: '#2168B4', bg: '#EAF3FB', isNew: true, title: '7월 부모교육 특강 「사춘기 자녀와 대화하기」 신청 안내', date: '2026.07.10' },
+        { cat: '공지', fg: '#2168B4', bg: '#EAF3FB', isNew: false, title: '여름방학 프로그램 운영 일정 안내', date: '2026.07.03' },
+        { cat: '공지', fg: '#2168B4', bg: '#EAF3FB', isNew: false, title: '센터 홈페이지 리뉴얼 오픈 안내', date: '2026.06.27' },
+        { cat: '공지', fg: '#2168B4', bg: '#EAF3FB', isNew: false, title: '6월 후원자 소식지 발간', date: '2026.06.20' },
+        { cat: '공지', fg: '#2168B4', bg: '#EAF3FB', isNew: false, title: '개인정보처리방침 개정 안내', date: '2026.06.02' }
+      ],
+      [
+        { cat: '행사', fg: '#2FA490', bg: '#E6F6F3', isNew: true, title: '부모교육 특강 · 사춘기 자녀와 대화하기 (7/22 온라인)', date: '2026.07.09' },
+        { cat: '행사', fg: '#2FA490', bg: '#E6F6F3', isNew: false, title: '여름방학 사회성 그룹 프로그램 오리엔테이션 (7/27)', date: '2026.07.02' },
+        { cat: '행사', fg: '#2FA490', bg: '#E6F6F3', isNew: false, title: '지역아동센터 실무자 협력 간담회 (8/5)', date: '2026.06.30' },
+        { cat: '행사', fg: '#2FA490', bg: '#E6F6F3', isNew: false, title: '가족과 함께하는 봄 나들이 활동 후기', date: '2026.05.11' }
+      ],
+      [
+        { cat: '보도', fg: '#B07A2A', bg: '#FBF1E1', isNew: false, title: '[○○신문] "아이 마음 돌보는 동네 울타리" 서울아동청소년센터를 가다', date: '2026.06.12' },
+        { cat: '보도', fg: '#B07A2A', bg: '#FBF1E1', isNew: false, title: '[○○방송] 여름방학 아동 심리지원 프로그램 소개', date: '2026.05.28' },
+        { cat: '보도', fg: '#B07A2A', bg: '#FBF1E1', isNew: false, title: '[보도자료] 2025 연간 상담 실적 발표', date: '2026.03.05' }
+      ]
+    ];
+    return {
+      isHome: page === 'home', isPrograms: page === 'programs', isApply: page === 'apply',
+      isAbout: page === 'about', isBusiness: page === 'business', isRooms: page === 'rooms',
+      isArchive: page === 'archive', isNews: page === 'news',
+      aboutIs0: aTab === 0, aboutIs1: aTab === 1, aboutIs2: aTab === 2, aboutIs3: aTab === 3, aboutIs4: aTab === 4,
+      aboutTabs: ['인사말', '비전·미션', '연혁', '조직도', '오시는 길'].map((label, i) => ({
+        label, onClick: () => this.setState({ aboutTab: i }),
+        weight: i === aTab ? 800 : 600,
+        color: i === aTab ? '#2168B4' : '#5A6B7C',
+        underline: i === aTab ? '#2168B4' : 'transparent'
+      })),
+      values: [
+        { glyph: '온', bg: '#E6F6F3', fg: '#2FA490', title: '따뜻함', desc: '아이 한 명 한 명의 마음을 존중하며 정서적으로 안전한 공간을 만듭니다.' },
+        { glyph: '전', bg: '#EAF3FB', fg: '#2168B4', title: '전문성', desc: '검증된 평가와 치료 기법, 지속적인 연구로 신뢰할 수 있는 서비스를 제공합니다.' },
+        { glyph: '연', bg: '#FBF1E1', fg: '#B07A2A', title: '연결', desc: '가정·학교·지역사회를 이어 아이를 함께 돌보는 협력의 중심이 됩니다.' }
+      ],
+      missions: [
+        { no: 1, text: '아동·청소년의 심리적 어려움을 조기에 발견하고 전문적으로 개입합니다.' },
+        { no: 2, text: '부모와 가족이 아이의 성장을 도울 수 있도록 교육하고 지원합니다.' },
+        { no: 3, text: '지역사회 기관과 협력하여 촘촘한 아동 돌봄망을 구축합니다.' }
+      ],
+      history: [
+        { year: '2026', items: [{ mm: '06', text: '홈페이지 리뉴얼 오픈' }, { mm: '03', text: '경계선 지능 아동 통합 프로그램 신설' }] },
+        { year: '2024', items: [{ mm: '09', text: '부모 대상 온라인(Zoom) 집단상담 프로그램 시작' }, { mm: '02', text: '치료실 확장 이전 (놀이·언어·인지학습·그룹치료실)' }] },
+        { year: '2020', items: [{ mm: '11', text: '지역아동센터 협력 사업 협약 체결' }, { mm: '05', text: '누적 상담 10,000회기 달성' }] },
+        { year: '2015', items: [{ mm: '03', text: '서울아동청소년센터 개소' }] }
+      ],
+      orgTeams: [
+        { team: '상담치료팀', bg: '#2168B4', duties: ['개별·가족 상담', '심리평가', '놀이·언어·인지학습 치료', '사회성 그룹치료'] },
+        { team: '교육기획팀', bg: '#2FA490', duties: ['부모교육·특강 기획', '예방교육 운영', '교육자료 개발'] },
+        { team: '운영지원팀', bg: '#7A8CA0', duties: ['접수·행정', '홍보·후원 관리', '지역기관 연계'] }
+      ],
+      businesses: [
+        { imgId: 'biz-0', imgHint: '상담 장면 사진', dir: 'ltr', eng: 'COUNSELING', fg: '#2168B4', chipBg: '#EAF3FB', title: '상담사업', desc: '아동·청소년과 가족이 겪는 심리·정서적 어려움을 전문 상담사가 함께 풀어갑니다. 초기 접수면접부터 심리평가, 개별·가족 상담까지 체계적으로 진행됩니다.', items: [{ no: 1, name: '개별 상담·치료', note: '놀이·언어·인지학습 치료 포함' }, { no: 2, name: '가족 상담', note: '부모상담·가족관계 개선' }, { no: 3, name: '심리평가', note: '종합심리검사·발달평가' }] },
+        { imgId: 'biz-1', imgHint: '부모교육 강의 사진', dir: 'rtl', eng: 'EDUCATION', fg: '#2FA490', chipBg: '#E6F6F3', title: '교육사업', desc: '부모와 교사, 아이들을 위한 교육으로 문제를 예방하고 성장의 힘을 키웁니다. 온라인 강좌와 현장 특강을 함께 운영합니다.', items: [{ no: 1, name: '부모교육', note: '정기 특강·줌 집단상담' }, { no: 2, name: '교사 연수', note: '학교·기관 방문 교육' }, { no: 3, name: '예방교육', note: '중독 예방·정서 교육' }] },
+        { imgId: 'biz-2', imgHint: '지역 협력 활동 사진', dir: 'ltr', eng: 'COMMUNITY', fg: '#B07A2A', chipBg: '#FBF1E1', title: '지역연계사업', desc: '학교, 지역아동센터, 복지기관과 손잡고 지역의 아이들을 함께 돌봅니다. 사례 의뢰와 협력 프로그램 운영을 통해 촘촘한 돌봄망을 만듭니다.', items: [{ no: 1, name: '학교 연계', note: '위기학생 의뢰·자문' }, { no: 2, name: '기관 협력', note: '지역아동센터·복지관 협약' }, { no: 3, name: '사례 관리', note: '통합 사례회의 운영' }] }
+      ],
+      rooms: [
+        { imgId: 'room-0', name: '놀이치료실', desc: '아이가 놀이를 통해 마음을 표현하고 회복하는 공간입니다. 연령별 놀잇감과 모래놀이 도구를 갖추고 있습니다.', target: '유아·초등 저학년' },
+        { imgId: 'room-1', name: '인지학습치료실', desc: '읽기·쓰기·수학 등 학습의 기초를 아이의 속도에 맞춰 다지는 1:1 학습치료 공간입니다.', target: '학습에 어려움을 겪는 아동' },
+        { imgId: 'room-2', name: '언어치료실', desc: '발음, 어휘, 의사소통 능력을 단계적으로 키우는 언어치료 전용 공간입니다.', target: '언어발달이 늦은 아동' },
+        { imgId: 'room-3', name: '사회성 그룹치료실', desc: '또래와 함께하는 그룹 활동으로 대화와 협동, 감정 조절을 연습하는 넓은 활동 공간입니다.', target: '초등~청소년 그룹' },
+        { imgId: 'room-4', name: '부모상담실', desc: '보호자가 편안하게 이야기를 나눌 수 있는 조용하고 아늑한 상담 공간입니다.', target: '학부모·보호자' },
+        { imgId: 'room-5', name: '접수면접실', desc: '첫 방문 시 아이와 가족의 이야기를 듣고 필요한 도움을 안내하는 초기 면접 공간입니다.', target: '신규 내방 가족' }
+      ],
+      archiveTabs: pill(['센터 자료', '부모교육 자료', '영상자료'], arTab, (i) => ({ archiveTab: i })),
+      archiveIsVideo: arTab === 2, archiveIsList: arTab !== 2,
+      archiveList: archiveData[arTab] || archiveData[0],
+      videos: [
+        { imgId: 'vid-0', title: '센터 소개 영상 — 아이의 마음이 자라는 곳', meta: '2026.06.27 · 3분 12초' },
+        { imgId: 'vid-1', title: '[숏폼] 놀이치료실은 어떤 곳인가요?', meta: '2026.06.10 · 58초' },
+        { imgId: 'vid-2', title: '[부모교육] 아이가 화를 낼 때, 부모의 첫 마디', meta: '2026.05.22 · 12분 40초' }
+      ],
+      newsTabs: pill(['공지사항', '행사안내', '보도자료'], nTab, (i) => ({ newsTab: i })),
+      newsList: newsData[nTab] || newsData[0],
+      pages: [1, 2, 3, 4, 5].map((n) => ({
+        n, bg: n === 1 ? '#2168B4' : '#FFFFFF', color: n === 1 ? '#FFFFFF' : '#5A6B7C', border: n === 1 ? '#2168B4' : '#DCE6EF'
+      })),
+      goHome: go('home'), goPrograms: go('programs'), goApply: go('apply'),
+      goDirections: () => { this.setState({ page: 'about', aboutTab: 4 }); window.scrollTo(0, 0); },
+      navItems, programs, featured,
+      quickLinks: [
+        { glyph: '상', bg: '#EAF3FB', fg: '#2168B4', title: '상담 신청', desc: '전문 상담 예약하기', onClick: go('apply') },
+        { glyph: '프', bg: '#E6F6F3', fg: '#2FA490', title: '프로그램 신청', desc: '모집 중인 프로그램', onClick: go('programs') },
+        { glyph: '자', bg: '#FBF1E1', fg: '#B07A2A', title: '부모교육 자료', desc: '교육자료 다운로드', onClick: () => {} },
+        { glyph: '길', bg: '#F0EBFA', fg: '#7A5FB8', title: '오시는 길', desc: '위치 및 교통 안내', onClick: () => {} }
+      ],
+      services: [
+        { glyph: '상', bg: '#EAF3FB', fg: '#2168B4', title: '상담사업', desc: '아동·청소년과 가족을 위한 개별상담, 가족상담, 심리평가를 전문 상담사가 진행합니다.', tags: ['개별상담', '가족상담', '심리평가'] },
+        { glyph: '교', bg: '#E6F6F3', fg: '#2FA490', title: '교육사업', desc: '부모교육, 교사 연수, 아동·청소년 대상 예방교육 등 성장을 돕는 교육을 운영합니다.', tags: ['부모교육', '교사연수', '예방교육'] },
+        { glyph: '연', bg: '#FBF1E1', fg: '#B07A2A', title: '지역연계사업', desc: '학교, 지역아동센터, 복지기관과 협력하여 지역사회의 아동·청소년을 함께 돌봅니다.', tags: ['학교연계', '기관협력', '사례관리'] }
+      ],
+      notices: [
+        { isNew: true, title: '2026년 하반기 사회성 그룹치료 참가자 모집 안내', date: '2026.07.14' },
+        { isNew: true, title: '7월 부모교육 특강 「사춘기 자녀와 대화하기」 신청 안내', date: '2026.07.10' },
+        { isNew: false, title: '여름방학 프로그램 운영 일정 안내', date: '2026.07.03' },
+        { isNew: false, title: '센터 홈페이지 리뉴얼 오픈 안내', date: '2026.06.27' },
+        { isNew: false, title: '6월 후원자 소식지 발간', date: '2026.06.20' }
+      ],
+      events: [
+        { month: 'JUL', day: '22', title: '부모교육 특강 · 사춘기 자녀와 대화하기', meta: '19:30 · 온라인(Zoom)' },
+        { month: 'JUL', day: '27', title: '여름방학 사회성 그룹 프로그램 시작', meta: '초등 3–6학년 · 센터 그룹치료실' },
+        { month: 'AUG', day: '05', title: '지역아동센터 실무자 협력 간담회', meta: '14:00 · 센터 세미나실' }
+      ],
+      partners: ['서울특별시', '○○구청', '○○교육지원청', '지역아동센터협의회', '○○복지재단', '○○대학교'],
+      steps: [
+        { no: 1, title: '온라인 신청', desc: '신청서를 작성해 제출하거나 전화로 접수합니다.' },
+        { no: 2, title: '접수면접 안내', desc: '담당자가 1~2일 내 연락드려 일정을 잡습니다.' },
+        { no: 3, title: '초기 상담·평가', desc: '아이와 가족의 어려움을 파악하고 평가를 진행합니다.' },
+        { no: 4, title: '프로그램 연계', desc: '가장 적합한 치료·프로그램을 안내해 드립니다.' }
+      ],
+      faqs: ['상담 비용은 어떻게 되나요?', '심리평가는 꼭 받아야 하나요?', '부모도 함께 상담을 받을 수 있나요?'],
+      showDonation: this.props.showDonation ?? true,
+      popupVisible: (this.props.showPopup ?? true) && !this.state.popupClosed && page === 'home',
+      closePopup: () => this.setState({ popupClosed: true })
+    };
+  }
+}
+</script>
+</body>
+</html>
