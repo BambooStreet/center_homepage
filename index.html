@@ -76,7 +76,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#FFFFFF;border-radius:16px;box-shadow:0 12px 32px rgba(23,56,94,0.12);overflow:hidden">
       <sc-for list="{{ quickLinks }}" as="q" hint-placeholder-count="4">
         <div onClick="{{ q.onClick }}" style="display:flex;align-items:center;gap:14px;padding:24px 26px;border-right:1px solid #EDF2F7;cursor:pointer" style-hover="background:#F4FAF9">
-          <div style="width:46px;height:46px;border-radius:14px;background:{{ q.bg }};display:flex;align-items:center;justify-content:center;font-size:20px;color:{{ q.fg }};font-weight:800;flex:none">{{ q.glyph }}</div>
+          <div style="width:46px;height:46px;border-radius:14px;background:{{ q.bg }};display:flex;align-items:center;justify-content:center;font-size:20px;color:{{ q.fg }};flex:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ q.icon }}"></path></svg></div>
           <div>
             <div style="font-size:15.5px;font-weight:700;color:#17385E">{{ q.title }}</div>
             <div style="font-size:12.5px;color:#7A8CA0;margin-top:2px">{{ q.desc }}</div>
@@ -87,15 +87,15 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
   </section>
 
   <!-- 주요 사업 -->
-  <section style="max-width:1200px;margin:0 auto;padding:80px 24px 0">
+  <section style="max-width:1200px;margin:0 auto;padding:104px 24px 0">
     <div style="text-align:center;margin-bottom:40px">
       <div style="font-size:13px;font-weight:700;color:#3FB9A5;letter-spacing:2px;margin-bottom:8px">OUR SERVICES</div>
       <h2 style="margin:0;font-size:30px;font-weight:800;color:#17385E;letter-spacing:-0.4px">주요 사업</h2>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
       <sc-for list="{{ services }}" as="sv" hint-placeholder-count="3">
         <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:18px;padding:34px 30px;transition:box-shadow .2s,transform .2s" style-hover="box-shadow:0 14px 30px rgba(23,56,94,0.1);transform:translateY(-4px)">
-          <div style="width:54px;height:54px;border-radius:16px;background:{{ sv.bg }};display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:24px;color:{{ sv.fg }};font-weight:800">{{ sv.glyph }}</div>
+          <div style="width:54px;height:54px;border-radius:16px;background:{{ sv.bg }};display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:24px;color:{{ sv.fg }}"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ sv.icon }}"></path></svg></div>
           <h3 style="margin:0 0 10px;font-size:20px;font-weight:800;color:#17385E">{{ sv.title }}</h3>
           <p style="margin:0 0 18px;font-size:14.5px;line-height:1.7;color:#5A6B7C;text-wrap:pretty">{{ sv.desc }}</p>
           <div style="display:flex;flex-wrap:wrap;gap:6px">
@@ -109,7 +109,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
   </section>
 
   <!-- 프로그램 하이라이트 -->
-  <section style="background:#EAF3FB;margin-top:80px;padding:72px 0">
+  <section style="background:#EAF3FB;margin-top:104px;padding:100px 0">
     <div style="max-width:1200px;margin:0 auto;padding:0 24px">
       <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px">
         <div>
@@ -118,7 +118,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
         </div>
         <div onClick="{{ goPrograms }}" style="font-size:14.5px;font-weight:700;color:#2168B4;cursor:pointer;display:flex;align-items:center;gap:6px" style-hover="color:#17385E">전체 프로그램 보기 <span style="font-size:17px">→</span></div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
         <sc-for list="{{ featured }}" as="fp" hint-placeholder-count="3">
           <div style="background:#FFFFFF;border-radius:18px;overflow:hidden;box-shadow:0 4px 14px rgba(23,56,94,0.07);display:flex;flex-direction:column">
             <div style="height:170px;position:relative">
@@ -140,7 +140,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
   </section>
 
   <!-- 소식 · 공지 · 일정 -->
-  <section style="max-width:1200px;margin:0 auto;padding:80px 24px">
+  <section style="max-width:1200px;margin:0 auto;padding:104px 24px">
     <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:48px">
       <div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
@@ -185,7 +185,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
   <!-- 후원 밴드 -->
   <sc-if value="{{ showDonation }}" hint-placeholder-val="{{ true }}">
   <section style="background:linear-gradient(120deg,#2FA490,#3FB9A5 55%,#57C9B6)">
-    <div style="max-width:1200px;margin:0 auto;padding:52px 24px;display:flex;align-items:center;justify-content:space-between;gap:32px">
+    <div style="max-width:1200px;margin:0 auto;padding:72px 24px;display:flex;align-items:center;justify-content:space-between;gap:32px">
       <div>
         <h2 style="margin:0 0 8px;font-size:26px;font-weight:800;color:#FFFFFF;letter-spacing:-0.3px">여러분의 관심이 아이들의 희망이 됩니다</h2>
         <p style="margin:0;font-size:15px;color:rgba(255,255,255,0.92)">후원과 자원봉사로 아동·청소년의 건강한 성장을 함께해 주세요.</p>
@@ -199,7 +199,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
   </sc-if>
 
   <!-- 협력기관 -->
-  <section style="max-width:1200px;margin:0 auto;padding:56px 24px">
+  <section style="max-width:1200px;margin:0 auto;padding:76px 24px">
     <div style="text-align:center;font-size:14px;font-weight:700;color:#7A8CA0;letter-spacing:1px;margin-bottom:26px">협력기관</div>
     <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap">
       <sc-for list="{{ partners }}" as="pt" hint-placeholder-count="6">
@@ -213,7 +213,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
 <!-- ══════════ 센터소개 ══════════ -->
 <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
 <main>
-  <div style="background:#17385E;padding:52px 0">
+  <div style="background:#17385E;padding:72px 0">
     <div style="max-width:1200px;margin:0 auto;padding:0 24px">
       <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 센터소개</div>
       <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">센터소개</h1>
@@ -227,7 +227,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
       </sc-for>
     </div>
   </div>
-  <div style="max-width:1200px;margin:0 auto;padding:56px 24px 80px">
+  <div style="max-width:1200px;margin:0 auto;padding:76px 24px 104px">
 
     <sc-if value="{{ aboutIs0 }}" hint-placeholder-val="{{ true }}">
       <div style="display:grid;grid-template-columns:340px 1fr;gap:52px;align-items:start">
@@ -255,10 +255,10 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
         <h2 style="margin:0 0 16px;font-size:32px;font-weight:800;color:#17385E;letter-spacing:-0.4px;line-height:1.4">모든 아동·청소년이 안전하게 성장하는<br>따뜻한 지역사회</h2>
         <p style="margin:0;font-size:16px;color:#5A6B7C">전문성과 신뢰를 바탕으로 아이와 가족, 지역사회를 잇는 성장 파트너가 되겠습니다.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
         <sc-for list="{{ values }}" as="vl" hint-placeholder-count="3">
           <div style="background:{{ vl.bg }};border-radius:20px;padding:36px 32px;text-align:center">
-            <div style="width:58px;height:58px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:24px;font-weight:800;color:{{ vl.fg }}">{{ vl.glyph }}</div>
+            <div style="width:58px;height:58px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:{{ vl.fg }}"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ vl.icon }}"></path></svg></div>
             <h3 style="margin:0 0 10px;font-size:19px;font-weight:800;color:#17385E">{{ vl.title }}</h3>
             <p style="margin:0;font-size:14px;line-height:1.7;color:#5A6B7C;text-wrap:pretty">{{ vl.desc }}</p>
           </div>
@@ -343,14 +343,14 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
 <!-- ══════════ 사업안내 ══════════ -->
 <sc-if value="{{ isBusiness }}" hint-placeholder-val="{{ false }}">
 <main>
-  <div style="background:#17385E;padding:52px 0">
+  <div style="background:#17385E;padding:72px 0">
     <div style="max-width:1200px;margin:0 auto;padding:0 24px">
       <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 사업안내</div>
       <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">사업안내</h1>
       <p style="margin:12px 0 0;font-size:15.5px;color:#C4D4E6">상담·교육·지역연계, 세 가지 축으로 아동·청소년의 성장을 돕습니다.</p>
     </div>
   </div>
-  <div style="max-width:1200px;margin:0 auto;padding:64px 24px 80px;display:flex;flex-direction:column;gap:56px">
+  <div style="max-width:1200px;margin:0 auto;padding:84px 24px 104px;display:flex;flex-direction:column;gap:56px">
     <sc-for list="{{ businesses }}" as="bz" hint-placeholder-count="3">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;direction:{{ bz.dir }}">
         <div style="height:320px;border-radius:20px;overflow:hidden;position:relative;direction:ltr">
@@ -378,15 +378,15 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
 <!-- ══════════ 치료실 소개 ══════════ -->
 <sc-if value="{{ isRooms }}" hint-placeholder-val="{{ false }}">
 <main>
-  <div style="background:#17385E;padding:52px 0">
+  <div style="background:#17385E;padding:72px 0">
     <div style="max-width:1200px;margin:0 auto;padding:0 24px">
       <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 치료실 소개</div>
       <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">치료실 소개</h1>
       <p style="margin:12px 0 0;font-size:15.5px;color:#C4D4E6">아이들이 안전하고 편안하게 머무를 수 있는 전문 치료 공간입니다.</p>
     </div>
   </div>
-  <div style="max-width:1200px;margin:0 auto;padding:56px 24px 80px">
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+  <div style="max-width:1200px;margin:0 auto;padding:76px 24px 104px">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
       <sc-for list="{{ rooms }}" as="rm" hint-placeholder-count="6">
         <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:18px;overflow:hidden" style-hover="box-shadow:0 12px 28px rgba(23,56,94,0.1)">
           <div style="height:190px;position:relative">
@@ -407,21 +407,21 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
 <!-- ══════════ 자료실 ══════════ -->
 <sc-if value="{{ isArchive }}" hint-placeholder-val="{{ false }}">
 <main>
-  <div style="background:#17385E;padding:52px 0">
+  <div style="background:#17385E;padding:72px 0">
     <div style="max-width:1200px;margin:0 auto;padding:0 24px">
       <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 자료실</div>
       <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">자료실</h1>
       <p style="margin:12px 0 0;font-size:15.5px;color:#C4D4E6">센터 자료와 부모교육 자료를 자유롭게 내려받으실 수 있습니다.</p>
     </div>
   </div>
-  <div style="max-width:1200px;margin:0 auto;padding:48px 24px 80px">
+  <div style="max-width:1200px;margin:0 auto;padding:64px 24px 104px">
     <div style="display:flex;gap:10px;margin-bottom:32px">
       <sc-for list="{{ archiveTabs }}" as="at" hint-placeholder-count="3">
         <div onClick="{{ at.onClick }}" style="padding:11px 24px;border-radius:22px;font-size:14.5px;font-weight:700;cursor:pointer;background:{{ at.bg }};color:{{ at.color }};border:1.5px solid {{ at.border }}">{{ at.label }}</div>
       </sc-for>
     </div>
     <sc-if value="{{ archiveIsVideo }}" hint-placeholder-val="{{ false }}">
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
         <sc-for list="{{ videos }}" as="vd" hint-placeholder-count="3">
           <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:16px;overflow:hidden;cursor:pointer" style-hover="box-shadow:0 10px 24px rgba(23,56,94,0.1)">
             <div style="height:180px;position:relative">
@@ -464,14 +464,14 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
 <!-- ══════════ 소식 및 공지 ══════════ -->
 <sc-if value="{{ isNews }}" hint-placeholder-val="{{ false }}">
 <main>
-  <div style="background:#17385E;padding:52px 0">
+  <div style="background:#17385E;padding:72px 0">
     <div style="max-width:1200px;margin:0 auto;padding:0 24px">
       <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 소식 및 공지</div>
       <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">소식 및 공지</h1>
       <p style="margin:12px 0 0;font-size:15.5px;color:#C4D4E6">센터의 새로운 소식과 행사, 보도자료를 확인하세요.</p>
     </div>
   </div>
-  <div style="max-width:1200px;margin:0 auto;padding:48px 24px 80px">
+  <div style="max-width:1200px;margin:0 auto;padding:64px 24px 104px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;gap:20px">
       <div style="display:flex;gap:10px">
         <sc-for list="{{ newsTabs }}" as="nt" hint-placeholder-count="3">
@@ -509,14 +509,14 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
 <!-- ══════════ 프로그램 안내 ══════════ -->
 <sc-if value="{{ isPrograms }}" hint-placeholder-val="{{ false }}">
 <main>
-  <div style="background:#17385E;padding:52px 0">
+  <div style="background:#17385E;padding:72px 0">
     <div style="max-width:1200px;margin:0 auto;padding:0 24px">
       <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 프로그램 안내</div>
       <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">프로그램 안내</h1>
       <p style="margin:12px 0 0;font-size:15.5px;color:#C4D4E6">아동·청소년과 가족의 어려움에 맞춘 전문 프로그램을 운영합니다.</p>
     </div>
   </div>
-  <div style="max-width:1200px;margin:0 auto;padding:48px 24px 80px;display:grid;grid-template-columns:250px 1fr;gap:44px;align-items:start">
+  <div style="max-width:1200px;margin:0 auto;padding:64px 24px 104px;display:grid;grid-template-columns:250px 1fr;gap:44px;align-items:start">
     <aside style="position:sticky;top:100px;border:1px solid #DCE6EF;border-radius:16px;overflow:hidden">
       <div style="background:#EAF3FB;padding:16px 20px;font-size:15px;font-weight:800;color:#17385E">프로그램 목록</div>
       <sc-for list="{{ programs }}" as="pnav" hint-placeholder-count="7">
@@ -550,14 +550,14 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
 <!-- ══════════ 상담·문의 안내 ══════════ -->
 <sc-if value="{{ isApply }}" hint-placeholder-val="{{ false }}">
 <main>
-  <div style="background:#17385E;padding:52px 0">
+  <div style="background:#17385E;padding:72px 0">
     <div style="max-width:1200px;margin:0 auto;padding:0 24px">
       <div style="font-size:13px;color:#8FA6C0;margin-bottom:10px">홈 &gt; 상담·문의</div>
       <h1 style="margin:0;font-size:34px;font-weight:800;color:#FFFFFF;letter-spacing:-0.4px">상담·문의 안내</h1>
       <p style="margin:12px 0 0;font-size:15.5px;color:#C4D4E6">궁금한 점은 전화나 방문으로 편하게 문의해 주세요. 담당자가 친절히 안내해 드립니다.</p>
     </div>
   </div>
-  <div style="max-width:1200px;margin:0 auto;padding:56px 24px 80px">
+  <div style="max-width:1200px;margin:0 auto;padding:76px 24px 104px">
     <!-- 이용 절차 -->
     <h2 style="margin:0 0 22px;font-size:21px;font-weight:800;color:#17385E">상담 이용 절차</h2>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:52px">
@@ -786,10 +786,10 @@ class Component extends DCLogic {
       goDirections: () => { this.setState({ page: 'about', aboutTab: 4 }); window.scrollTo(0, 0); },
       navItems, programs, featured,
       quickLinks: [
-        { glyph: '상', bg: '#EAF3FB', fg: '#2168B4', title: '상담·문의', desc: '전화·방문 문의 안내', onClick: go('apply') },
-        { glyph: '프', bg: '#E6F6F3', fg: '#2FA490', title: '프로그램 안내', desc: '운영 중인 프로그램', onClick: go('programs') },
-        { glyph: '자', bg: '#FBF1E1', fg: '#B07A2A', title: '부모교육 자료', desc: '교육자료 다운로드', onClick: () => {} },
-        { glyph: '길', bg: '#F0EBFA', fg: '#7A5FB8', title: '오시는 길', desc: '위치 및 교통 안내', onClick: () => {} }
+        { icon: C.icons.chat, bg: '#EAF3FB', fg: '#2168B4', title: '상담·문의', desc: '전화·방문 문의 안내', onClick: go('apply') },
+        { icon: C.icons.list, bg: '#E6F6F3', fg: '#2FA490', title: '프로그램 안내', desc: '운영 중인 프로그램', onClick: go('programs') },
+        { icon: C.icons.book, bg: '#FBF1E1', fg: '#B07A2A', title: '부모교육 자료', desc: '교육자료 다운로드', onClick: () => {} },
+        { icon: C.icons.pin, bg: '#F0EBFA', fg: '#7A5FB8', title: '오시는 길', desc: '위치 및 교통 안내', onClick: () => {} }
       ],
       services: C.services,
       notices,
