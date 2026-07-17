@@ -721,6 +721,9 @@ class Component extends DCLogic {
       border: i === cur ? '#2168B4' : '#DCE6EF'
     }));
     const C = window.SCYC_CONTENT || {};
+    // 방어: 캐시된 옛 site-content.js(svgIcon/iconPaths 없음)라도 크래시 대신 빈 아이콘.
+    const EMPTY_ICON = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg"/>');
+    const ic = (k, col) => (C.svgIcon && C.iconPaths && C.iconPaths[k]) ? C.svgIcon(C.iconPaths[k], col) : EMPTY_ICON;
     const programs = C.programs || [];
     const featured = [programs[1], programs[4], programs[5]].map((p, i) => ({
       ...p, imgId: 'prog-' + i,
@@ -786,10 +789,10 @@ class Component extends DCLogic {
       goDirections: () => { this.setState({ page: 'about', aboutTab: 4 }); window.scrollTo(0, 0); },
       navItems, programs, featured,
       quickLinks: [
-        { icon: C.svgIcon(C.iconPaths.chat, '#2168B4'), bg: '#EAF3FB', fg: '#2168B4', title: '상담·문의', desc: '전화·방문 문의 안내', onClick: go('apply') },
-        { icon: C.svgIcon(C.iconPaths.list, '#2FA490'), bg: '#E6F6F3', fg: '#2FA490', title: '프로그램 안내', desc: '운영 중인 프로그램', onClick: go('programs') },
-        { icon: C.svgIcon(C.iconPaths.book, '#B07A2A'), bg: '#FBF1E1', fg: '#B07A2A', title: '부모교육 자료', desc: '교육자료 다운로드', onClick: () => {} },
-        { icon: C.svgIcon(C.iconPaths.pin, '#7A5FB8'), bg: '#F0EBFA', fg: '#7A5FB8', title: '오시는 길', desc: '위치 및 교통 안내', onClick: () => {} }
+        { icon: ic('chat', '#2168B4'), bg: '#EAF3FB', fg: '#2168B4', title: '상담·문의', desc: '전화·방문 문의 안내', onClick: go('apply') },
+        { icon: ic('list', '#2FA490'), bg: '#E6F6F3', fg: '#2FA490', title: '프로그램 안내', desc: '운영 중인 프로그램', onClick: go('programs') },
+        { icon: ic('book', '#B07A2A'), bg: '#FBF1E1', fg: '#B07A2A', title: '부모교육 자료', desc: '교육자료 다운로드', onClick: () => {} },
+        { icon: ic('pin', '#7A5FB8'), bg: '#F0EBFA', fg: '#7A5FB8', title: '오시는 길', desc: '위치 및 교통 안내', onClick: () => {} }
       ],
       services: C.services,
       notices,
