@@ -12,7 +12,8 @@ Design Canvas 런타임(`support.js`)이 브라우저에서 React를 CDN으로 �
 ├── admin.html       # 관리자 화면    →  /admin
 ├── support.js       # Design Canvas 런타임 (React를 CDN에서 로드)
 ├── image-slot.js    # 이미지 슬롯 컴포넌트
-└── vercel.json      # Vercel 정적 배포 설정 (cleanUrls 등)
+├── vercel.json      # Vercel 정적 배포 설정 (cleanUrls 등)
+└── serve.json       # 로컬 미리보기(npx serve)용 cleanUrls 설정
 ```
 
 > `index.html` / `admin.html`은 Design Canvas 편집기에서 내보낸 `.dc.html`
@@ -22,15 +23,17 @@ Design Canvas 런타임(`support.js`)이 브라우저에서 React를 CDN으로 �
 ## 로컬 미리보기
 
 정적 파일이므로 아무 정적 서버로나 열 수 있습니다 (React·폰트는 CDN에서 로드되므로
-인터넷 연결 필요).
+인터넷 연결 필요). **`npx serve .` 사용을 권장**합니다 — `serve.json` 덕분에 Vercel과
+동일한 clean URL(`/admin`)이 로컬에서도 그대로 동작합니다.
 
 ```bash
 npx serve .
-# 또는
-python3 -m http.server 3000
 ```
 
-브라우저에서 `http://localhost:3000` (메인), `http://localhost:3000/admin.html` (관리자).
+브라우저에서 `http://localhost:3000` (메인), `http://localhost:3000/admin` (관리자).
+
+> `python3 -m http.server`는 clean URL을 지원하지 않아 `/admin`이 404가 납니다.
+> 이 서버로 확인하려면 `http://localhost:3000/admin.html`처럼 확장자를 붙여야 합니다.
 
 ## Vercel 배포
 

@@ -317,12 +317,12 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
     <sc-if value="{{ aboutIs4 }}" hint-placeholder-val="{{ false }}">
       <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:start">
         <div style="height:440px;border-radius:20px;overflow:hidden;position:relative;border:1px solid #DCE6EF">
-          <image-slot id="map" shape="rect" placeholder="지도 이미지 (네이버/카카오 지도 캡처)" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+          <iframe title="센터 위치 지도" src="https://www.google.com/maps?q=37.5017830,127.0111450(%EC%84%9C%EC%9A%B8%EC%95%84%EB%8F%99%EC%B2%AD%EC%86%8C%EB%85%84%EC%84%BC%ED%84%B0)&z=17&output=embed" style="position:absolute;inset:0;width:100%;height:100%;border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
         </div>
         <div style="display:flex;flex-direction:column;gap:18px">
           <div style="background:#EAF3FB;border-radius:16px;padding:26px 28px">
             <div style="font-size:13px;font-weight:800;color:#2168B4;margin-bottom:8px">주소</div>
-            <div style="font-size:15.5px;font-weight:600;color:#17385E;line-height:1.6">서울특별시 ○○구 ○○로 00, 0층<br>서울아동청소년센터</div>
+            <div style="font-size:15.5px;font-weight:600;color:#17385E;line-height:1.6">서울특별시 서초구 서초중앙로33길 6-6<br>신청담빌딩 501호 · 서울아동청소년센터</div>
           </div>
           <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:16px;padding:26px 28px">
             <div style="font-size:13px;font-weight:800;color:#2FA490;margin-bottom:10px">대중교통</div>
@@ -591,7 +591,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
           <div style="width:44px;height:44px;border-radius:12px;background:#FBF1E1;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#B07A2A;flex:none">방문</div>
           <div>
             <div style="font-size:13px;color:#7A8CA0;margin-bottom:3px">오시는 길</div>
-            <div style="font-size:16px;font-weight:700;color:#17385E">서울특별시 ○○구 ○○로 00, 0층</div>
+            <div style="font-size:16px;font-weight:700;color:#17385E">서울특별시 서초구 서초중앙로33길 6-6 신청담빌딩 501호</div>
             <div onClick="{{ goDirections }}" style="display:inline-block;margin-top:12px;font-size:13.5px;font-weight:700;color:#2168B4;border:1.5px solid #BFD6EC;padding:8px 16px;border-radius:20px;cursor:pointer" style-hover="background:#2168B4;color:#FFFFFF;border-color:#2168B4">오시는 길 자세히 보기</div>
           </div>
         </div>
@@ -611,6 +611,14 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
             </sc-for>
           </div>
         </div>
+      </div>
+    </div>
+    <!-- 오시는 길 지도 -->
+    <div style="margin-top:44px">
+      <h2 style="margin:0 0 6px;font-size:21px;font-weight:800;color:#17385E">오시는 길</h2>
+      <p style="margin:0 0 20px;font-size:14.5px;color:#5A6B7C">서울특별시 서초구 서초중앙로33길 6-6 신청담빌딩 501호</p>
+      <div style="border-radius:20px;overflow:hidden;border:1px solid #DCE6EF;box-shadow:0 8px 24px rgba(23,56,94,0.08)">
+        <iframe title="센터 위치 지도" src="https://www.google.com/maps?q=37.5017830,127.0111450(%EC%84%9C%EC%9A%B8%EC%95%84%EB%8F%99%EC%B2%AD%EC%86%8C%EB%85%84%EC%84%BC%ED%84%B0)&z=17&output=embed" width="100%" height="420" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       </div>
     </div>
   </div>
