@@ -684,10 +684,21 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;showPopup&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;메인 화면&quot;}, &quot;showDonation&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;메인 화면&quot;}}">
+// URL 경로 ↔ 페이지 매핑 (SPA 라우팅). 각 서브페이지가 실제 주소를 가져 뒤로가기가 동작.
+function pageFromPath(p) {
+  var s = (p || '').replace(/^\/+|\/+$/g, '');
+  var known = ['about', 'business', 'rooms', 'programs', 'archive', 'news', 'apply'];
+  return known.indexOf(s) >= 0 ? s : 'home';
+}
 class Component extends DCLogic {
-  state = { page: 'home', popupClosed: false, aboutTab: 0, archiveTab: 0, newsTab: 0,
+  state = { page: pageFromPath(location.pathname), popupClosed: false, aboutTab: 0, archiveTab: 0, newsTab: 0,
             remotePosts: null, remoteFiles: null, remoteBanner: null };
-  go(page) { this.setState({ page }); window.scrollTo(0, 0); }
+  go(page) {
+    var path = page === 'home' ? '/' : '/' + page;
+    try { if (location.pathname !== path) history.pushState({ page: page }, '', path); } catch (e) {}
+    this.setState({ page: page });
+    window.scrollTo(0, 0);
+  }
   componentDidMount() {
     // 관리자(admin)가 등록한 콘텐츠를 API에서 불러와 하드코딩 기본값 위에 덮어씀.
     // 실패 시(로컬 정적 미리보기 등) 조용히 무시하고 기본값 유지.
@@ -697,6 +708,11 @@ class Component extends DCLogic {
     j('/api/banners?enabled=1').then((d) => {
       if (Array.isArray(d) && d.length) this.setState({ remoteBanner: d[0] });
     });
+    // 뒤로/앞으로 가기 → 현재 URL에 맞춰 페이지 동기화
+    if (!this.__popBound) {
+      this.__popBound = true;
+      window.addEventListener('popstate', () => this.setState({ page: pageFromPath(location.pathname) }));
+    }
   }
   renderVals() {
     const page = this.state.page;
@@ -786,7 +802,7 @@ class Component extends DCLogic {
         n, bg: n === 1 ? '#2168B4' : '#FFFFFF', color: n === 1 ? '#FFFFFF' : '#5A6B7C', border: n === 1 ? '#2168B4' : '#DCE6EF'
       })),
       goHome: go('home'), goPrograms: go('programs'), goApply: go('apply'), goAbout: go('about'),
-      goDirections: () => { this.setState({ page: 'about', aboutTab: 4 }); window.scrollTo(0, 0); },
+      goDirections: () => { this.go('about'); this.setState({ aboutTab: 4 }); },
       navItems, programs, featured,
       quickLinks: [
         { icon: ic('chat', '#2168B4'), bg: '#EAF3FB', fg: '#2168B4', title: '상담·문의', desc: '전화·방문 문의 안내', onClick: go('apply') },

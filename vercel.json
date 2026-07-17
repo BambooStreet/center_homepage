@@ -3,7 +3,8 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/.image-slots.state.json", "destination": "/api/image-slots" }
+    { "source": "/.image-slots.state.json", "destination": "/api/image-slots" },
+    { "source": "/(about|business|rooms|programs|archive|news|apply)", "destination": "/index.html" }
   ],
   "headers": [
     {
