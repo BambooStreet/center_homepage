@@ -76,7 +76,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#FFFFFF;border-radius:16px;box-shadow:0 12px 32px rgba(23,56,94,0.12);overflow:hidden">
       <sc-for list="{{ quickLinks }}" as="q" hint-placeholder-count="4">
         <div onClick="{{ q.onClick }}" style="display:flex;align-items:center;gap:14px;padding:24px 26px;border-right:1px solid #EDF2F7;cursor:pointer" style-hover="background:#F4FAF9">
-          <div style="width:46px;height:46px;border-radius:14px;background:{{ q.bg }};display:flex;align-items:center;justify-content:center;font-size:20px;color:{{ q.fg }};flex:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ q.icon }}"></path></svg></div>
+          <div style="width:46px;height:46px;border-radius:14px;background:{{ q.bg }};display:flex;align-items:center;justify-content:center;font-size:20px;color:{{ q.fg }};flex:none"><img src="{{ q.icon }}" width="24" height="24" alt="" style="display:block"></div>
           <div>
             <div style="font-size:15.5px;font-weight:700;color:#17385E">{{ q.title }}</div>
             <div style="font-size:12.5px;color:#7A8CA0;margin-top:2px">{{ q.desc }}</div>
@@ -95,7 +95,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
       <sc-for list="{{ services }}" as="sv" hint-placeholder-count="3">
         <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:18px;padding:34px 30px;transition:box-shadow .2s,transform .2s" style-hover="box-shadow:0 14px 30px rgba(23,56,94,0.1);transform:translateY(-4px)">
-          <div style="width:54px;height:54px;border-radius:16px;background:{{ sv.bg }};display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:24px;color:{{ sv.fg }}"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ sv.icon }}"></path></svg></div>
+          <div style="width:54px;height:54px;border-radius:16px;background:{{ sv.bg }};display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:24px;color:{{ sv.fg }}"><img src="{{ sv.icon }}" width="26" height="26" alt="" style="display:block"></div>
           <h3 style="margin:0 0 10px;font-size:20px;font-weight:800;color:#17385E">{{ sv.title }}</h3>
           <p style="margin:0 0 18px;font-size:14.5px;line-height:1.7;color:#5A6B7C;text-wrap:pretty">{{ sv.desc }}</p>
           <div style="display:flex;flex-wrap:wrap;gap:6px">
@@ -258,7 +258,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
         <sc-for list="{{ values }}" as="vl" hint-placeholder-count="3">
           <div style="background:{{ vl.bg }};border-radius:20px;padding:36px 32px;text-align:center">
-            <div style="width:58px;height:58px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:{{ vl.fg }}"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ vl.icon }}"></path></svg></div>
+            <div style="width:58px;height:58px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:{{ vl.fg }}"><img src="{{ vl.icon }}" width="26" height="26" alt="" style="display:block"></div>
             <h3 style="margin:0 0 10px;font-size:19px;font-weight:800;color:#17385E">{{ vl.title }}</h3>
             <p style="margin:0;font-size:14px;line-height:1.7;color:#5A6B7C;text-wrap:pretty">{{ vl.desc }}</p>
           </div>
@@ -786,10 +786,10 @@ class Component extends DCLogic {
       goDirections: () => { this.setState({ page: 'about', aboutTab: 4 }); window.scrollTo(0, 0); },
       navItems, programs, featured,
       quickLinks: [
-        { icon: C.icons.chat, bg: '#EAF3FB', fg: '#2168B4', title: '상담·문의', desc: '전화·방문 문의 안내', onClick: go('apply') },
-        { icon: C.icons.list, bg: '#E6F6F3', fg: '#2FA490', title: '프로그램 안내', desc: '운영 중인 프로그램', onClick: go('programs') },
-        { icon: C.icons.book, bg: '#FBF1E1', fg: '#B07A2A', title: '부모교육 자료', desc: '교육자료 다운로드', onClick: () => {} },
-        { icon: C.icons.pin, bg: '#F0EBFA', fg: '#7A5FB8', title: '오시는 길', desc: '위치 및 교통 안내', onClick: () => {} }
+        { icon: C.svgIcon(C.iconPaths.chat, '#2168B4'), bg: '#EAF3FB', fg: '#2168B4', title: '상담·문의', desc: '전화·방문 문의 안내', onClick: go('apply') },
+        { icon: C.svgIcon(C.iconPaths.list, '#2FA490'), bg: '#E6F6F3', fg: '#2FA490', title: '프로그램 안내', desc: '운영 중인 프로그램', onClick: go('programs') },
+        { icon: C.svgIcon(C.iconPaths.book, '#B07A2A'), bg: '#FBF1E1', fg: '#B07A2A', title: '부모교육 자료', desc: '교육자료 다운로드', onClick: () => {} },
+        { icon: C.svgIcon(C.iconPaths.pin, '#7A5FB8'), bg: '#F0EBFA', fg: '#7A5FB8', title: '오시는 길', desc: '위치 및 교통 안내', onClick: () => {} }
       ],
       services: C.services,
       notices,

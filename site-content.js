@@ -20,6 +20,12 @@
     heart: 'M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z',
     shield: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 11.5l2 2 4-4'
   };
+  // DC 런타임은 <svg> 내부 {{ }} 바인딩을 처리하지 않으므로, 아이콘을 색을 구워넣은
+  // data:image/svg+xml URI 로 만들어 <img src="{{ icon }}"> 로 렌더한다 (src 바인딩은 동작).
+  const svgIcon = (path, color) => 'data:image/svg+xml,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="' +
+    color + '" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="' + path + '"/></svg>'
+  );
 
   const programs = [
     P('상담', '가족상담', '개별·가족', '이혼 위기 가정 및 이혼 준비 가정을 위한 프로그램', '가정의 변화 속에서 아이가 안정감을 잃지 않도록 아동과 부모를 함께 돕는 심리 지원 프로그램입니다.', '이혼 위기·준비 가정의 아동과 부모', '주 1회 · 상시 접수', '이혼 위기 가정 지원'),
@@ -79,9 +85,9 @@
   ];
 
   const values = [
-    { icon: IC.heart, bg: '#E6F6F3', fg: '#2FA490', title: '따뜻함', desc: '아이 한 명 한 명의 마음을 존중하며 정서적으로 안전한 공간을 만듭니다.' },
-    { icon: IC.shield, bg: '#EAF3FB', fg: '#2168B4', title: '전문성', desc: '검증된 평가와 치료 기법, 지속적인 연구로 신뢰할 수 있는 서비스를 제공합니다.' },
-    { icon: IC.link, bg: '#FBF1E1', fg: '#B07A2A', title: '연결', desc: '가정·학교·지역사회를 이어 아이를 함께 돌보는 협력의 중심이 됩니다.' }
+    { icon: svgIcon(IC.heart, '#2FA490'), bg: '#E6F6F3', fg: '#2FA490', title: '따뜻함', desc: '아이 한 명 한 명의 마음을 존중하며 정서적으로 안전한 공간을 만듭니다.' },
+    { icon: svgIcon(IC.shield, '#2168B4'), bg: '#EAF3FB', fg: '#2168B4', title: '전문성', desc: '검증된 평가와 치료 기법, 지속적인 연구로 신뢰할 수 있는 서비스를 제공합니다.' },
+    { icon: svgIcon(IC.link, '#B07A2A'), bg: '#FBF1E1', fg: '#B07A2A', title: '연결', desc: '가정·학교·지역사회를 이어 아이를 함께 돌보는 협력의 중심이 됩니다.' }
   ];
 
   const missions = [
@@ -125,9 +131,9 @@
   ];
 
   const services = [
-    { icon: IC.chat, bg: '#EAF3FB', fg: '#2168B4', title: '상담사업', desc: '아동·청소년과 가족을 위한 개별상담, 가족상담, 심리평가를 전문 상담사가 진행합니다.', tags: ['개별상담', '가족상담', '심리평가'] },
-    { icon: IC.cap, bg: '#E6F6F3', fg: '#2FA490', title: '교육사업', desc: '부모교육, 교사 연수, 아동·청소년 대상 예방교육 등 성장을 돕는 교육을 운영합니다.', tags: ['부모교육', '교사연수', '예방교육'] },
-    { icon: IC.link, bg: '#FBF1E1', fg: '#B07A2A', title: '지역연계사업', desc: '학교, 지역아동센터, 복지기관과 협력하여 지역사회의 아동·청소년을 함께 돌봅니다.', tags: ['학교연계', '기관협력', '사례관리'] }
+    { icon: svgIcon(IC.chat, '#2168B4'), bg: '#EAF3FB', fg: '#2168B4', title: '상담사업', desc: '아동·청소년과 가족을 위한 개별상담, 가족상담, 심리평가를 전문 상담사가 진행합니다.', tags: ['개별상담', '가족상담', '심리평가'] },
+    { icon: svgIcon(IC.cap, '#2FA490'), bg: '#E6F6F3', fg: '#2FA490', title: '교육사업', desc: '부모교육, 교사 연수, 아동·청소년 대상 예방교육 등 성장을 돕는 교육을 운영합니다.', tags: ['부모교육', '교사연수', '예방교육'] },
+    { icon: svgIcon(IC.link, '#B07A2A'), bg: '#FBF1E1', fg: '#B07A2A', title: '지역연계사업', desc: '학교, 지역아동센터, 복지기관과 협력하여 지역사회의 아동·청소년을 함께 돌봅니다.', tags: ['학교연계', '기관협력', '사례관리'] }
   ];
 
   const events = [
@@ -150,6 +156,6 @@
   window.SCYC_CONTENT = {
     programs, archiveDefault, newsDefault, noticesDefault,
     values, missions, history, orgTeams, businesses, rooms, videos,
-    services, events, partners, steps, faqs, icons: IC
+    services, events, partners, steps, faqs, svgIcon, iconPaths: IC
   };
 })();
