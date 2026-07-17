@@ -1,5 +1,11 @@
-# Vercel
+# Node / Vercel
+node_modules
 .vercel
+
+# 로컬 환경변수 (DATABASE_URL, BLOB_READ_WRITE_TOKEN, ADMIN_PASSWORD, SESSION_SECRET)
+.env
+.env.local
+.env*.local
 
 # Design Canvas 편집기 썸네일 아티팩트 (배포 불필요)
 .thumbnail

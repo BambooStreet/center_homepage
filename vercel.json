@@ -2,6 +2,9 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/.image-slots.state.json", "destination": "/api/image-slots" }
+  ],
   "headers": [
     {
       "source": "/(.*)\\.js",

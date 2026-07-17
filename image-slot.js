@@ -1065,8 +1065,12 @@
       // tool, so its value isn't guaranteed canvas-originated — only accept
       // data:image/ URLs from it. The `src` attribute is author-controlled
       // (Claude wrote it into the HTML) so it passes through unchanged.
+      // LOCAL MOD: 이 사이트는 상태를 인증된 /api/image-slots(DB) 에서만 받고,
+      // 그 값은 우리 업로드 엔드포인트가 만든 Vercel Blob URL 뿐이므로 신뢰된
+      // *.blob.vercel-storage.com https URL 도 허용한다 (data: URL 은 그대로 허용).
+      const TRUSTED_BLOB = /^https:\/\/[a-z0-9-]+\.(public|private)\.blob\.vercel-storage\.com\//i;
       let stored = this.id ? getSlot(this.id) : this._local;
-      if (stored && stored.u && !/^data:image\//i.test(stored.u)) stored = null;
+      if (stored && stored.u && !/^data:image\//i.test(stored.u) && !TRUSTED_BLOB.test(stored.u)) stored = null;
       const srcAttr = this.getAttribute('src') || '';
       this._userUrl = (stored && stored.u) || null;
       const url = this._userUrl || srcAttr;

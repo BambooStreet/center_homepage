@@ -1,39 +1,81 @@
 # 서울아동청소년센터 홈페이지
 
-서울아동청소년센터 홈페이지 리뉴얼 시안. **빌드 과정이 없는 순수 정적 사이트**로,
-Design Canvas 런타임(`support.js`)이 브라우저에서 React를 CDN으로 불러와
-각 HTML 안의 `<x-dc>` 템플릿을 렌더링합니다.
+서울아동청소년센터 홈페이지. 프론트엔드는 **빌드 과정이 없는 순수 정적 사이트**로,
+Design Canvas 런타임(`support.js`)이 브라우저에서 React를 CDN으로 불러와 각 HTML 안의
+`<x-dc>` 템플릿을 렌더링합니다. 여기에 **Vercel Serverless Functions(`/api`) 백엔드**를 더해
+관리자가 공지·자료·이미지·팝업을 직접 관리하고, 데이터는 **Neon(Postgres)** 과
+**Vercel Blob**(파일·이미지)에 저장됩니다.
 
 ## 구조
 
 ```
 .
-├── index.html       # 메인 홈페이지  →  /
-├── admin.html       # 관리자 화면    →  /admin
+├── index.html       # 메인 홈페이지  →  /   (API에서 공지·자료·팝업을 불러와 렌더)
+├── admin.html       # 관리자 화면    →  /admin  (로그인 후 CRUD)
 ├── support.js       # Design Canvas 런타임 (React를 CDN에서 로드)
-├── image-slot.js    # 이미지 슬롯 컴포넌트
-├── vercel.json      # Vercel 정적 배포 설정 (cleanUrls 등)
-└── serve.json       # 로컬 미리보기(npx serve)용 cleanUrls 설정
+├── image-slot.js    # 이미지 슬롯 컴포넌트 (배포 시 /api/image-slots 를 읽음)
+├── api/             # 서버리스 함수 (Neon + Blob)
+│   ├── _lib.js          # 공용: Neon 클라이언트, 세션 쿠키(HMAC), 인증 가드
+│   ├── login.js / logout.js / me.js   # 관리자 인증
+│   ├── posts.js         # 공지·행사·보도자료 CRUD
+│   ├── files.js         # 자료실 메타 + Blob 삭제
+│   ├── banners.js       # 팝업·띠배너 CRUD
+│   ├── image-slots.js   # 이미지 슬롯 상태 (image-slot.js가 읽는 맵)
+│   └── upload.js        # 파일→Blob 업로드 (base64 경유, auth)
+├── schema.sql       # Neon 테이블 정의 (1회 실행)
+├── package.json     # 서버리스 함수 의존성 (프론트는 빌드 없음)
+├── vercel.json      # cleanUrls + image-slots rewrite
+└── serve.json       # 로컬 정적 미리보기용 (API 없이 프론트만)
+```
+
+## 관리자 기능 (동적 콘텐츠)
+
+`/admin` 로그인(서버 비밀번호 + 서명 쿠키) 후:
+
+- **공지·게시판** — 공지사항/행사안내/보도자료 글 작성·수정·삭제 → `index.html` 소식 영역에 반영
+- **자료실** — PDF/ZIP 등 파일 업로드(~3MB, Blob 저장)·삭제
+- **이미지 관리** — 홈페이지 각 이미지 영역(히어로·치료실·프로그램 등) 교체
+- **팝업·배너** — 메인 팝업/띠배너 문구·기간·활성화 관리
+
+### 환경변수
+
+`cp .env.local.example .env.local` 후 값 채우기 (배포 시 Vercel 대시보드에도 동일 등록):
+
+| 변수 | 용도 |
+| --- | --- |
+| `DATABASE_URL` | Neon Postgres 연결 문자열 |
+| `BLOB_READ_WRITE_TOKEN` | Vercel Blob 토큰 |
+| `ADMIN_PASSWORD` | 관리자 로그인 비밀번호 |
+| `SESSION_SECRET` | 세션 쿠키 서명 키 (`openssl rand -hex 32`) |
+
+### DB 초기화 (1회)
+
+```bash
+psql "$DATABASE_URL" -f schema.sql   # 또는 Neon 콘솔 SQL Editor에 붙여넣기
 ```
 
 > `index.html` / `admin.html`은 Design Canvas 편집기에서 내보낸 `.dc.html`
 > 시안을 배포용으로 이름만 바꾼 파일입니다. 내용(`<x-dc>` 템플릿)은 동일하며,
 > 편집기에서 다시 열어 수정할 수 있습니다.
 
-## 로컬 미리보기
+## 로컬 개발
 
-정적 파일이므로 아무 정적 서버로나 열 수 있습니다 (React·폰트는 CDN에서 로드되므로
-인터넷 연결 필요). **`npx serve .` 사용을 권장**합니다 — `serve.json` 덕분에 Vercel과
-동일한 clean URL(`/admin`)이 로컬에서도 그대로 동작합니다.
+API(서버리스 함수)까지 로컬에서 구동합니다. **`npm run dev`** 는 로그인 없이 바로 뜨는
+로컬 서버(`devserver.mjs`)로, 정적 파일 + `/api/*` + `vercel.json` rewrite 를 흉내 냅니다.
 
 ```bash
-npx serve .
+npm install          # 최초 1회 (서버리스 함수 의존성)
+cp .env.local.example .env.local   # 값 채우기 (아래 환경변수 표 참고)
+npm run dev          # http://localhost:3000  (로그인 불필요)
 ```
 
 브라우저에서 `http://localhost:3000` (메인), `http://localhost:3000/admin` (관리자).
 
-> `python3 -m http.server`는 clean URL을 지원하지 않아 `/admin`이 404가 납니다.
-> 이 서버로 확인하려면 `http://localhost:3000/admin.html`처럼 확장자를 붙여야 합니다.
+프로덕션 런타임과 동일하게 확인하려면 Vercel CLI(로그인 필요)를 씁니다:
+
+```bash
+npm run dev:vercel   # = vercel dev  (최초 vercel login 필요)
+```
 
 ## Vercel 배포
 
