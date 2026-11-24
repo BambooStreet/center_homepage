@@ -4,7 +4,9 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/.image-slots.state.json", "destination": "/api/image-slots" },
-    { "source": "/(about|business|rooms|programs|archive|news|apply)", "destination": "/index.html" }
+    { "source": "/(about|assessment|therapy|intensive|outreach|guide)", "destination": "/index.html" },
+    { "source": "/(about|assessment|therapy|intensive|outreach|guide)/(.*)", "destination": "/index.html" },
+    { "source": "/(business|rooms|programs|archive|news|apply)", "destination": "/index.html" }
   ],
   "headers": [
     {

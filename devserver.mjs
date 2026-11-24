@@ -62,9 +62,11 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // SPA 라우팅: 서브페이지 경로는 index.html 서빙 (vercel.json rewrite 와 동일)
-  const SPA_ROUTES = ['about', 'business', 'rooms', 'programs', 'archive', 'news', 'apply'];
-  if (SPA_ROUTES.includes(pathname.slice(1))) pathname = '/';
+  // SPA 라우팅: 서브페이지 경로(2단 포함)는 index.html 서빙 (vercel.json rewrite 와 동일)
+  const SPA_SECTIONS = ['about', 'assessment', 'therapy', 'intensive', 'outreach', 'guide'];
+  const LEGACY_ROUTES = ['business', 'rooms', 'programs', 'archive', 'news', 'apply'];
+  const seg1 = pathname.slice(1).split('/')[0];
+  if (SPA_SECTIONS.includes(seg1) || LEGACY_ROUTES.includes(seg1)) pathname = '/';
 
   // 정적 파일 (cleanUrls: /admin → admin.html)
   let file = pathname === '/' ? 'index.html' : pathname.slice(1);

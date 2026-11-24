@@ -91,7 +91,8 @@
 /* END USAGE */
 
 (() => {
-  const STATE_FILE = '.image-slots.state.json';
+  // 2단 경로(/about/greeting 등)에서도 같은 사이드카를 읽도록 루트 절대경로로 고정.
+  const STATE_FILE = '/.image-slots.state.json';
 
   // Unsplash terms require visible attribution wherever their photos
   // display, and every link back to unsplash.com must carry utm referral

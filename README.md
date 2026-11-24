@@ -12,6 +12,7 @@ Design Canvas 런타임(`support.js`)이 브라우저에서 React를 CDN으로 �
 .
 ├── index.html       # 메인 홈페이지  →  /   (API에서 공지·자료·팝업을 불러와 렌더)
 ├── admin.html       # 관리자 화면    →  /admin  (로그인 후 CRUD)
+├── menu.js          # 전체 메뉴 트리(6대 메뉴 + 하위) — 네비·LNB·라우팅의 단일 출처
 ├── support.js       # Design Canvas 런타임 (React를 CDN에서 로드)
 ├── image-slot.js    # 이미지 슬롯 컴포넌트 (배포 시 /api/image-slots 를 읽음)
 ├── api/             # 서버리스 함수 (Neon + Blob)
@@ -98,3 +99,24 @@ vercel --prod     # 프로덕션 배포
 | ---------- | ------------- |
 | `/`        | `index.html`  |
 | `/admin`   | `admin.html`  |
+
+서브페이지는 **2단 경로**(`/<대메뉴>/<하위메뉴>`)로, `index.html` 한 파일이 SPA로 처리합니다.
+경로·메뉴 구성은 모두 `menu.js` 에서 나오므로 메뉴를 바꿀 때 라우팅 코드를 고칠 필요가 없습니다.
+
+| 대메뉴 | 경로 | 예시 |
+| --- | --- | --- |
+| 센터소개 | `/about/*` | `/about/greeting`, `/about/facility` |
+| 심리평가 | `/assessment/*` | `/assessment/comprehensive` |
+| 상담 및 프로그램 | `/therapy/*` | `/therapy/play` |
+| 집중 프로그램 | `/intensive` | (하위 없음) |
+| 외부기관 교육·집단상담 | `/outreach` | (하위 없음) |
+| 상담 안내 및 센터 소식 | `/guide/*` | `/guide/apply`, `/guide/archive` |
+
+개편 전 1단 경로(`/business`, `/rooms`, `/programs`, `/archive`, `/news`, `/apply`)로 들어오면
+`menu.js` 의 `legacy` 표에 따라 새 경로로 자동 교체(replaceState)됩니다.
+
+> 새 대메뉴를 추가할 때는 `menu.js` 와 함께 `vercel.json` 의 rewrite,
+> `devserver.mjs` 의 `SPA_SECTIONS` 에도 같은 key 를 넣어야 새로고침(직접 진입)이 동작합니다.
+
+> 인라인 스타일을 미디어쿼리로 덮어쓸 때 주의: React 가 style 속성을
+> `min-width: 1200px` 처럼 **콜론 뒤 공백**으로 다시 써내므로 속성 선택자도 그 형태로 적어야 합니다.
