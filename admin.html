@@ -310,6 +310,57 @@ input,textarea,select{font-family:inherit}
         <div onClick="{{ saveSns }}" style="display:inline-block;background:#2FA490;color:#FFFFFF;font-size:14px;font-weight:800;padding:11px 24px;border-radius:10px;cursor:pointer" style-hover="background:#268A79">추가</div>
       </div>
     </sc-if>
+
+    <!-- 도움말 : 센터 담당자용 사용법 (자세한 문서는 docs/관리자-매뉴얼.md) -->
+    <sc-if value="{{ sec7 }}" hint-placeholder-val="{{ false }}">
+      <div style="background:linear-gradient(135deg,#17385E,#1B6B77);border-radius:16px;padding:30px 32px;color:#FFFFFF;margin-bottom:22px">
+        <h2 style="margin:0 0 10px;font-size:20px;font-weight:800">홈페이지 내용은 여기서 직접 올리실 수 있습니다</h2>
+        <p style="margin:0;font-size:14.5px;line-height:1.8;color:#C4D4E6">저장하면 홈페이지에 바로 반영됩니다. 따로 ‘발행’ 버튼은 없습니다.<br>오른쪽 위 「홈페이지 보기 ↗」 로 실제 화면을 확인하실 수 있습니다.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px">
+        <sc-for list="{{ helpItems }}" as="hi" hint-placeholder-count="5">
+          <div style="background:#FFFFFF;border:1px solid #E2E9F1;border-radius:16px;padding:24px 26px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+              <span style="width:28px;height:28px;border-radius:9px;background:{{ hi.bg }};color:{{ hi.fg }};font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">{{ hi.glyph }}</span>
+              <span style="font-size:16.5px;font-weight:800;color:#17385E">{{ hi.title }}</span>
+            </div>
+            <div style="font-size:12.5px;color:#7A8CA0;margin-bottom:14px">{{ hi.where }}</div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <sc-for list="{{ hi.lines }}" as="hl" hint-placeholder-count="3">
+                <div style="display:flex;gap:9px;align-items:flex-start">
+                  <span style="flex:none;width:6px;height:6px;border-radius:50%;background:#3FB9A5;margin-top:7px"></span>
+                  <span style="font-size:13.5px;line-height:1.7;color:#44546A">{{ hl }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <h2 style="margin:30px 0 14px;font-size:17px;font-weight:800;color:#17385E">자주 하는 작업 순서</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+        <sc-for list="{{ helpRecipes }}" as="hr" hint-placeholder-count="3">
+          <div style="background:#FFFFFF;border:1px solid #E2E9F1;border-radius:16px;padding:22px 24px">
+            <div style="font-size:15px;font-weight:800;color:#17385E;margin-bottom:12px">{{ hr.title }}</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{ hr.steps }}" as="hs" hint-placeholder-count="3">
+                <div style="font-size:13.5px;line-height:1.6;color:#5A6B7C">{{ hs }}</div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:26px;background:#FCEDEB;border:1px solid #F3C9C4;border-radius:14px;padding:22px 26px">
+        <div style="font-size:15px;font-weight:800;color:#C94F44;margin-bottom:12px">꼭 알아두실 점</div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <sc-for list="{{ helpCautions }}" as="hc" hint-placeholder-count="4">
+            <div style="font-size:13.5px;line-height:1.7;color:#8A3C34">· {{ hc }}</div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
   </div>
 </div>
 </sc-if>
@@ -459,7 +510,7 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state;
     const goSec = (i) => () => this.setState({ section: i, msg: '' });
-    const menuDefs = [['홈', '대시보드'], ['공', '공지·게시판 관리'], ['팝', '팝업·배너 관리'], ['자', '자료실 관리'], ['이', '이미지 관리'], ['문', '문의 관리'], ['S', 'SNS 관리']];
+    const menuDefs = [['홈', '대시보드'], ['공', '공지·게시판 관리'], ['팝', '팝업·배너 관리'], ['자', '자료실 관리'], ['이', '이미지 관리'], ['문', '문의 관리'], ['S', 'SNS 관리'], ['?', '도움말 · 사용법']];
 
     const st = {
       게시중: ['#2FA490', '#E6F6F3'], 임시저장: ['#7A8CA0', '#F0F4F8'],
@@ -533,6 +584,56 @@ class Component extends DCLogic {
       };
     });
 
+    // ── 도움말 탭 내용 (자세한 설명은 docs/관리자-매뉴얼.md) ──
+    const helpItems = [
+      { glyph: '공', title: '공지·게시판 관리', fg: '#2168B4', bg: '#EAF3FB',
+        where: '홈페이지 > 상담 안내 및 센터 소식 > 공지사항 / 센터 소식, 메인 공지 목록',
+        lines: [
+          '게시판(공지사항·행사안내·보도자료)을 고르고 「+ 새 글 작성」을 누릅니다.',
+          '상태를 「게시중」으로 저장하면 홈페이지에 바로 보입니다. 「임시저장」은 관리자 화면에만 보입니다.',
+          '최근 2주 안에 올린 글에는 NEW 표시가 자동으로 붙습니다.'
+        ] },
+      { glyph: '자', title: '자료실 관리', fg: '#2FA490', bg: '#E6F6F3',
+        where: '홈페이지 > 상담 안내 및 센터 소식 > 자료실',
+        lines: [
+          '분류(센터 자료·부모교육 자료·영상자료)와 제목을 넣고 파일을 올립니다.',
+          '파일은 3MB 이하만 올라갑니다. 용량이 크면 PDF를 압축하거나 나눠 올려 주세요.',
+          '삭제하면 파일까지 완전히 지워지고 되돌릴 수 없습니다.'
+        ] },
+      { glyph: '이', title: '이미지 관리', fg: '#B07A2A', bg: '#FBF1E1',
+        where: '메인 대문, 센터 소개 「센터의 기록」, 시설 안내 등',
+        lines: [
+          '칸마다 「이미지 선택」을 누르면 자동으로 올라가고 즉시 반영됩니다.',
+          '메인 히어로는 센터 공간·전경 사진 자리입니다. 올리지 않으면 그래픽 배경만 나옵니다.',
+          '아이 얼굴이 나오는 사진은 보호자 동의를 확인한 것만 사용해 주세요.'
+        ] },
+      { glyph: '팝', title: '팝업·배너 관리', fg: '#7A5FB8', bg: '#F0EBFA',
+        where: '메인 화면 팝업',
+        lines: [
+          '제목·뱃지·게시 기간·본문을 넣고 「추가」를 누릅니다.',
+          '카드의 스위치로 노출을 켜고 끕니다.',
+          '게시 기간은 안내 문구일 뿐 자동으로 꺼지지 않습니다. 끝나면 스위치를 꺼 주세요.'
+        ] },
+      { glyph: 'S', title: 'SNS 관리', fg: '#C94F44', bg: '#FCEDEB',
+        where: '홈페이지 맨 아래 아이콘, 메인 「센터 소식, 더 가깝게」',
+        lines: [
+          '「계정 바로가기」는 푸터 아이콘, 「게시물 · 숏츠」는 메인 카드(최대 4개)로 나갑니다.',
+          '주소는 반드시 https:// 로 시작해야 합니다.',
+          '등록된 것이 없으면 홈페이지에서 해당 영역이 아예 보이지 않습니다.'
+        ] }
+    ];
+    const helpRecipes = [
+      { title: '프로그램 참가자를 모집할 때', steps: ['공지사항에 모집 안내 글 작성', '신청서·안내문은 자료실에 업로드', '메인 팝업 추가 → 모집이 끝나면 스위치 OFF'] },
+      { title: '행사를 치르고 났을 때', steps: ['행사안내에 후기 글 작성', '이미지 관리에서 관련 사진 교체', 'SNS 관리에 인스타·블로그 링크 추가'] },
+      { title: '기관과 협약을 맺었을 때', steps: ['이미지 관리 > 「협약 1~4」 빈 칸에 협약서 사진 업로드', '캡션(기관명·연도) 변경은 제작자에게 요청'] }
+    ];
+    const helpCautions = [
+      '삭제는 되돌릴 수 없습니다. 잠시 내릴 때는 글은 「임시저장」, 팝업·SNS는 스위치 OFF 를 쓰세요.',
+      '로그인은 12시간 유지됩니다. 작업 중 로그인 화면이 뜨면 다시 로그인하면 됩니다.',
+      '공용 PC에서는 작업 후 왼쪽 아래 「로그아웃」을 눌러 주세요.',
+      '화면이 바뀌지 않으면 새로고침(F5), 그래도 안 되면 Ctrl+F5 를 눌러 보세요.'
+    ];
+
     const publishedCount = s.posts.filter((p) => p.status === '게시중').length;
     const msgColors = s.msgKind === 'err'
       ? ['#C94F44', '#FCEDEB', '#F3C9C4'] : ['#2FA490', '#E6F6F3', '#BFE8DF'];
@@ -553,12 +654,12 @@ class Component extends DCLogic {
         iconColor: i === s.section ? '#3FB9A5' : '#6E86A3'
       })),
       sectionTitle: menuDefs[s.section][1],
-      sec0: s.section === 0, sec1: s.section === 1, sec2: s.section === 2, sec3: s.section === 3, sec4: s.section === 4, sec5: s.section === 5, sec6: s.section === 6,
+      sec0: s.section === 0, sec1: s.section === 1, sec2: s.section === 2, sec3: s.section === 3, sec4: s.section === 4, sec5: s.section === 5, sec6: s.section === 6, sec7: s.section === 7,
       goNoticeSec: goSec(1), goPopupSec: goSec(2), goArchiveSec: goSec(3), goImageSec: goSec(4),
 
       hasMsg: !!s.msg, msg: s.msg, msgFg: msgColors[0], msgBg: msgColors[1], msgBorder: msgColors[2],
 
-      snsList,
+      snsList, helpItems, helpRecipes, helpCautions,
       snPlatform: s.snPlatform, snKind: s.snKind, snTitle: s.snTitle, snUrl: s.snUrl, snThumb: s.snThumb,
       onSnPlatform: (e) => this.setState({ snPlatform: e.target.value }),
       onSnKind: (e) => this.setState({ snKind: e.target.value }),
