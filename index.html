@@ -363,12 +363,12 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
 
     <!-- 01-1 인사말 (원고: docs/홈페이지 내용.pdf) -->
     <sc-if value="{{ showGreeting }}" hint-placeholder-val="{{ true }}">
-      <div style="display:grid;grid-template-columns:340px 1fr;gap:52px;align-items:start">
-        <!-- 센터 요청(2026-11): 센터장·전문가 사진은 싣지 않는다 → 사진 자리를 문구 패널로 대체 -->
-        <div style="background:linear-gradient(150deg,#17385E,#1B6B77);border-radius:20px;padding:38px 32px;color:#FFFFFF">
-          <div style="font-size:34px;line-height:1;color:#8FE3D5;margin-bottom:14px">&ldquo;</div>
-          <div style="font-size:19px;font-weight:700;line-height:1.65;letter-spacing:-0.3px;text-wrap:pretty">마음의 회복은 성장의 시작이며,<br>자신을 이해하는 것은<br>더 나은 삶을 향한 첫걸음입니다.</div>
-          <div style="margin-top:26px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.22);font-size:14px;color:#C4D4E6">서울아동청소년센터</div>
+      <!-- 센터 요청(2026-11): 인용 문구 블록을 본문 위에 가로로 두는 상하 배치 -->
+      <div>
+        <div style="background:linear-gradient(135deg,#17385E,#1B6B77);border-radius:20px;padding:36px 40px;color:#FFFFFF;margin-bottom:40px">
+          <div style="font-size:34px;line-height:1;color:#8FE3D5;margin-bottom:10px">&ldquo;</div>
+          <div style="font-size:21px;font-weight:700;line-height:1.6;letter-spacing:-0.3px;text-wrap:pretty">마음의 회복은 성장의 시작이며,<br>자신을 이해하는 것은 더 나은 삶을 향한 첫걸음입니다.</div>
+          <div style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.22);font-size:14px;color:#C4D4E6">서울아동청소년센터</div>
         </div>
         <div>
           <div style="font-size:13px;font-weight:700;color:#3FB9A5;letter-spacing:2px;margin-bottom:12px">{{ greetingEyebrow }}</div>
@@ -481,7 +481,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
           </div>
           <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:16px;padding:26px 28px">
             <div style="font-size:13px;font-weight:800;color:#B07A2A;margin-bottom:10px">이용 시간</div>
-            <div style="font-size:14px;color:#5A6B7C;line-height:1.9">평일 09:00 – 18:00 (점심 12:00 – 13:00)<br>주말·공휴일 휴무 · 주차 가능(2대)</div>
+            <div style="font-size:14px;color:#5A6B7C;line-height:1.9">월~금(평일) 10:00 – 19:00<br>토요일 10:00 – 15:00</div>
           </div>
         </div>
       </div>
@@ -768,8 +768,8 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
           <div style="width:44px;height:44px;border-radius:12px;background:#E6F6F3;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#2FA490;flex:none">전화</div>
           <div>
             <div style="font-size:13px;color:#7A8CA0;margin-bottom:3px">대표전화</div>
-            <div style="font-size:20px;font-weight:800;color:#17385E;letter-spacing:-0.3px">02-000-0000</div>
-            <div style="font-size:13px;color:#5A6B7C;margin-top:3px">평일 09:00 – 18:00 · 점심 12:00 – 13:00 / 주말·공휴일 휴무</div>
+            <a href="tel:0234777942" style="font-size:20px;font-weight:800;color:#17385E;letter-spacing:-0.3px;text-decoration:none">02-3477-7942</a>
+            <div style="font-size:13px;color:#5A6B7C;margin-top:3px">월~금(평일) 10:00 – 19:00 · 토요일 10:00 – 15:00</div>
           </div>
         </div>
         <div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid #EDF2F7">
@@ -792,8 +792,8 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
       <div style="display:flex;flex-direction:column;gap:20px">
         <div style="background:#E6F6F3;border-radius:20px;padding:30px 32px">
           <h3 style="margin:0 0 12px;font-size:17px;font-weight:800;color:#17385E">전화로 편하게 문의하세요</h3>
-          <div style="font-size:27px;font-weight:800;color:#2FA490;letter-spacing:-0.3px;margin-bottom:10px">02-000-0000</div>
-          <div style="font-size:13.5px;line-height:1.7;color:#5A6B7C">평일 09:00 – 18:00<br>점심시간 12:00 – 13:00 / 주말·공휴일 휴무</div>
+          <a href="tel:0234777942" style="display:block;font-size:27px;font-weight:800;color:#2FA490;letter-spacing:-0.3px;margin-bottom:10px;text-decoration:none">02-3477-7942</a>
+          <div style="font-size:13.5px;line-height:1.7;color:#5A6B7C">월~금 10:00 – 19:00<br>토요일 10:00 – 15:00</div>
         </div>
         <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:20px;padding:30px 32px">
           <h3 style="margin:0 0 14px;font-size:17px;font-weight:800;color:#17385E">자주 묻는 질문</h3>
@@ -926,7 +926,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
     <div style="display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap">
       <div>
         <div style="font-size:17px;font-weight:800;color:#FFFFFF;margin-bottom:14px">서울아동청소년센터</div>
-        <div style="font-size:13.5px;line-height:1.9">서울특별시 ○○구 ○○로 00, 0층<br>대표전화 02-000-0000 · 팩스 02-000-0001<br>이메일 info@seoulchild.com</div>
+        <div style="font-size:13.5px;line-height:1.9">서울특별시 서초구 서초중앙로33길 6-6 신청담빌딩 501호<br>대표전화 <a href="tel:0234777942" style="color:#B9CBDE;text-decoration:none">02-3477-7942</a><br>월~금 10:00 – 19:00 · 토요일 10:00 – 15:00</div>
       </div>
       <div style="display:flex;gap:56px">
         <div>
