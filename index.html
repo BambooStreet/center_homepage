@@ -198,31 +198,25 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
     </div>
   </section>
 
-  <!-- 프로그램 하이라이트 -->
+  <!-- 상담 및 프로그램 (메인) — menu.js 의 03 하위 메뉴와 content-pages.js 원고에서 생성.
+       메뉴가 바뀌면 이 영역도 자동으로 따라간다. -->
   <section style="background:#EAF3FB;margin-top:104px;padding:100px 0">
     <div style="max-width:1200px;margin:0 auto;padding:0 24px">
       <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px">
         <div>
           <div style="font-size:13px;font-weight:700;color:#3FB9A5;letter-spacing:2px;margin-bottom:8px">PROGRAMS</div>
-          <h2 style="margin:0;font-size:30px;font-weight:800;color:#17385E;letter-spacing:-0.4px">운영 중인 프로그램</h2>
+          <h2 style="margin:0;font-size:30px;font-weight:800;color:#17385E;letter-spacing:-0.4px">상담 및 프로그램</h2>
+          <p style="margin:10px 0 0;font-size:15px;color:#5A6B7C">아이의 특성과 필요에 맞춰 상담·치료 프로그램을 운영합니다.</p>
         </div>
-        <div onClick="{{ goPrograms }}" style="font-size:14.5px;font-weight:700;color:#2168B4;cursor:pointer;display:flex;align-items:center;gap:6px" style-hover="color:#17385E">전체 프로그램 보기 <span style="font-size:17px">→</span></div>
+        <div onClick="{{ goTherapy }}" style="font-size:14.5px;font-weight:700;color:#2168B4;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap" style-hover="color:#17385E">전체 보기 <span style="font-size:17px">→</span></div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
-        <sc-for list="{{ featured }}" as="fp" hint-placeholder-count="3">
-          <div style="background:#FFFFFF;border-radius:18px;overflow:hidden;box-shadow:0 4px 14px rgba(23,56,94,0.07);display:flex;flex-direction:column">
-            <div style="height:170px;position:relative">
-              <image-slot id="{{ fp.imgId }}" shape="rect" placeholder="{{ fp.imgHint }}" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
-            </div>
-            <div style="padding:24px 26px 26px;display:flex;flex-direction:column;flex:1">
-              <div style="display:flex;gap:6px;margin-bottom:12px">
-                <span style="font-size:11.5px;font-weight:700;color:{{ fp.tagFg }};background:{{ fp.tagBg }};padding:4px 10px;border-radius:11px">{{ fp.tag }}</span>
-                <span style="font-size:11.5px;font-weight:600;color:#7A8CA0;background:#F2F6FA;padding:4px 10px;border-radius:11px">{{ fp.form }}</span>
-              </div>
-              <h3 style="margin:0 0 8px;font-size:17.5px;font-weight:800;color:#17385E;line-height:1.4;text-wrap:pretty">{{ fp.title }}</h3>
-              <p style="margin:0 0 16px;font-size:13.5px;line-height:1.65;color:#5A6B7C;flex:1;text-wrap:pretty">{{ fp.desc }}</p>
-              <div style="font-size:12.5px;color:#7A8CA0"><b style="color:#22303E">운영</b> · {{ fp.schedule }}</div>
-            </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px">
+        <sc-for list="{{ therapyCards }}" as="tc" hint-placeholder-count="7">
+          <div onClick="{{ tc.onClick }}" style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:18px;padding:26px 28px;cursor:pointer;display:flex;flex-direction:column" style-hover="border-color:#3FB9A5;box-shadow:0 10px 24px rgba(23,56,94,0.1)">
+            <div style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:11px;background:{{ tc.bg }};color:{{ tc.fg }};font-size:13px;font-weight:800;margin-bottom:14px">{{ tc.no }}</div>
+            <h3 style="margin:0 0 8px;font-size:18px;font-weight:800;color:#17385E;letter-spacing:-0.3px">{{ tc.title }}</h3>
+            <p style="margin:0 0 16px;font-size:13.5px;line-height:1.7;color:#5A6B7C;flex:1;text-wrap:pretty">{{ tc.lead }}</p>
+            <div style="font-size:13px;font-weight:700;color:{{ tc.fg }}">자세히 보기 →</div>
           </div>
         </sc-for>
       </div>
@@ -749,20 +743,12 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
           </div>
         </div>
       </div>
-      <!-- 전화 문의 + FAQ -->
+      <!-- 전화 문의 -->
       <div style="display:flex;flex-direction:column;gap:20px">
         <div style="background:#E6F6F3;border-radius:20px;padding:30px 32px">
           <h3 style="margin:0 0 12px;font-size:17px;font-weight:800;color:#17385E">전화로 편하게 문의하세요</h3>
           <a href="tel:0234777942" style="display:block;font-size:27px;font-weight:800;color:#2FA490;letter-spacing:-0.3px;margin-bottom:10px;text-decoration:none">02-3477-7942</a>
           <div style="font-size:13.5px;line-height:1.7;color:#5A6B7C">월~금 10:00 – 19:00<br>토요일 10:00 – 15:00<br>일요일·공휴일 휴무</div>
-        </div>
-        <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:20px;padding:30px 32px">
-          <h3 style="margin:0 0 14px;font-size:17px;font-weight:800;color:#17385E">자주 묻는 질문</h3>
-          <div style="display:flex;flex-direction:column;gap:12px">
-            <sc-for list="{{ faqs }}" as="fq" hint-placeholder-count="3">
-              <div style="font-size:14px;color:#5A6B7C;padding-bottom:12px;border-bottom:1px solid #EDF2F7;cursor:pointer" style-hover="color:#2168B4"><b style="color:#3FB9A5;margin-right:6px">Q.</b>{{ fq }}</div>
-            </sc-for>
-          </div>
         </div>
       </div>
     </div>
@@ -1082,11 +1068,6 @@ class Component extends DCLogic {
     // 방어: 캐시된 옛 site-content.js(svgIcon/iconPaths 없음)라도 크래시 대신 빈 아이콘.
     const EMPTY_ICON = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg"/>');
     const ic = (k, col) => (C.svgIcon && C.iconPaths && C.iconPaths[k]) ? C.svgIcon(C.iconPaths[k], col) : EMPTY_ICON;
-    const programs = C.programs || [];
-    const featured = [programs[1], programs[4], programs[5]].map((p, i) => ({
-      ...p, imgId: 'prog-' + i,
-      imgHint: ['치료 활동 사진', '그룹 활동 사진', '부모교육 사진'][i]
-    }));
     const arTab = this.state.archiveTab, nTab = this.state.newsTab;
     // ── API 데이터 → 렌더 shape 변환 헬퍼 ──
     const fmtDate = (iso) => { const d = new Date(iso); if (isNaN(d.getTime())) return ''; const p = (n) => String(n).padStart(2, '0'); return d.getFullYear() + '.' + p(d.getMonth() + 1) + '.' + p(d.getDate()); };
@@ -1140,6 +1121,16 @@ class Component extends DCLogic {
     const faqFromDb = faqPosts.map((p) => ({ q: p.title, a: String(p.body || ''), hasAnswer: !!String(p.body || '').trim() }));
     const faqStatic = (C.faqItems || []).map((f) => ({ q: f.q, a: '', hasAnswer: false }));
     const faqList = faqFromDb.length ? faqFromDb : faqStatic;
+
+    // ── 메인 '상담 및 프로그램' 카드 : 메뉴(03) + 각 페이지 리드문에서 생성 ──
+    const PALETTE = [['#2168B4', '#EAF3FB'], ['#2FA490', '#E6F6F3'], ['#B07A2A', '#FBF1E1'],
+                     ['#7A5FB8', '#F0EBFA'], ['#C94F44', '#FCEDEB'], ['#2168B4', '#EAF3FB'], ['#2FA490', '#E6F6F3']];
+    const therapySec = findSec('therapy') || { children: [] };
+    const therapyCards = therapySec.children.map((c, i) => {
+      const d = ((window.SCYC_PAGES || {}).therapies || {})[c.key] || {};
+      const [fg, bg] = PALETTE[i % PALETTE.length];
+      return { no: String(i + 1).padStart(2, '0'), title: c.label, lead: d.lead || '', fg, bg, onClick: go('therapy', c.key) };
+    });
 
     // ── 02 심리평가 · 03 상담 및 프로그램 상세 원고 (content-pages.js) ──
     const PG = window.SCYC_PAGES || {};
@@ -1265,9 +1256,10 @@ class Component extends DCLogic {
       pages: [1, 2, 3, 4, 5].map((n) => ({
         n, bg: n === 1 ? '#2168B4' : '#FFFFFF', color: n === 1 ? '#FFFFFF' : '#5A6B7C', border: n === 1 ? '#2168B4' : '#DCE6EF'
       })),
-      goHome: go('home'), goPrograms: go('intensive'), goApply: go('guide', 'apply'),
+      goHome: go('home'), goPrograms: go('intensive'), goTherapy: go('therapy'), goApply: go('guide', 'apply'),
+      therapyCards,
       goAbout: go('about', 'greeting'), goDirections: go('about', 'directions'),
-      navItems, programs, featured,
+      navItems,
       navOpen: this.state.navOpen ? 'true' : 'false',
       toggleNav: () => this.setState({ navOpen: !this.state.navOpen }),
       quickLinks: [
@@ -1281,7 +1273,6 @@ class Component extends DCLogic {
       events: C.events,
       partners: C.partners,
       steps: C.steps,
-      faqs: C.faqs,
       showDonation: this.props.showDonation ?? true,
       // 팝업: 활성 배너가 있으면 그 문구, 없으면 기본 문구. showPopup prop이 꺼지면 숨김.
       popupVisible: (this.props.showPopup ?? true) && !this.state.popupClosed && r.sec === 'home',

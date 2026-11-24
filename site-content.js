@@ -4,11 +4,6 @@
 // ※ Design Canvas 런타임 제약상 페이지 템플릿과 컴포넌트 로직 골격은 index.html 인라인에
 //    남지만, 문구 데이터는 이렇게 분리해 콘텐츠와 코드를 나눈다.
 (function () {
-  const tag = { 상담: ['#2168B4', '#EAF3FB'], 치료: ['#2FA490', '#E6F6F3'], 교육: ['#B07A2A', '#FBF1E1'], 예방: ['#7A5FB8', '#F0EBFA'] };
-  const P = (t, tagName, form, title, desc, target, schedule, short) => ({
-    tag: tagName, tagFg: tag[t][0], tagBg: tag[t][1], form, title, desc, target, schedule, short
-  });
-
   // 라인 아이콘 path (24x24 viewBox, stroke=currentColor). 템플릿에서 <path d="{{ ... }}">.
   const IC = {
     chat: 'M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z',
@@ -26,16 +21,6 @@
     '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="' +
     color + '" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="' + path + '"/></svg>'
   );
-
-  const programs = [
-    P('상담', '가족상담', '개별·가족', '이혼 위기 가정 및 이혼 준비 가정을 위한 프로그램', '가정의 변화 속에서 아이가 안정감을 잃지 않도록 아동과 부모를 함께 돕는 심리 지원 프로그램입니다.', '이혼 위기·준비 가정의 아동과 부모', '주 1회 · 상시 접수', '이혼 위기 가정 지원'),
-    P('치료', '인지행동치료', '개별', 'ADHD·행동문제를 위한 인지행동치료(CBT)', '주의력과 충동 조절의 어려움, 행동 문제를 과학적 근거에 기반한 인지행동치료로 단계적으로 개선합니다.', '주의력·행동 조절이 어려운 아동·청소년', '주 1~2회 · 12회기', 'ADHD·행동문제 CBT'),
-    P('교육', '학습지원', '개별', '학습장애 프로그램', '읽기·쓰기·수학 등 영역별 평가를 바탕으로 아이의 학습 속도에 맞춘 개별 학습치료를 제공합니다.', '학습에 어려움을 겪는 아동', '주 1~2회 · 상시 접수', '학습장애 프로그램'),
-    P('치료', '통합치료', '개별+그룹', '경계선 지능 아동을 위한 통합 프로그램', '인지·정서·사회성을 아우르는 통합적 접근으로 아이가 일상과 학교생활에 잘 적응하도록 돕습니다.', '경계선 지능 아동', '주 2회 · 학기제', '경계선 아동 통합 프로그램'),
-    P('치료', '사회성훈련', '그룹', '사회적 대화 및 기술 훈련', '반응성 애착장애, 경증 지적장애, 자폐 스펙트럼 청소년이 또래와 소통하는 힘을 기르는 그룹 훈련입니다.', '사회적 상호작용이 어려운 청소년', '주 1회 · 8~12회기', '사회적 대화·기술 훈련'),
-    P('상담', '부모교육', '온라인(Zoom)', '부모를 위한 줌 집단상담 프로그램', '비슷한 고민을 가진 부모들이 온라인으로 모여 전문가와 함께 양육의 어려움을 나누고 배웁니다.', '아동·청소년 자녀를 둔 부모', '격주 저녁 · 온라인', '부모 줌 집단상담'),
-    P('예방', '예방교육', '그룹', '아동·청소년 중독 예방 프로그램', '스마트폰·게임 등 미디어 과의존을 조기에 발견하고 건강한 사용 습관을 기르는 예방 교육입니다.', '미디어 과의존이 우려되는 아동·청소년', '분기별 운영', '중독 예방 프로그램')
-  ];
 
   const archiveDefault = [
     [
@@ -289,13 +274,11 @@
   ];
   const faqNote = '답변은 센터 운영 기준을 확인해 순차적으로 올릴 예정입니다. 급한 문의는 전화로 주시면 바로 안내해 드립니다.';
 
-  const faqs = faqItems.map((f) => f.q).slice(0, 3);
-
   window.SCYC_CONTENT = {
-    programs, archiveDefault, newsDefault, noticesDefault,
+    archiveDefault, newsDefault, noticesDefault,
     values, missions, history, historyNote, orgTeams, rooms, videos,
     experts, galleryGroups, greeting, intro,
     intensivePrograms, outreachPrograms, processDetail, processNote, faqItems, faqNote,
-    services, events, partners, steps, faqs, svgIcon, iconPaths: IC
+    services, events, partners, steps, svgIcon, iconPaths: IC
   };
 })();

@@ -106,7 +106,7 @@ input,textarea,select{font-family:inherit}
       <div style="background:#FFFFFF;border-radius:16px;border:1px solid #E2E9F1;padding:26px 28px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
           <div style="display:flex;gap:8px">
-            <sc-for list="{{ boardTabs }}" as="bt" hint-placeholder-count="4">
+            <sc-for list="{{ boardTabs }}" as="bt" hint-placeholder-count="3">
               <div onClick="{{ bt.onClick }}" style="padding:9px 18px;border-radius:18px;font-size:13.5px;font-weight:700;cursor:pointer;background:{{ bt.bg }};color:{{ bt.color }};border:1.5px solid {{ bt.border }}">{{ bt.label }}</div>
             </sc-for>
           </div>
@@ -248,20 +248,43 @@ input,textarea,select{font-family:inherit}
       </div>
     </sc-if>
 
-    <!-- 문의 관리 (데모 — 문의 접수 백엔드 연동 전) -->
+    <!-- 자주 묻는 질문 : 질문=제목, 답변=본문 (posts 테이블의 '자주 묻는 질문' 게시판) -->
     <sc-if value="{{ sec5 }}" hint-placeholder-val="{{ false }}">
       <div style="background:#FFFFFF;border-radius:16px;border:1px solid #E2E9F1;padding:26px 28px">
-        <div style="font-size:13px;color:#9AAABB;margin-bottom:14px">※ 온라인 문의 접수 기능은 홍보용 사이트 정책상 비활성화되어 있어 예시 데이터입니다.</div>
+        <div style="font-size:13.5px;color:#5A6B7C;margin-bottom:16px;line-height:1.7">
+          여기에 등록한 질문과 답변이 홈페이지 <b style="color:#17385E">상담 안내 및 센터 소식 &gt; 자주 묻는 질문</b> 페이지에 그대로 나갑니다.
+          답변을 비워두면 질문만 표시됩니다.
+        </div>
         <div style="border-top:2px solid #17385E">
-          <sc-for list="{{ inquiries }}" as="iq" hint-placeholder-count="3">
-            <div style="display:flex;align-items:center;gap:16px;padding:16px 6px;border-bottom:1px solid #EDF2F7">
-              <span style="flex:none;font-size:11.5px;font-weight:800;padding:4px 11px;border-radius:11px;color:{{ iq.fg }};background:{{ iq.bg }}">{{ iq.status }}</span>
-              <div style="flex:1;min-width:0">
-                <div style="font-size:14.5px;font-weight:600;color:#22303E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ iq.title }}</div>
-                <div style="font-size:12.5px;color:#9AAABB;margin-top:3px">{{ iq.name }} · {{ iq.date }}</div>
+          <sc-for list="{{ faqAdminList }}" as="fa" hint-placeholder-count="3">
+            <div style="padding:16px 6px;border-bottom:1px solid #EDF2F7">
+              <div style="display:flex;align-items:flex-start;gap:14px">
+                <span style="flex:none;width:26px;height:26px;border-radius:50%;background:#2168B4;color:#FFFFFF;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">Q</span>
+                <span style="flex:1;min-width:0;font-size:14.5px;font-weight:700;color:#22303E;line-height:1.6">{{ fa.q }}</span>
+                <span onClick="{{ fa.onEdit }}" style="flex:none;font-size:12.5px;font-weight:700;color:#2168B4;cursor:pointer" style-hover="text-decoration:underline">수정</span>
+                <span onClick="{{ fa.onDelete }}" style="flex:none;font-size:12.5px;font-weight:700;color:#C94F44;cursor:pointer" style-hover="text-decoration:underline">삭제</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:14px;margin-top:8px">
+                <span style="flex:none;width:26px;height:26px;border-radius:50%;background:#E6F6F3;color:#2FA490;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">A</span>
+                <span style="flex:1;min-width:0;font-size:13.5px;line-height:1.7;color:{{ fa.answerColor }};white-space:pre-line">{{ fa.answerText }}</span>
               </div>
             </div>
           </sc-for>
+          <sc-if value="{{ faqEmpty }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:40px;text-align:center;color:#9AAABB;font-size:13.5px">등록된 질문이 없습니다. 아래에서 추가해 주세요.</div>
+          </sc-if>
+        </div>
+      </div>
+
+      <div style="margin-top:22px;background:#FFFFFF;border:1px solid #E2E9F1;border-radius:16px;padding:26px 28px">
+        <h2 style="margin:0 0 16px;font-size:16.5px;font-weight:800;color:#17385E">{{ faqFormTitle }}</h2>
+        <input type="text" value="{{ faqQ }}" onChange="{{ onFaqQ }}" placeholder="질문 (예: 상담은 몇 회기 정도 진행되나요?)" style="width:100%;box-sizing:border-box;border:1px solid #C9D6E3;border-radius:10px;padding:11px 13px;font-size:14px;margin-bottom:12px;outline:none" style-focus="border-color:#2168B4">
+        <textarea value="{{ faqA }}" onChange="{{ onFaqA }}" placeholder="답변" rows="4" style="width:100%;box-sizing:border-box;border:1px solid #C9D6E3;border-radius:10px;padding:11px 13px;font-size:14px;margin-bottom:12px;outline:none;resize:vertical"></textarea>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div onClick="{{ saveFaq }}" style="background:#2FA490;color:#FFFFFF;font-size:14px;font-weight:800;padding:11px 24px;border-radius:10px;cursor:pointer" style-hover="background:#268A79">{{ faqSaveLabel }}</div>
+          <sc-if value="{{ faqEditing }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ cancelFaq }}" style="color:#7A8CA0;font-size:14px;font-weight:700;padding:11px 16px;cursor:pointer">취소</div>
+          </sc-if>
         </div>
       </div>
     </sc-if>
@@ -363,6 +386,8 @@ class Component extends DCLogic {
     bnKind: '메인 팝업', bnTitle: '', bnBadge: '', bnBody: '', bnPeriod: '', bnEnabled: true,
     // 업로드 폼
     upCategory: '센터 자료', upTitle: '', upFile: null, uploading: false,
+    // 자주 묻는 질문
+    faqQ: '', faqA: '', faqEditId: null,
     // SNS 링크
     sns: [], snPlatform: '네이버 블로그', snKind: 'account', snTitle: '', snUrl: '', snThumb: ''
   };
@@ -468,6 +493,32 @@ class Component extends DCLogic {
       .then(() => { this.flash('비웠습니다.', 'ok'); this.refresh(); }).catch((e) => this.flash(e.message, 'err'));
   }
 
+  // ── 자주 묻는 질문 ──
+  saveFaq() {
+    const q = (this.state.faqQ || '').trim();
+    const body = (this.state.faqA || '').trim();
+    if (!q) return this.flash('질문을 입력해 주세요.', 'err');
+    const payload = { board: '자주 묻는 질문', title: q, body, status: '게시중' };
+    const req = this.state.faqEditId
+      ? this.api('PATCH', '/api/posts?id=' + this.state.faqEditId, payload)
+      : this.api('POST', '/api/posts', payload);
+    req.then(() => {
+      this.setState({ faqQ: '', faqA: '', faqEditId: null });
+      this.flash('저장했습니다.', 'ok');
+      this.refresh();
+    }).catch((e) => this.flash(e.message, 'err'));
+  }
+  editFaq(p) {
+    this.setState({ faqEditId: p.id, faqQ: p.title, faqA: p.body || '' });
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+  deleteFaq(id) {
+    if (!window.confirm('이 질문을 삭제할까요?')) return;
+    this.api('DELETE', '/api/posts?id=' + id)
+      .then(() => { this.flash('삭제했습니다.', 'ok'); this.refresh(); })
+      .catch((e) => this.flash(e.message, 'err'));
+  }
+
   // ── SNS 링크 ──
   saveSns() {
     const s = this.state;
@@ -496,7 +547,7 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state;
     const goSec = (i) => () => this.setState({ section: i, msg: '' });
-    const menuDefs = [['홈', '대시보드'], ['공', '공지·게시판 관리'], ['팝', '팝업·배너 관리'], ['자', '자료실 관리'], ['이', '이미지 관리'], ['문', '문의 관리'], ['S', 'SNS 관리'], ['?', '도움말 · 사용법']];
+    const menuDefs = [['홈', '대시보드'], ['공', '공지·게시판 관리'], ['팝', '팝업·배너 관리'], ['자', '자료실 관리'], ['이', '이미지 관리'], ['질', '자주 묻는 질문'], ['S', 'SNS 관리'], ['?', '도움말 · 사용법']];
 
     const st = {
       게시중: ['#2FA490', '#E6F6F3'], 임시저장: ['#7A8CA0', '#F0F4F8'],
@@ -505,8 +556,7 @@ class Component extends DCLogic {
     const fmt = (iso) => { const d = new Date(iso); if (isNaN(d.getTime())) return ''; const p = (n) => String(n).padStart(2, '0'); return d.getFullYear() + '.' + p(d.getMonth() + 1) + '.' + p(d.getDate()); };
     const fileMeta = { PDF: ['#C94F44', '#FCEDEB'], PPT: ['#B07A2A', '#FBF1E1'], PPTX: ['#B07A2A', '#FBF1E1'], ZIP: ['#7A5FB8', '#F0EBFA'], DOC: ['#2168B4', '#EAF3FB'], DOCX: ['#2168B4', '#EAF3FB'], MP4: ['#2FA490', '#E6F6F3'] };
 
-    // '자주 묻는 질문' 게시판: 제목=질문, 내용=답변 → 홈페이지 FAQ 페이지에 그대로 나간다.
-    const boards = ['공지사항', '행사안내', '보도자료', '자주 묻는 질문'];
+    const boards = ['공지사항', '행사안내', '보도자료'];
     const curBoard = boards[s.boardTab];
     const boardList = s.posts.filter((p) => p.board === curBoard).map((p) => {
       const c = st[p.status] || st['게시중'];
@@ -537,7 +587,6 @@ class Component extends DCLogic {
       ['mou-2', '협약 3 · 위촉장'], ['mou-3', '협약 4 · 감사패/표창'],
       ['book-0', '발간 1 · 도서'], ['book-1', '발간 2 · 도서'],
       ['book-2', '발간 3 · 자료집'], ['book-3', '발간 4 · 자료집'],
-      ['prog-0', '대표 프로그램 1'], ['prog-1', '대표 프로그램 2'], ['prog-2', '대표 프로그램 3'],
       ['room-0', '놀이치료실'], ['room-1', '인지학습치료실'], ['room-2', '언어치료실'],
       ['room-3', '사회성 그룹치료실'], ['room-4', '부모상담실'], ['room-5', '접수면접실'],
       ['vid-0', '영상 썸네일 1'], ['vid-1', '영상 썸네일 2'], ['vid-2', '영상 썸네일 3']
@@ -551,11 +600,14 @@ class Component extends DCLogic {
         onClear: () => this.clearSlot(id) };
     });
 
-    const inquiries = [
-      { title: '초등 2학년 아이 상담 비용이 궁금합니다', name: '학부모 김○○', date: '2026.07.15', status: '미답변', fg: st['미답변'][0], bg: st['미답변'][1] },
-      { title: '언어치료 대기 기간이 어떻게 되나요?', name: '학부모 이○○', date: '2026.07.14', status: '미답변', fg: st['미답변'][0], bg: st['미답변'][1] },
-      { title: '부모 줌 집단상담 참여 방법', name: '학부모 박○○', date: '2026.07.12', status: '답변완료', fg: st['답변완료'][0], bg: st['답변완료'][1] }
-    ];
+    // ── 자주 묻는 질문 : posts 테이블의 '자주 묻는 질문' 게시판을 전용 화면으로 관리 ──
+    const FAQ_BOARD = '자주 묻는 질문';
+    const faqAdminList = s.posts.filter((p) => p.board === FAQ_BOARD).map((p) => ({
+      q: p.title, a: p.body || '', hasAnswer: !!String(p.body || '').trim(),
+      answerText: String(p.body || '').trim() ? p.body : '답변을 아직 입력하지 않았습니다.',
+      answerColor: String(p.body || '').trim() ? '#5A6B7C' : '#C94F44',
+      onEdit: () => this.editFaq(p), onDelete: () => this.deleteFaq(p.id)
+    }));
 
     const snsMeta = {
       '네이버 블로그': ['#2FA490', '#E6F6F3'], '인스타그램': ['#C94F44', '#FCEDEB'], '유튜브': ['#B03030', '#FCEBEB']
@@ -578,8 +630,8 @@ class Component extends DCLogic {
         lines: [
           '게시판(공지사항·행사안내·보도자료)을 고르고 「+ 새 글 작성」을 누릅니다.',
           '상태를 「게시중」으로 저장하면 홈페이지에 바로 보입니다. 「임시저장」은 관리자 화면에만 보입니다.',
-          '최근 2주 안에 올린 글에는 NEW 표시가 자동으로 붙습니다.',
-          "'자주 묻는 질문' 게시판은 제목에 질문, 내용에 답변을 적으면 홈페이지 FAQ 페이지에 그대로 나갑니다."
+          '홈페이지에서 제목을 누르면 글 본문이 열립니다.',
+          '최근 2주 안에 올린 글에는 NEW 표시가 자동으로 붙습니다.'
         ] },
       { glyph: '자', title: '자료실 관리', fg: '#2FA490', bg: '#E6F6F3',
         where: '홈페이지 > 상담 안내 및 센터 소식 > 자료실',
@@ -595,12 +647,19 @@ class Component extends DCLogic {
           '메인 히어로는 센터 공간·전경 사진 자리입니다. 올리지 않으면 그래픽 배경만 나옵니다.',
           '아이 얼굴이 나오는 사진은 보호자 동의를 확인한 것만 사용해 주세요.'
         ] },
-      { glyph: '팝', title: '팝업·배너 관리', fg: '#7A5FB8', bg: '#F0EBFA',
+      { glyph: '팝', title: '팝업·배너 관리', fg: '#2FA490', bg: '#E6F6F3',
         where: '메인 화면 팝업',
         lines: [
           '제목·뱃지·게시 기간·본문을 넣고 「추가」를 누릅니다.',
           '카드의 스위치로 노출을 켜고 끕니다.',
           '게시 기간은 안내 문구일 뿐 자동으로 꺼지지 않습니다. 끝나면 스위치를 꺼 주세요.'
+        ] },
+      { glyph: '질', title: '자주 묻는 질문', fg: '#7A5FB8', bg: '#F0EBFA',
+        where: '홈페이지 > 상담 안내 및 센터 소식 > 자주 묻는 질문',
+        lines: [
+          '질문과 답변을 한 쌍으로 등록하면 FAQ 페이지에 Q / A 로 나갑니다.',
+          '답변을 비워두면 질문만 표시됩니다. 나중에 「수정」으로 채우면 됩니다.',
+          '필요 없는 질문은 「삭제」로 지웁니다.'
         ] },
       { glyph: 'S', title: 'SNS 관리', fg: '#C94F44', bg: '#FCEDEB',
         where: '홈페이지 맨 아래 아이콘, 메인 「센터 소식, 더 가깝게」',
@@ -617,7 +676,7 @@ class Component extends DCLogic {
       '화면이 바뀌지 않으면 새로고침(F5), 그래도 안 되면 Ctrl+F5 를 눌러 보세요.'
     ];
 
-    const publishedCount = s.posts.filter((p) => p.status === '게시중').length;
+    const publishedCount = s.posts.filter((p) => p.status === '게시중' && p.board !== FAQ_BOARD).length;
     const msgColors = s.msgKind === 'err'
       ? ['#C94F44', '#FCEDEB', '#F3C9C4'] : ['#2FA490', '#E6F6F3', '#BFE8DF'];
 
@@ -692,7 +751,16 @@ class Component extends DCLogic {
       adminFiles, filesEmpty: adminFiles.length === 0,
 
       imageSlots,
-      inquiries
+      faqAdminList,
+      faqQ: s.faqQ, faqA: s.faqA,
+      faqFormTitle: s.faqEditId ? '질문 수정' : '새 질문 추가',
+      faqSaveLabel: s.faqEditId ? '수정 저장' : '추가',
+      faqEditing: !!s.faqEditId,
+      faqEmpty: faqAdminList.length === 0,
+      onFaqQ: (e) => this.setState({ faqQ: e.target.value }),
+      onFaqA: (e) => this.setState({ faqA: e.target.value }),
+      saveFaq: () => this.saveFaq(),
+      cancelFaq: () => this.setState({ faqEditId: null, faqQ: '', faqA: '' })
     };
   }
 }
