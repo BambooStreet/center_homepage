@@ -55,7 +55,9 @@ const server = http.createServer(async (req, res) => {
       const handler = await loadHandler(name);
       req.query = Object.fromEntries(u.searchParams.entries());
       req.body = await readBody(req);
-      return handler(req, res);
+      // await 로 감싸야 핸들러 내부 비동기 오류가 아래 catch 로 잡힌다
+      // (예: 아직 만들지 않은 테이블 조회 → 예전에는 dev 서버 자체가 죽었음)
+      return await handler(req, res);
     } catch (e) {
       res.statusCode = 500; res.setHeader('content-type', 'application/json');
       return res.end(JSON.stringify({ error: 'dev server: ' + e.message }));

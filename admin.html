@@ -265,6 +265,51 @@ input,textarea,select{font-family:inherit}
         </div>
       </div>
     </sc-if>
+
+    <!-- SNS 관리 : 블로그·인스타·유튜브 계정과 소개할 게시물을 센터가 직접 등록 -->
+    <sc-if value="{{ sec6 }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#FFFFFF;border-radius:16px;border:1px solid #E2E9F1;padding:26px 28px">
+        <div style="font-size:13px;color:#5A6B7C;margin-bottom:16px;line-height:1.7">
+          <b style="color:#17385E">계정 바로가기</b>는 홈페이지 맨 아래 아이콘으로 연결되고,
+          <b style="color:#17385E">게시물·숏츠</b>는 메인 화면의 「센터 소식, 더 가깝게」 카드로 최대 4개까지 노출됩니다.
+          썸네일 주소를 비워두면 플랫폼 표시만 들어갑니다.
+        </div>
+        <div style="border-top:2px solid #17385E">
+          <sc-for list="{{ snsList }}" as="sn" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:14px;padding:14px 6px;border-bottom:1px solid #EDF2F7">
+              <span style="flex:none;font-size:11.5px;font-weight:800;padding:4px 11px;border-radius:11px;color:{{ sn.fg }};background:{{ sn.bg }}">{{ sn.platform }}</span>
+              <span style="flex:none;font-size:12px;font-weight:700;color:#7A8CA0">{{ sn.kindLabel }}</span>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:14.5px;font-weight:600;color:#22303E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ sn.title }}</div>
+                <div style="font-size:12px;color:#9AAABB;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ sn.url }}</div>
+              </div>
+              <div onClick="{{ sn.onToggle }}" style="flex:none;width:48px;height:27px;border-radius:14px;background:{{ sn.toggleBg }};position:relative;cursor:pointer">
+                <div style="position:absolute;top:3px;left:{{ sn.knobLeft }};width:21px;height:21px;border-radius:50%;background:#FFFFFF;box-shadow:0 1px 4px rgba(0,0,0,0.25)"></div>
+              </div>
+              <span onClick="{{ sn.onDelete }}" style="flex:none;font-size:12.5px;font-weight:700;color:#C94F44;cursor:pointer" style-hover="text-decoration:underline">삭제</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- 새 링크 -->
+      <div style="margin-top:22px;background:#FFFFFF;border:1px solid #E2E9F1;border-radius:16px;padding:26px 28px">
+        <h2 style="margin:0 0 16px;font-size:16.5px;font-weight:800;color:#17385E">새 링크 추가</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <select value="{{ snPlatform }}" onChange="{{ onSnPlatform }}" style="border:1px solid #C9D6E3;border-radius:10px;padding:11px 13px;font-size:14px;background:#FFFFFF;outline:none">
+            <option>네이버 블로그</option><option>인스타그램</option><option>유튜브</option>
+          </select>
+          <select value="{{ snKind }}" onChange="{{ onSnKind }}" style="border:1px solid #C9D6E3;border-radius:10px;padding:11px 13px;font-size:14px;background:#FFFFFF;outline:none">
+            <option value="account">계정 바로가기 (푸터 아이콘)</option>
+            <option value="post">게시물 · 숏츠 (메인 카드)</option>
+          </select>
+          <input type="text" value="{{ snTitle }}" onChange="{{ onSnTitle }}" placeholder="표시할 제목 (예: 센터 블로그 / 숏츠 제목)" style="box-sizing:border-box;border:1px solid #C9D6E3;border-radius:10px;padding:11px 13px;font-size:14px;outline:none" style-focus="border-color:#2168B4">
+          <input type="text" value="{{ snThumb }}" onChange="{{ onSnThumb }}" placeholder="썸네일 이미지 주소 (선택)" style="box-sizing:border-box;border:1px solid #C9D6E3;border-radius:10px;padding:11px 13px;font-size:14px;outline:none" style-focus="border-color:#2168B4">
+        </div>
+        <input type="text" value="{{ snUrl }}" onChange="{{ onSnUrl }}" placeholder="연결할 주소 (https:// 로 시작)" style="width:100%;box-sizing:border-box;border:1px solid #C9D6E3;border-radius:10px;padding:11px 13px;font-size:14px;margin-bottom:12px;outline:none" style-focus="border-color:#2168B4">
+        <div onClick="{{ saveSns }}" style="display:inline-block;background:#2FA490;color:#FFFFFF;font-size:14px;font-weight:800;padding:11px 24px;border-radius:10px;cursor:pointer" style-hover="background:#268A79">추가</div>
+      </div>
+    </sc-if>
   </div>
 </div>
 </sc-if>
@@ -280,7 +325,9 @@ class Component extends DCLogic {
     // 배너 폼
     bnKind: '메인 팝업', bnTitle: '', bnBadge: '', bnBody: '', bnPeriod: '', bnEnabled: true,
     // 업로드 폼
-    upCategory: '센터 자료', upTitle: '', upFile: null, uploading: false
+    upCategory: '센터 자료', upTitle: '', upFile: null, uploading: false,
+    // SNS 링크
+    sns: [], snPlatform: '네이버 블로그', snKind: 'account', snTitle: '', snUrl: '', snThumb: ''
   };
 
   componentDidMount() {
@@ -298,6 +345,7 @@ class Component extends DCLogic {
     this.api('GET', '/api/posts?all=1').then((d) => this.setState({ posts: d || [] })).catch(() => {});
     this.api('GET', '/api/files').then((d) => this.setState({ files: d || [] })).catch(() => {});
     this.api('GET', '/api/banners').then((d) => this.setState({ banners: d || [] })).catch(() => {});
+    this.api('GET', '/api/sns?all=1').then((d) => this.setState({ sns: d || [] })).catch(() => {});
     this.api('GET', '/api/image-slots').then((d) => this.setState({ imageSlots: d || {} })).catch(() => {});
   }
 
@@ -383,10 +431,35 @@ class Component extends DCLogic {
       .then(() => { this.flash('비웠습니다.', 'ok'); this.refresh(); }).catch((e) => this.flash(e.message, 'err'));
   }
 
+  // ── SNS 링크 ──
+  saveSns() {
+    const s = this.state;
+    const url = (s.snUrl || '').trim();
+    if (!/^https?:\/\//i.test(url)) return this.flash('주소는 https:// 로 시작해야 합니다.', 'err');
+    this.api('POST', '/api/sns', {
+      platform: s.snPlatform, kind: s.snKind, title: (s.snTitle || '').trim() || null,
+      url, thumb_url: (s.snThumb || '').trim() || null, enabled: true
+    }).then(() => {
+      this.setState({ snTitle: '', snUrl: '', snThumb: '' });
+      this.flash('등록했습니다.', 'ok');
+      this.refresh();
+    }).catch((e) => this.flash(e.message, 'err'));
+  }
+  toggleSns(row) {
+    this.api('PATCH', '/api/sns?id=' + row.id, { enabled: !row.enabled })
+      .then(() => this.refresh()).catch((e) => this.flash(e.message, 'err'));
+  }
+  deleteSns(id) {
+    if (!window.confirm('이 링크를 삭제할까요?')) return;
+    this.api('DELETE', '/api/sns?id=' + id)
+      .then(() => { this.flash('삭제했습니다.', 'ok'); this.refresh(); })
+      .catch((e) => this.flash(e.message, 'err'));
+  }
+
   renderVals() {
     const s = this.state;
     const goSec = (i) => () => this.setState({ section: i, msg: '' });
-    const menuDefs = [['홈', '대시보드'], ['공', '공지·게시판 관리'], ['팝', '팝업·배너 관리'], ['자', '자료실 관리'], ['이', '이미지 관리'], ['문', '문의 관리']];
+    const menuDefs = [['홈', '대시보드'], ['공', '공지·게시판 관리'], ['팝', '팝업·배너 관리'], ['자', '자료실 관리'], ['이', '이미지 관리'], ['문', '문의 관리'], ['S', 'SNS 관리']];
 
     const st = {
       게시중: ['#2FA490', '#E6F6F3'], 임시저장: ['#7A8CA0', '#F0F4F8'],
@@ -416,10 +489,18 @@ class Component extends DCLogic {
       return { type: t, fg: c[0], bg: c[1], title: f.title, cat: f.category, date: fmt(f.created_at), url: f.blob_url, onDelete: () => this.deleteFile(f.id) };
     });
 
+    // 홈페이지 이미지 슬롯 목록 (index.html 과 짝을 맞춰 관리).
+    // 2026-11 센터 요청: 대문 아이들 사진·센터장 사진을 빼고, 기관/협약/도서 사진을 추가.
     const SLOTS = [
-      ['hero-main', '메인 히어로 배경'], ['director', '센터장 사진'],
+      ['hero-space', '메인 히어로 · 센터 공간 사진(선택)'],
+      ['center-0', '기관 사진 1 · 센터 전경'], ['center-1', '기관 사진 2 · 대기 공간'],
+      ['center-2', '기관 사진 3 · 집단 프로그램실'], ['center-3', '기관 사진 4 · 부모 상담 공간'],
+      ['mou-0', '협약 1 · 업무협약서'], ['mou-1', '협약 2 · 업무협약서'],
+      ['mou-2', '협약 3 · 위촉장'], ['mou-3', '협약 4 · 감사패/표창'],
+      ['book-0', '발간 1 · 도서'], ['book-1', '발간 2 · 도서'],
+      ['book-2', '발간 3 · 자료집'], ['book-3', '발간 4 · 자료집'],
       ['prog-0', '대표 프로그램 1'], ['prog-1', '대표 프로그램 2'], ['prog-2', '대표 프로그램 3'],
-      ['biz-0', '사업안내 · 상담사업'], ['biz-1', '사업안내 · 교육사업'], ['biz-2', '사업안내 · 지역연계'],
+      ['biz-0', '센터 소개 · 상담사업'], ['biz-1', '센터 소개 · 교육사업'], ['biz-2', '센터 소개 · 지역연계'],
       ['room-0', '놀이치료실'], ['room-1', '인지학습치료실'], ['room-2', '언어치료실'],
       ['room-3', '사회성 그룹치료실'], ['room-4', '부모상담실'], ['room-5', '접수면접실'],
       ['vid-0', '영상 썸네일 1'], ['vid-1', '영상 썸네일 2'], ['vid-2', '영상 썸네일 3']
@@ -438,6 +519,20 @@ class Component extends DCLogic {
       { title: '언어치료 대기 기간이 어떻게 되나요?', name: '학부모 이○○', date: '2026.07.14', status: '미답변', fg: st['미답변'][0], bg: st['미답변'][1] },
       { title: '부모 줌 집단상담 참여 방법', name: '학부모 박○○', date: '2026.07.12', status: '답변완료', fg: st['답변완료'][0], bg: st['답변완료'][1] }
     ];
+
+    const snsMeta = {
+      '네이버 블로그': ['#2FA490', '#E6F6F3'], '인스타그램': ['#C94F44', '#FCEDEB'], '유튜브': ['#B03030', '#FCEBEB']
+    };
+    const snsList = s.sns.map((x) => {
+      const c = snsMeta[x.platform] || ['#2168B4', '#EAF3FB'];
+      return {
+        platform: x.platform, fg: c[0], bg: c[1],
+        kindLabel: x.kind === 'account' ? '계정' : '게시물',
+        title: x.title || '(제목 없음)', url: x.url,
+        toggleBg: x.enabled ? '#3FB9A5' : '#C9D6E3', knobLeft: x.enabled ? '24px' : '3px',
+        onToggle: () => this.toggleSns(x), onDelete: () => this.deleteSns(x.id)
+      };
+    });
 
     const publishedCount = s.posts.filter((p) => p.status === '게시중').length;
     const msgColors = s.msgKind === 'err'
@@ -459,10 +554,19 @@ class Component extends DCLogic {
         iconColor: i === s.section ? '#3FB9A5' : '#6E86A3'
       })),
       sectionTitle: menuDefs[s.section][1],
-      sec0: s.section === 0, sec1: s.section === 1, sec2: s.section === 2, sec3: s.section === 3, sec4: s.section === 4, sec5: s.section === 5,
+      sec0: s.section === 0, sec1: s.section === 1, sec2: s.section === 2, sec3: s.section === 3, sec4: s.section === 4, sec5: s.section === 5, sec6: s.section === 6,
       goNoticeSec: goSec(1), goPopupSec: goSec(2), goArchiveSec: goSec(3), goImageSec: goSec(4),
 
       hasMsg: !!s.msg, msg: s.msg, msgFg: msgColors[0], msgBg: msgColors[1], msgBorder: msgColors[2],
+
+      snsList,
+      snPlatform: s.snPlatform, snKind: s.snKind, snTitle: s.snTitle, snUrl: s.snUrl, snThumb: s.snThumb,
+      onSnPlatform: (e) => this.setState({ snPlatform: e.target.value }),
+      onSnKind: (e) => this.setState({ snKind: e.target.value }),
+      onSnTitle: (e) => this.setState({ snTitle: e.target.value }),
+      onSnUrl: (e) => this.setState({ snUrl: e.target.value }),
+      onSnThumb: (e) => this.setState({ snThumb: e.target.value }),
+      saveSns: () => this.saveSns(),
 
       stats: [
         { label: '게시 중 공지', value: String(publishedCount), delta: '전체 ' + s.posts.length + '건', deltaColor: '#2FA490' },

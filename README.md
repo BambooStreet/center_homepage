@@ -22,6 +22,7 @@ Design Canvas 런타임(`support.js`)이 브라우저에서 React를 CDN으로 �
 │   ├── files.js         # 자료실 메타 + Blob 삭제
 │   ├── banners.js       # 팝업·띠배너 CRUD
 │   ├── image-slots.js   # 이미지 슬롯 상태 (image-slot.js가 읽는 맵)
+│   ├── sns.js           # 블로그·인스타·유튜브 링크 CRUD (관리자 등록형)
 │   └── upload.js        # 파일→Blob 업로드 (base64 경유, auth)
 ├── schema.sql       # Neon 테이블 정의 (1회 실행)
 ├── package.json     # 서버리스 함수 의존성 (프론트는 빌드 없음)
@@ -37,6 +38,7 @@ Design Canvas 런타임(`support.js`)이 브라우저에서 React를 CDN으로 �
 - **자료실** — PDF/ZIP 등 파일 업로드(~3MB, Blob 저장)·삭제
 - **이미지 관리** — 홈페이지 각 이미지 영역(히어로·치료실·프로그램 등) 교체
 - **팝업·배너** — 메인 팝업/띠배너 문구·기간·활성화 관리
+- **SNS 관리** — 블로그·인스타그램·유튜브 계정(푸터 아이콘)과 소개할 게시물·숏츠(메인 카드) 등록·정렬·on/off
 
 ### 환경변수
 

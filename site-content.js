@@ -142,6 +142,55 @@
     { month: 'AUG', day: '05', title: '지역아동센터 실무자 협력 간담회', meta: '14:00 · 센터 세미나실' }
   ];
 
+  // ── 전문가 소개 ──  센터 요청(2026-11): 전문가 '사진'은 싣지 않고 자격·담당 영역만 텍스트로.
+  //    실명·경력은 센터에서 원고를 받는 대로 교체한다.
+  const experts = [
+    { role: '임상심리전문가', fg: '#2168B4', bg: '#EAF3FB', field: '심리평가 · 청소년 상담',
+      quals: ['임상심리전문가', '정신건강임상심리사', '심리학 석사'],
+      desc: '종합심리평가와 정서·행동 문제에 대한 상담을 담당합니다.' },
+    { role: '놀이심리상담사', fg: '#2FA490', bg: '#E6F6F3', field: '놀이치료 · 아동 상담',
+      quals: ['놀이심리상담사', '모래놀이치료사', '아동학 전공'],
+      desc: '놀이를 통해 아동의 정서 표현과 관계 회복을 돕습니다.' },
+    { role: '언어재활사', fg: '#B07A2A', bg: '#FBF1E1', field: '언어평가 · 언어치료',
+      quals: ['언어재활사 1급', '언어병리학 전공'],
+      desc: '언어 이해·표현과 의사소통 발달을 평가하고 중재합니다.' },
+    { role: '인지학습치료사', fg: '#7A5FB8', bg: '#F0EBFA', field: '학습평가 · 인지학습치료',
+      quals: ['인지학습치료사', '특수교육 전공'],
+      desc: '느린학습자·학습장애 아동의 기초학습과 자기조절을 지원합니다.' },
+    { role: '가족상담 전문가', fg: '#C94F44', bg: '#FCEDEB', field: '부모 · 가족상담',
+      quals: ['부부가족상담전문가', '상담심리사'],
+      desc: '부모 양육상담과 가족관계 회복을 함께합니다.' },
+    { role: '청소년상담사', fg: '#2168B4', bg: '#EAF3FB', field: '청소년 · 청년 상담',
+      quals: ['청소년상담사', '상담심리 전공'],
+      desc: '학교생활·진로·중독 등 청소년기 어려움을 다룹니다.' }
+  ];
+
+  // ── 센터의 기록 ──  기관 사진 / 협약증서 / 발간 도서.  이미지는 관리자 화면에서 교체하고,
+  //    캡션은 아래 문구가 쓰인다(추후 관리자에서 캡션까지 편집 가능하도록 확장 예정).
+  const galleryGroups = [
+    { key: 'center', title: '기관 사진', desc: '센터의 공간과 활동 현장입니다.',
+      items: [
+        { imgId: 'center-0', title: '센터 전경', meta: '' },
+        { imgId: 'center-1', title: '상담 대기 공간', meta: '' },
+        { imgId: 'center-2', title: '집단 프로그램실', meta: '' },
+        { imgId: 'center-3', title: '부모 상담 공간', meta: '' }
+      ] },
+    { key: 'mou', title: '협약 · 위촉', desc: '학교·기관과 맺은 업무협약 및 위촉 기록입니다.',
+      items: [
+        { imgId: 'mou-0', title: '업무협약서', meta: '기관명 · 연도' },
+        { imgId: 'mou-1', title: '업무협약서', meta: '기관명 · 연도' },
+        { imgId: 'mou-2', title: '위촉장', meta: '기관명 · 연도' },
+        { imgId: 'mou-3', title: '감사패 · 표창', meta: '기관명 · 연도' }
+      ] },
+    { key: 'book', title: '발간 도서 · 자료', desc: '센터가 집필하거나 참여한 도서와 자료입니다.',
+      items: [
+        { imgId: 'book-0', title: '도서명', meta: '출판사 · 발행연도' },
+        { imgId: 'book-1', title: '도서명', meta: '출판사 · 발행연도' },
+        { imgId: 'book-2', title: '자료집명', meta: '발행연도' },
+        { imgId: 'book-3', title: '자료집명', meta: '발행연도' }
+      ] }
+  ];
+
   const partners = ['서울특별시', '○○구청', '○○교육지원청', '지역아동센터협의회', '○○복지재단', '○○대학교'];
 
   const steps = [
@@ -156,6 +205,7 @@
   window.SCYC_CONTENT = {
     programs, archiveDefault, newsDefault, noticesDefault,
     values, missions, history, orgTeams, businesses, rooms, videos,
+    experts, galleryGroups,
     services, events, partners, steps, faqs, svgIcon, iconPaths: IC
   };
 })();

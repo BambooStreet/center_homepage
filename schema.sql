@@ -37,10 +37,24 @@ create table if not exists banners (
 );
 
 create table if not exists image_slots (
-  slot_id    text primary key,            -- 'hero-main', 'director' 등
+  slot_id    text primary key,            -- 'hero-space', 'room-0', 'mou-0' 등
   url        text,
   s          real default 1,
   x          real default 0,
   y          real default 0,
   updated_at timestamptz default now()
 );
+
+-- 블로그·인스타그램·유튜브(숏츠) 연결 링크 — 센터가 /admin 에서 직접 등록
+create table if not exists sns_links (
+  id         serial primary key,
+  platform   text not null,               -- '네이버 블로그' | '인스타그램' | '유튜브'
+  kind       text not null default 'post',-- 'account'(계정 바로가기) | 'post'(게시물·숏츠)
+  title      text,
+  url        text not null,
+  thumb_url  text,
+  sort       int default 0,
+  enabled    boolean default true,
+  created_at timestamptz default now()
+);
+create index if not exists sns_links_idx on sns_links (enabled, kind, sort);
