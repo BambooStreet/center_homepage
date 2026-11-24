@@ -106,7 +106,7 @@ input,textarea,select{font-family:inherit}
       <div style="background:#FFFFFF;border-radius:16px;border:1px solid #E2E9F1;padding:26px 28px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
           <div style="display:flex;gap:8px">
-            <sc-for list="{{ boardTabs }}" as="bt" hint-placeholder-count="3">
+            <sc-for list="{{ boardTabs }}" as="bt" hint-placeholder-count="4">
               <div onClick="{{ bt.onClick }}" style="padding:9px 18px;border-radius:18px;font-size:13.5px;font-weight:700;cursor:pointer;background:{{ bt.bg }};color:{{ bt.color }};border:1.5px solid {{ bt.border }}">{{ bt.label }}</div>
             </sc-for>
           </div>
@@ -338,20 +338,6 @@ input,textarea,select{font-family:inherit}
         </sc-for>
       </div>
 
-      <h2 style="margin:30px 0 14px;font-size:17px;font-weight:800;color:#17385E">자주 하는 작업 순서</h2>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
-        <sc-for list="{{ helpRecipes }}" as="hr" hint-placeholder-count="3">
-          <div style="background:#FFFFFF;border:1px solid #E2E9F1;border-radius:16px;padding:22px 24px">
-            <div style="font-size:15px;font-weight:800;color:#17385E;margin-bottom:12px">{{ hr.title }}</div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <sc-for list="{{ hr.steps }}" as="hs" hint-placeholder-count="3">
-                <div style="font-size:13.5px;line-height:1.6;color:#5A6B7C">{{ hs }}</div>
-              </sc-for>
-            </div>
-          </div>
-        </sc-for>
-      </div>
-
       <div style="margin-top:26px;background:#FCEDEB;border:1px solid #F3C9C4;border-radius:14px;padding:22px 26px">
         <div style="font-size:15px;font-weight:800;color:#C94F44;margin-bottom:12px">꼭 알아두실 점</div>
         <div style="display:flex;flex-direction:column;gap:9px">
@@ -519,7 +505,8 @@ class Component extends DCLogic {
     const fmt = (iso) => { const d = new Date(iso); if (isNaN(d.getTime())) return ''; const p = (n) => String(n).padStart(2, '0'); return d.getFullYear() + '.' + p(d.getMonth() + 1) + '.' + p(d.getDate()); };
     const fileMeta = { PDF: ['#C94F44', '#FCEDEB'], PPT: ['#B07A2A', '#FBF1E1'], PPTX: ['#B07A2A', '#FBF1E1'], ZIP: ['#7A5FB8', '#F0EBFA'], DOC: ['#2168B4', '#EAF3FB'], DOCX: ['#2168B4', '#EAF3FB'], MP4: ['#2FA490', '#E6F6F3'] };
 
-    const boards = ['공지사항', '행사안내', '보도자료'];
+    // '자주 묻는 질문' 게시판: 제목=질문, 내용=답변 → 홈페이지 FAQ 페이지에 그대로 나간다.
+    const boards = ['공지사항', '행사안내', '보도자료', '자주 묻는 질문'];
     const curBoard = boards[s.boardTab];
     const boardList = s.posts.filter((p) => p.board === curBoard).map((p) => {
       const c = st[p.status] || st['게시중'];
@@ -591,7 +578,8 @@ class Component extends DCLogic {
         lines: [
           '게시판(공지사항·행사안내·보도자료)을 고르고 「+ 새 글 작성」을 누릅니다.',
           '상태를 「게시중」으로 저장하면 홈페이지에 바로 보입니다. 「임시저장」은 관리자 화면에만 보입니다.',
-          '최근 2주 안에 올린 글에는 NEW 표시가 자동으로 붙습니다.'
+          '최근 2주 안에 올린 글에는 NEW 표시가 자동으로 붙습니다.',
+          "'자주 묻는 질문' 게시판은 제목에 질문, 내용에 답변을 적으면 홈페이지 FAQ 페이지에 그대로 나갑니다."
         ] },
       { glyph: '자', title: '자료실 관리', fg: '#2FA490', bg: '#E6F6F3',
         where: '홈페이지 > 상담 안내 및 센터 소식 > 자료실',
@@ -621,11 +609,6 @@ class Component extends DCLogic {
           '주소는 반드시 https:// 로 시작해야 합니다.',
           '등록된 것이 없으면 홈페이지에서 해당 영역이 아예 보이지 않습니다.'
         ] }
-    ];
-    const helpRecipes = [
-      { title: '프로그램 참가자를 모집할 때', steps: ['공지사항에 모집 안내 글 작성', '신청서·안내문은 자료실에 업로드', '메인 팝업 추가 → 모집이 끝나면 스위치 OFF'] },
-      { title: '행사를 치르고 났을 때', steps: ['행사안내에 후기 글 작성', '이미지 관리에서 관련 사진 교체', 'SNS 관리에 인스타·블로그 링크 추가'] },
-      { title: '기관과 협약을 맺었을 때', steps: ['이미지 관리 > 「협약 1~4」 빈 칸에 협약서 사진 업로드', '캡션(기관명·연도) 변경은 제작자에게 요청'] }
     ];
     const helpCautions = [
       '삭제는 되돌릴 수 없습니다. 잠시 내릴 때는 글은 「임시저장」, 팝업·SNS는 스위치 OFF 를 쓰세요.',
@@ -659,7 +642,7 @@ class Component extends DCLogic {
 
       hasMsg: !!s.msg, msg: s.msg, msgFg: msgColors[0], msgBg: msgColors[1], msgBorder: msgColors[2],
 
-      snsList, helpItems, helpRecipes, helpCautions,
+      snsList, helpItems, helpCautions,
       snPlatform: s.snPlatform, snKind: s.snKind, snTitle: s.snTitle, snUrl: s.snUrl, snThumb: s.snThumb,
       onSnPlatform: (e) => this.setState({ snPlatform: e.target.value }),
       onSnKind: (e) => this.setState({ snKind: e.target.value }),

@@ -28,8 +28,8 @@
       sub('play', '놀이평가', true),
       sub('language', '종합언어평가', true),
       sub('career', '진로적성검사', true),
-      sub('temperament', '기질평가'),
-      sub('personality', '성격평가'),
+      sub('temperament', '기질평가', true),
+      sub('personality', '성격평가', true),
       sub('family', '부모 및 가족평가')
     ]),
     sec('therapy', '상담 및 프로그램', '아이의 특성과 필요에 맞춘 상담·치료 프로그램을 제공합니다.', [
@@ -39,7 +39,7 @@
       sub('social', '사회성 그룹치료', true),
       sub('teen', '청소년 상담', true),
       sub('family', '부모 및 가족상담', true),
-      sub('youth', '청년 상담')
+      sub('youth', '청년 상담', true)
     ]),
     sec('intensive', '집중 프로그램', '특화 영역별로 평가·상담·부모지원을 묶은 통합 프로그램입니다.', []),
     sec('outreach', '외부기관 교육·집단상담', '학교·복지기관 등과 연계한 집단 교육 및 집단 상담입니다.', []),
