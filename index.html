@@ -246,6 +246,36 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
   </section>
 
 
+  <!-- 자주 묻는 질문 (메인) — 관리자 '자주 묻는 질문'에 등록된 내용 상위 5개 -->
+  <section style="background:#F5F8FB;padding:84px 0;margin-top:104px">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;gap:20px">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#3FB9A5;letter-spacing:2px;margin-bottom:8px">FAQ</div>
+          <h2 style="margin:0;font-size:26px;font-weight:800;color:#17385E;letter-spacing:-0.4px">자주 묻는 질문</h2>
+        </div>
+        <div onClick="{{ goFaq }}" style="font-size:14.5px;font-weight:700;color:#2168B4;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap" style-hover="color:#17385E">전체 보기 <span style="font-size:17px">→</span></div>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:18px;padding:8px 28px">
+        <sc-for list="{{ faqHome }}" as="fh" hint-placeholder-count="5">
+          <div style="padding:20px 0;border-bottom:1px solid #EDF2F7">
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <span style="flex:none;width:26px;height:26px;border-radius:50%;background:#2168B4;color:#FFFFFF;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">Q</span>
+              <span style="flex:1;min-width:0;font-size:15.5px;font-weight:700;color:#22303E;line-height:1.6">{{ fh.q }}</span>
+            </div>
+            <sc-if value="{{ fh.hasAnswer }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:14px;align-items:flex-start;margin-top:10px">
+                <span style="flex:none;width:26px;height:26px;border-radius:50%;background:#E6F6F3;color:#2FA490;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">A</span>
+                <div style="flex:1;min-width:0;font-size:14.5px;line-height:1.8;color:#5A6B7C;white-space:pre-line;text-wrap:pretty">{{ fh.a }}</div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+        <div onClick="{{ goApply }}" style="padding:20px 0 22px;font-size:14px;color:#7A8CA0">찾는 답이 없으시면 <b style="color:#2168B4;cursor:pointer">전화(02-3477-7942) 또는 상담 신청</b>으로 문의해 주세요.</div>
+      </div>
+    </div>
+  </section>
+
   <!-- SNS : 센터가 /admin > SNS 관리에서 등록한 글·숏츠만 노출.  등록이 없으면 섹션 자체가 숨겨진다. -->
   <sc-if value="{{ hasSnsPosts }}" hint-placeholder-val="{{ false }}">
   <section style="background:#F5F8FB;padding:72px 0">
@@ -1236,6 +1266,7 @@ class Component extends DCLogic {
       postBodyLines,
       postHasBody: postBodyLines.join('').trim().length > 0,
       faqList, faqNoAnswers: !faqList.some((f) => f.hasAnswer),
+      faqHome: faqList.slice(0, 5), goFaq: go('guide', 'faq'),
       // 02·03 상세 페이지 바인딩 (원고가 있는 하위페이지만 채워진다)
       docLead: doc ? doc.lead : '',
       docIntro: doc ? doc.intro : [],
