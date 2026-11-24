@@ -84,6 +84,8 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
   [data-lnb] > div{white-space:nowrap;flex:none;margin-bottom:0 !important}
   [data-lnbtitle]{display:none !important}
   [data-sub]{gap:0 !important}
+  /* 2열 표는 모바일에서 세로 스택 → 머리글 행은 숨기고 각 칸에 여백만 준다 */
+  [data-thead]{display:none !important}
 }
 </style>
 </helmet>
@@ -356,6 +358,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
     <!-- 본문 -->
     <div style="min-width:0">
 
+    <!-- 01-1 인사말 (원고: docs/홈페이지 내용.pdf) -->
     <sc-if value="{{ showGreeting }}" hint-placeholder-val="{{ true }}">
       <div style="display:grid;grid-template-columns:340px 1fr;gap:52px;align-items:start">
         <!-- 센터 요청(2026-11): 센터장·전문가 사진은 싣지 않는다 → 사진 자리를 문구 패널로 대체 -->
@@ -365,28 +368,31 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
           <div style="margin-top:26px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.22);font-size:14px;color:#C4D4E6">서울아동청소년센터</div>
         </div>
         <div>
-          <div style="font-size:13px;font-weight:700;color:#3FB9A5;letter-spacing:2px;margin-bottom:12px">GREETING</div>
-          <h2 style="margin:0 0 24px;font-size:28px;font-weight:800;color:#17385E;line-height:1.45;letter-spacing:-0.4px;text-wrap:pretty">아이들의 오늘을 지키고,<br>내일의 성장을 함께합니다</h2>
+          <div style="font-size:13px;font-weight:700;color:#3FB9A5;letter-spacing:2px;margin-bottom:12px">{{ greetingEyebrow }}</div>
+          <h2 style="margin:0 0 24px;font-size:28px;font-weight:800;color:#17385E;line-height:1.45;letter-spacing:-0.4px;text-wrap:pretty">{{ greetingTitle }}</h2>
           <div style="font-size:15.5px;line-height:1.9;color:#44546A;display:flex;flex-direction:column;gap:16px;text-wrap:pretty">
-            <p style="margin:0">안녕하십니까. 서울아동청소년센터를 찾아주신 여러분께 진심으로 감사드립니다.</p>
-            <p style="margin:0">우리 센터는 아동·청소년이 겪는 마음의 어려움에 귀 기울이고, 전문적인 상담과 치료, 교육을 통해 아이들과 가족이 다시 건강한 일상으로 돌아갈 수 있도록 돕고 있습니다.</p>
-            <p style="margin:0">한 아이가 자라기 위해서는 온 마을이 필요하다는 말처럼, 가정과 학교, 지역사회와 손잡고 아이들의 든든한 울타리가 되겠습니다. 언제든 편한 마음으로 센터의 문을 두드려 주십시오.</p>
+            <sc-for list="{{ greetingParas }}" as="gp" hint-placeholder-count="8">
+              <p style="margin:0">{{ gp }}</p>
+            </sc-for>
           </div>
+          <div style="margin-top:28px;font-size:15px;font-weight:700;color:#17385E">서울아동청소년센터</div>
         </div>
       </div>
     </sc-if>
 
     <sc-if value="{{ showValues }}" hint-placeholder-val="{{ false }}">
       <div style="text-align:center;margin-bottom:48px">
-        <div style="font-size:13px;font-weight:700;color:#3FB9A5;letter-spacing:2px;margin-bottom:12px">VISION</div>
-        <h2 style="margin:0 0 16px;font-size:32px;font-weight:800;color:#17385E;letter-spacing:-0.4px;line-height:1.4">모든 아동·청소년이 안전하게 성장하는<br>따뜻한 지역사회</h2>
-        <p style="margin:0;font-size:16px;color:#5A6B7C">전문성과 신뢰를 바탕으로 아이와 가족, 지역사회를 잇는 성장 파트너가 되겠습니다.</p>
+        <div style="font-size:13px;font-weight:700;color:#3FB9A5;letter-spacing:2px;margin-bottom:12px">CORE VALUES</div>
+        <h2 style="margin:0 0 16px;font-size:32px;font-weight:800;color:#17385E;letter-spacing:-0.4px;line-height:1.4">마음의 이해에서 치유와 회복으로,<br>그리고 건강한 성장으로</h2>
+        <p style="margin:0;font-size:16px;color:#5A6B7C">아이와 청소년, 부모와 가족이 함께 성장하도록 세 가지 가치를 중심에 둡니다.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
         <sc-for list="{{ values }}" as="vl" hint-placeholder-count="3">
           <div style="background:{{ vl.bg }};border-radius:20px;padding:36px 32px;text-align:center">
             <div style="width:58px;height:58px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:{{ vl.fg }}"><img src="{{ vl.icon }}" width="26" height="26" alt="" style="display:block"></div>
-            <h3 style="margin:0 0 10px;font-size:19px;font-weight:800;color:#17385E">{{ vl.title }}</h3>
+            <div style="font-size:12px;font-weight:800;color:{{ vl.fg }};letter-spacing:1.5px;margin-bottom:6px">{{ vl.no }}</div>
+            <h3 style="margin:0 0 4px;font-size:19px;font-weight:800;color:#17385E">{{ vl.title }}</h3>
+            <div style="font-size:13px;font-weight:700;color:{{ vl.fg }};margin-bottom:10px">{{ vl.sub }}</div>
             <p style="margin:0;font-size:14px;line-height:1.7;color:#5A6B7C;text-wrap:pretty">{{ vl.desc }}</p>
           </div>
         </sc-for>
@@ -417,7 +423,7 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
             </div>
           </div>
         </sc-for>
-        <div style="margin-top:8px;font-size:13px;color:#9AAABB;text-align:center">※ 연혁 내용은 예시이며, 실제 연혁 자료로 교체 예정입니다.</div>
+        <div style="margin-top:8px;font-size:13px;color:#9AAABB;text-align:center">{{ historyNote }}</div>
       </div>
     </sc-if>
 
@@ -478,29 +484,25 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
       </div>
     </sc-if>
 
-    <!-- 센터 소개 (구 '사업안내' 블록 — 추후 구성안 원고로 교체) -->
+    <!-- 01-2 센터 소개 (원고: docs/홈페이지 내용.pdf) -->
     <sc-if value="{{ showIntro }}" hint-placeholder-val="{{ false }}">
-      <div style="display:flex;flex-direction:column;gap:56px">
-    <sc-for list="{{ businesses }}" as="bz" hint-placeholder-count="3">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;direction:{{ bz.dir }}">
-        <div style="height:320px;border-radius:20px;overflow:hidden;position:relative;direction:ltr">
-          <image-slot id="{{ bz.imgId }}" shape="rect" placeholder="{{ bz.imgHint }}" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
-        </div>
-        <div style="direction:ltr">
-          <div style="font-size:13px;font-weight:800;color:{{ bz.fg }};letter-spacing:2px;margin-bottom:10px">{{ bz.eng }}</div>
-          <h2 style="margin:0 0 14px;font-size:27px;font-weight:800;color:#17385E;letter-spacing:-0.4px">{{ bz.title }}</h2>
-          <p style="margin:0 0 22px;font-size:15.5px;line-height:1.8;color:#5A6B7C;text-wrap:pretty">{{ bz.desc }}</p>
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <sc-for list="{{ bz.items }}" as="bi" hint-placeholder-count="3">
-              <div style="display:flex;gap:12px;align-items:flex-start;background:#F8FBFD;border-radius:12px;padding:13px 16px">
-                <span style="flex:none;width:22px;height:22px;border-radius:50%;background:{{ bz.chipBg }};color:{{ bz.fg }};font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px">{{ bi.no }}</span>
-                <div><b style="font-size:14.5px;color:#17385E">{{ bi.name }}</b><span style="font-size:13.5px;color:#7A8CA0;margin-left:10px">{{ bi.note }}</span></div>
-              </div>
-            </sc-for>
-          </div>
-        </div>
+      <div style="background:linear-gradient(135deg,#17385E,#1B6B77);border-radius:22px;padding:46px 44px;color:#FFFFFF;margin-bottom:38px">
+        <h2 style="margin:0;font-size:30px;font-weight:800;line-height:1.45;letter-spacing:-0.5px;text-wrap:pretty">마음을 이해하고, 가능성을 발견하며,<br>함께 성장합니다.</h2>
       </div>
-      </sc-for>
+      <div style="font-size:15.5px;line-height:1.9;color:#44546A;display:flex;flex-direction:column;gap:18px;text-wrap:pretty">
+        <sc-for list="{{ introParas }}" as="ip" hint-placeholder-count="4">
+          <p style="margin:0">{{ ip }}</p>
+        </sc-for>
+      </div>
+      <h3 style="margin:44px 0 18px;font-size:19px;font-weight:800;color:#17385E">센터가 하는 일</h3>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+        <sc-for list="{{ introPillars }}" as="ipl" hint-placeholder-count="4">
+          <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:16px;padding:24px 22px" style-hover="border-color:#3FB9A5">
+            <div style="font-size:12px;font-weight:800;color:#3FB9A5;letter-spacing:1.5px;margin-bottom:10px">{{ ipl.no }}</div>
+            <div style="font-size:16.5px;font-weight:800;color:#17385E;margin-bottom:8px">{{ ipl.title }}</div>
+            <p style="margin:0;font-size:13.5px;line-height:1.7;color:#5A6B7C;text-wrap:pretty">{{ ipl.desc }}</p>
+          </div>
+        </sc-for>
       </div>
 
       <!-- 센터의 기록 : 기관 사진 · 협약증서 · 발간 도서 (센터 요청 2026-11)
@@ -634,35 +636,110 @@ a{color:#2168B4;text-decoration:none}a:hover{color:#17385E;text-decoration:under
       </div>
     </sc-if>
 
-    <!-- 집중 프로그램 (구 '프로그램 안내' 블록 — 추후 구성안 표로 교체) -->
+    <!-- 04 집중 프로그램 : 구성안 표(특화 영역 / 프로그램 구성) 그대로 -->
     <sc-if value="{{ showIntensive }}" hint-placeholder-val="{{ false }}">
-      <div style="display:grid;grid-template-columns:250px 1fr;gap:44px;align-items:start">
-    <aside style="position:sticky;top:100px;border:1px solid #DCE6EF;border-radius:16px;overflow:hidden">
-      <div style="background:#EAF3FB;padding:16px 20px;font-size:15px;font-weight:800;color:#17385E">프로그램 목록</div>
-      <sc-for list="{{ programs }}" as="pnav" hint-placeholder-count="7">
-        <div style="padding:13px 20px;font-size:13.5px;color:#5A6B7C;border-top:1px solid #EDF2F7;cursor:pointer;line-height:1.4" style-hover="background:#F4FAF9;color:#17385E;font-weight:600">{{ pnav.short }}</div>
-      </sc-for>
-    </aside>
-    <div style="display:flex;flex-direction:column;gap:20px">
-      <sc-for list="{{ programs }}" as="pg" hint-placeholder-count="7">
-        <div style="background:#FFFFFF;border:1px solid #DCE6EF;border-radius:18px;padding:30px 32px" style-hover="border-color:#3FB9A5;box-shadow:0 8px 22px rgba(23,56,94,0.07)">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:24px">
-            <div style="min-width:0">
-              <div style="display:flex;gap:6px;margin-bottom:12px">
-                <span style="font-size:11.5px;font-weight:700;color:{{ pg.tagFg }};background:{{ pg.tagBg }};padding:4px 10px;border-radius:11px">{{ pg.tag }}</span>
-                <span style="font-size:11.5px;font-weight:600;color:#7A8CA0;background:#F2F6FA;padding:4px 10px;border-radius:11px">{{ pg.form }}</span>
-              </div>
-              <h3 style="margin:0 0 10px;font-size:19px;font-weight:800;color:#17385E;line-height:1.45;text-wrap:pretty">{{ pg.title }}</h3>
-              <p style="margin:0 0 16px;font-size:14.5px;line-height:1.7;color:#5A6B7C;text-wrap:pretty">{{ pg.desc }}</p>
-              <div style="display:flex;gap:24px;font-size:13px;color:#7A8CA0">
-                <span><b style="color:#22303E">대상</b> · {{ pg.target }}</span>
-                <span><b style="color:#22303E">운영</b> · {{ pg.schedule }}</span>
-              </div>
-            </div>
+      <div>
+        <p style="margin:0 0 26px;font-size:15.5px;line-height:1.85;color:#44546A;text-wrap:pretty">아이가 겪는 어려움은 한 가지 방법만으로 풀리지 않습니다. 집중 프로그램은 평가와 상담·치료, 부모 지원을 특화 영역별로 묶어 제공합니다.</p>
+        <div style="border:1px solid #DCE6EF;border-radius:16px;overflow:hidden">
+          <div data-thead style="display:grid;grid-template-columns:250px 1fr;background:#17385E;color:#FFFFFF;font-size:14px;font-weight:800">
+            <div style="padding:15px 22px">특화 영역</div>
+            <div style="padding:15px 22px;border-left:1px solid rgba(255,255,255,0.18)">프로그램 구성</div>
           </div>
+          <sc-for list="{{ intensivePrograms }}" as="ipg" hint-placeholder-count="14">
+            <div style="display:grid;grid-template-columns:250px 1fr;border-top:1px solid #EDF2F7;background:#FFFFFF" style-hover="background:#F8FBFD">
+              <div style="padding:16px 22px;font-size:14.5px;font-weight:700;color:#17385E">{{ ipg.area }}</div>
+              <div style="padding:16px 22px;font-size:14px;line-height:1.7;color:#5A6B7C;border-left:1px solid #EDF2F7;text-wrap:pretty">{{ ipg.items }}</div>
+            </div>
+          </sc-for>
         </div>
-      </sc-for>
+        <div style="margin-top:20px;font-size:13px;color:#9AAABB">※ 참여 방법과 일정은 상담 신청 후 개별 안내해 드립니다.</div>
       </div>
+    </sc-if>
+
+    <!-- 05 외부기관의 집단 교육 및 집단 상담 : 구성안 표 그대로 -->
+    <sc-if value="{{ showOutreach }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <p style="margin:0 0 26px;font-size:15.5px;line-height:1.85;color:#44546A;text-wrap:pretty">학교, 아동복지기관, 교육청, 육아지원센터 등 외부기관과 연계해 부모·아동·청년을 대상으로 집단 교육과 집단 상담을 운영합니다.</p>
+        <div style="border:1px solid #DCE6EF;border-radius:16px;overflow:hidden">
+          <div data-thead style="display:grid;grid-template-columns:250px 1fr;background:#17385E;color:#FFFFFF;font-size:14px;font-weight:800">
+            <div style="padding:15px 22px">구분</div>
+            <div style="padding:15px 22px;border-left:1px solid rgba(255,255,255,0.18)">주요 내용</div>
+          </div>
+          <sc-for list="{{ outreachPrograms }}" as="opg" hint-placeholder-count="6">
+            <div style="display:grid;grid-template-columns:250px 1fr;border-top:1px solid #EDF2F7;background:#FFFFFF" style-hover="background:#F8FBFD">
+              <div style="padding:16px 22px;font-size:14.5px;font-weight:700;color:#17385E">{{ opg.menu }}</div>
+              <div style="padding:16px 22px;font-size:14px;line-height:1.7;color:#5A6B7C;border-left:1px solid #EDF2F7;text-wrap:pretty">{{ opg.desc }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top:22px;background:#EAF3FB;border-radius:14px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+          <div style="font-size:14.5px;color:#17385E;font-weight:600">기관 교육·집단상담 의뢰는 전화 또는 상담 신청으로 문의해 주세요.</div>
+          <div onClick="{{ goApply }}" style="background:#2168B4;color:#FFFFFF;font-size:14px;font-weight:700;padding:11px 22px;border-radius:22px;cursor:pointer" style-hover="background:#17385E">교육 의뢰 문의</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- 06-2 상담 절차 -->
+    <sc-if value="{{ showProcess }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ processDetail }}" as="pd" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;background:#FFFFFF;border:1px solid #DCE6EF;border-radius:16px;padding:24px 28px" style-hover="border-color:#3FB9A5">
+              <div style="display:flex;gap:18px;align-items:flex-start">
+                <div style="flex:none;width:46px;height:46px;border-radius:14px;background:#EAF3FB;color:#2168B4;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center">{{ pd.no }}</div>
+                <div>
+                  <div style="font-size:17px;font-weight:800;color:#17385E;margin-bottom:4px">{{ pd.title }}</div>
+                  <div style="font-size:12.5px;font-weight:700;color:#3FB9A5">{{ pd.who }}</div>
+                </div>
+              </div>
+              <p style="margin:0;font-size:14.5px;line-height:1.8;color:#5A6B7C;text-wrap:pretty">{{ pd.desc }}</p>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top:20px;font-size:13px;color:#9AAABB">{{ processNote }}</div>
+      </div>
+    </sc-if>
+
+    <!-- 06-3 자주 묻는 질문 -->
+    <sc-if value="{{ showFaq }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="background:#EAF3FB;border-radius:14px;padding:18px 22px;font-size:14px;color:#17385E;margin-bottom:24px;line-height:1.7">{{ faqNote }}</div>
+        <div style="border-top:2px solid #17385E">
+          <sc-for list="{{ faqItems }}" as="fq" hint-placeholder-count="8">
+            <div style="display:flex;gap:16px;align-items:center;padding:20px 10px;border-bottom:1px solid #EDF2F7">
+              <span style="flex:none;width:28px;height:28px;border-radius:50%;background:#2168B4;color:#FFFFFF;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">Q</span>
+              <span style="flex:1;min-width:0;font-size:15.5px;font-weight:600;color:#22303E">{{ fq.q }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top:26px;background:#FFFFFF;border:1px solid #DCE6EF;border-radius:16px;padding:24px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+          <div>
+            <div style="font-size:16px;font-weight:800;color:#17385E;margin-bottom:4px">찾는 답이 없으신가요?</div>
+            <div style="font-size:14px;color:#5A6B7C">전화로 문의해 주시면 담당자가 바로 안내해 드립니다.</div>
+          </div>
+          <div onClick="{{ goApply }}" style="background:#2168B4;color:#FFFFFF;font-size:14px;font-weight:700;padding:12px 24px;border-radius:22px;cursor:pointer" style-hover="background:#17385E">상담 신청 안내</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- 06-4 공지사항 -->
+    <sc-if value="{{ showNotice }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="border-top:2px solid #17385E">
+          <sc-for list="{{ noticeList }}" as="nc" hint-placeholder-count="6">
+            <div style="display:flex;align-items:center;gap:18px;padding:20px 10px;border-bottom:1px solid #EDF2F7" style-hover="background:#F8FBFD">
+              <span style="flex:none;font-size:12px;font-weight:700;color:{{ nc.fg }};background:{{ nc.bg }};padding:5px 13px;border-radius:12px">{{ nc.cat }}</span>
+              <div style="flex:1;min-width:0;display:flex;align-items:center;gap:10px">
+                <span style="font-size:15.5px;font-weight:600;color:#22303E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ nc.title }}</span>
+                <sc-if value="{{ nc.isNew }}" hint-placeholder-val="{{ false }}">
+                  <span style="flex:none;font-size:10.5px;font-weight:800;color:#FFFFFF;background:#3FB9A5;padding:3px 8px;border-radius:9px">NEW</span>
+                </sc-if>
+              </div>
+              <span style="flex:none;font-size:13px;color:#9AAABB">{{ nc.date }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top:18px;font-size:13px;color:#9AAABB">※ 공지사항은 센터 관리자 화면에서 직접 등록·수정할 수 있습니다.</div>
       </div>
     </sc-if>
 
@@ -993,7 +1070,11 @@ class Component extends DCLogic {
       showFacility: at('about', 'facility'),
       showDirections: at('about', 'directions'),
       showIntensive: r.sec === 'intensive',
+      showOutreach: r.sec === 'outreach',
       showApply: at('guide', 'apply'),
+      showProcess: at('guide', 'process'),
+      showFaq: at('guide', 'faq'),
+      showNotice: at('guide', 'notice'),
       showArchive: at('guide', 'archive'),
       showNews: at('guide', 'news')
     };
@@ -1014,16 +1095,29 @@ class Component extends DCLogic {
       subCols: lnbItems.length > 0 ? '250px 1fr' : '1fr',
       lnbItems,
       values: C.values, missions: C.missions, history: C.history, orgTeams: C.orgTeams,
-      businesses: C.businesses, rooms: C.rooms, experts, galleryGroups,
+      rooms: C.rooms, experts, galleryGroups,
       heroHasPhoto: !!heroPhoto, heroPhotoBg: heroPhoto ? 'url("' + heroPhoto + '")' : 'none',
       snsAccounts, snsPosts,
       hasSnsAccounts: snsAccounts.length > 0, hasSnsPosts: snsPosts.length > 0,
       archiveTabs: pill(['센터 자료', '부모교육 자료', '영상자료'], arTab, (i) => ({ archiveTab: i })),
+      // 06-1~06-6 콘텐츠 바인딩
+      greetingEyebrow: (C.greeting || {}).eyebrow || 'GREETING',
+      greetingTitle: (C.greeting || {}).title || '',
+      greetingParas: (C.greeting || {}).paras || [],
+      introParas: (C.intro || {}).paras || [],
+      introPillars: (C.intro || {}).pillars || [],
+      historyNote: C.historyNote || '',
+      intensivePrograms: C.intensivePrograms || [],
+      outreachPrograms: C.outreachPrograms || [],
+      processDetail: C.processDetail || [], processNote: C.processNote || '',
+      faqItems: C.faqItems || [], faqNote: C.faqNote || '',
+      noticeList: newsData[0] || [],
       archiveIsVideo: arTab === 2, archiveIsList: arTab !== 2,
       archiveList: archiveData[arTab] || archiveData[0],
       videos: C.videos,
-      newsTabs: pill(['공지사항', '행사안내', '보도자료'], nTab, (i) => ({ newsTab: i })),
-      newsList: newsData[nTab] || newsData[0],
+      // 센터 소식 = 행사안내 · 보도자료 (공지사항은 06-4 전용 페이지)
+      newsTabs: pill(['행사안내', '보도자료'], nTab, (i) => ({ newsTab: i })),
+      newsList: newsData[nTab + 1] || newsData[1] || [],
       pages: [1, 2, 3, 4, 5].map((n) => ({
         n, bg: n === 1 ? '#2168B4' : '#FFFFFF', color: n === 1 ? '#FFFFFF' : '#5A6B7C', border: n === 1 ? '#2168B4' : '#DCE6EF'
       })),

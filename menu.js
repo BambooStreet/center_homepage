@@ -45,9 +45,9 @@
     sec('outreach', '외부기관 교육·집단상담', '학교·복지기관 등과 연계한 집단 교육 및 집단 상담입니다.', []),
     sec('guide', '상담 안내 및 센터 소식', '상담 신청 방법과 센터의 새로운 소식을 안내합니다.', [
       sub('apply', '상담 신청', true),
-      sub('process', '상담 절차'),
-      sub('faq', '자주 묻는 질문'),
-      sub('notice', '공지사항'),
+      sub('process', '상담 절차', true),
+      sub('faq', '자주 묻는 질문', true),
+      sub('notice', '공지사항', true),
       sub('archive', '자료실', true),
       sub('news', '센터 소식', true)
     ])
