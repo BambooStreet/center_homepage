@@ -13,6 +13,8 @@ Design Canvas 런타임(`support.js`)이 브라우저에서 React를 CDN으로 �
 ├── index.html       # 메인 홈페이지  →  /   (API에서 공지·자료·팝업을 불러와 렌더)
 ├── admin.html       # 관리자 화면    →  /admin  (로그인 후 CRUD)
 ├── menu.js          # 전체 메뉴 트리(6대 메뉴 + 하위) — 네비·LNB·라우팅의 단일 출처
+├── site-content.js  # 공통 문구·데이터 (인사말, 핵심가치, 04·05 표 등)
+├── content-pages.js # 02 심리평가 · 03 상담 및 프로그램 하위페이지 본문
 ├── support.js       # Design Canvas 런타임 (React를 CDN에서 로드)
 ├── image-slot.js    # 이미지 슬롯 컴포넌트 (배포 시 /api/image-slots 를 읽음)
 ├── api/             # 서버리스 함수 (Neon + Blob)
